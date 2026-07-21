@@ -1,0 +1,187 @@
+[
+  {
+    "id": "grain_farm",
+    "name": { "it": "Fattoria (Grano)", "en": "Grain Farm" },
+    "producedGoodId": "grain",
+    "baseProductionPerDay": 2.0,
+    "inputs": [],
+    "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 280
+  },
+  {
+    "id": "brewery",
+    "name": { "it": "Birreria", "en": "Brewery" },
+    "producedGoodId": "beer",
+    "baseProductionPerDay": 2.0,
+    "inputs": [
+      { "goodId": "grain", "amountPerDay": 0.5 },
+      { "goodId": "timber", "amountPerDay": 0.25 }
+    ],
+    "constructionCost": { "gold": 12000, "bricks": 40, "timber": 20 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 320
+  },
+  {
+    "id": "sawmill",
+    "name": { "it": "Segheria (Legno)", "en": "Sawmill" },
+    "producedGoodId": "timber",
+    "baseProductionPerDay": 3.0,
+    "inputs": [],
+    "constructionCost": { "gold": 8000, "bricks": 20, "timber": 10 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 180
+  },
+  {
+    "id": "saltworks",
+    "name": { "it": "Salina (Sale)", "en": "Saltworks" },
+    "producedGoodId": "salt",
+    "baseProductionPerDay": 2.5,
+    "inputs": [
+      { "goodId": "timber", "amountPerDay": 0.75 }
+    ],
+    "constructionCost": { "gold": 15000, "bricks": 50, "timber": 25 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 400
+  },
+  {
+    "id": "iron_smelter",
+    "name": { "it": "Fonderia di Ferro", "en": "Iron Smelter" },
+    "producedGoodId": "pig_iron",
+    "baseProductionPerDay": 1.5,
+    "inputs": [
+      { "goodId": "timber", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 18000, "bricks": 60, "timber": 30 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 450
+  },
+  {
+    "id": "workshop",
+    "name": { "it": "Officina (Utensili)", "en": "Workshop" },
+    "producedGoodId": "iron_goods",
+    "baseProductionPerDay": 1.2,
+    "inputs": [
+      { "goodId": "pig_iron", "amountPerDay": 0.4 },
+      { "goodId": "timber", "amountPerDay": 0.2 }
+    ],
+    "constructionCost": { "gold": 20000, "bricks": 70, "timber": 35 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 500
+  },
+  {
+    "id": "fishery",
+    "name": { "it": "Pescatore (Pesce)", "en": "Fishery" },
+    "producedGoodId": "fish",
+    "baseProductionPerDay": 1.0,
+    "inputs": [
+      { "goodId": "hemp", "amountPerDay": 0.1 },
+      { "goodId": "salt", "amountPerDay": 0.2 }
+    ],
+    "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 250
+  },
+  {
+    "id": "cattle_farm",
+    "name": { "it": "Allevamento Bovini", "en": "Cattle Farm" },
+    "producedGoodId": "meat",
+    "baseProductionPerDay": 0.8,
+    "inputs": [
+      { "goodId": "fodder", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 16000, "bricks": 50, "timber": 25 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 350
+  },
+  {
+    "id": "sheep_farm",
+    "name": { "it": "Allevamento Ovini (Lana)", "en": "Sheep Farm" },
+    "producedGoodId": "wool",
+    "baseProductionPerDay": 1.5,
+    "inputs": [],
+    "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 200
+  },
+  {
+    "id": "brickworks",
+    "name": { "it": "Fornace (Mattoni)", "en": "Brickworks" },
+    "producedGoodId": "bricks",
+    "baseProductionPerDay": 3.0,
+    "inputs": [
+      { "goodId": "timber", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 14000, "bricks": 45, "timber": 20 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 300
+  },
+  {
+    "id": "pitchmaker",
+    "name": { "it": "Fornace di Pece", "en": "Pitchmaker" },
+    "producedGoodId": "pitch",
+    "baseProductionPerDay": 2.0,
+    "inputs": [
+      { "goodId": "timber", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 8000, "bricks": 20, "timber": 10 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 200
+  },
+  {
+    "id": "apiary",
+    "name": { "it": "Apicoltore (Miele)", "en": "Apiary" },
+    "producedGoodId": "honey",
+    "baseProductionPerDay": 1.5,
+    "inputs": [],
+    "constructionCost": { "gold": 8000, "bricks": 20, "timber": 10 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 180
+  },
+  {
+    "id": "weaving_mill",
+    "name": { "it": "Tessitura (Tessuti)", "en": "Weaving Mill" },
+    "producedGoodId": "cloth",
+    "baseProductionPerDay": 1.0,
+    "inputs": [
+      { "goodId": "wool", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 15000, "bricks": 40, "timber": 20 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 350
+  },
+  {
+    "id": "tannery",
+    "name": { "it": "Conceria (Cuoio)", "en": "Tannery" },
+    "producedGoodId": "leather",
+    "baseProductionPerDay": 1.2,
+    "inputs": [
+      { "goodId": "salt", "amountPerDay": 0.3 }
+    ],
+    "constructionCost": { "gold": 14000, "bricks": 35, "timber": 18 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 300
+  },
+  {
+    "id": "vineyard",
+    "name": { "it": "Vigneto (Vino)", "en": "Vineyard" },
+    "producedGoodId": "wine",
+    "baseProductionPerDay": 0.6,
+    "inputs": [],
+    "constructionCost": { "gold": 25000, "bricks": 80, "timber": 40 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 400
+  },
+  {
+    "id": "hunting_lodge",
+    "name": { "it": "Cacciatore (Pelli)", "en": "Hunting Lodge" },
+    "producedGoodId": "skins",
+    "baseProductionPerDay": 1.0,
+    "inputs": [
+      { "goodId": "iron_goods", "amountPerDay": 0.1 }
+    ],
+    "constructionCost": { "gold": 15000, "bricks": 40, "timber": 20 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 280
+  }
+]

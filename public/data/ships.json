@@ -1,0 +1,42 @@
+[
+  {
+    "id": "snaikka",
+    "name": { "it": "Snaikka", "en": "Snaikka" },
+    "baseCapacity": 150,
+    "minSailors": 10,
+    "maxSailors": 25,
+    "maxWeapons": 10,
+    "isRiverFriendly": true,
+    "dailyCost": 20
+  },
+  {
+    "id": "crayer",
+    "name": { "it": "Crayer", "en": "Crayer" },
+    "baseCapacity": 280,
+    "minSailors": 20,
+    "maxSailors": 30,
+    "maxWeapons": 20,
+    "isRiverFriendly": true,
+    "dailyCost": 35
+  },
+  {
+    "id": "cog",
+    "name": { "it": "Kogge (Cog)", "en": "Cog (Kogge)" },
+    "baseCapacity": 450,
+    "minSailors": 10,
+    "maxSailors": 30,
+    "maxWeapons": 18,
+    "isRiverFriendly": false,
+    "dailyCost": 50
+  },
+  {
+    "id": "holk",
+    "name": { "it": "Holk", "en": "Holk" },
+    "baseCapacity": 700,
+    "minSailors": 30,
+    "maxSailors": 50,
+    "maxWeapons": 24,
+    "isRiverFriendly": false,
+    "dailyCost": 80
+  }
+]

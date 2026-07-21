@@ -1,0 +1,23 @@
+[
+  {
+    "id": "wooden_house",
+    "name": { "it": "Casa in Legno", "en": "Wooden House" },
+    "capacity": { "poor": 100, "wealthy": 0, "rich": 0 },
+    "constructionCost": { "gold": 5000, "bricks": 15, "timber": 10 },
+    "weeklyRent": { "poor": 80, "wealthy": 0, "rich": 0 }
+  },
+  {
+    "id": "brick_house",
+    "name": { "it": "Casa in Pietra", "en": "Brick House" },
+    "capacity": { "poor": 0, "wealthy": 100, "rich": 0 },
+    "constructionCost": { "gold": 8000, "bricks": 30, "timber": 15 },
+    "weeklyRent": { "poor": 0, "wealthy": 180, "rich": 0 }
+  },
+  {
+    "id": "mansion",
+    "name": { "it": "Casa Padronale", "en": "Mansion" },
+    "capacity": { "poor": 0, "wealthy": 0, "rich": 100 },
+    "constructionCost": { "gold": 15000, "bricks": 50, "timber": 25 },
+    "weeklyRent": { "poor": 0, "wealthy": 0, "rich": 350 }
+  }
+]
