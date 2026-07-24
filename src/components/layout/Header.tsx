@@ -83,7 +83,7 @@ const Header: React.FC = () => {
               </button>
 
               {activeDropdown === 'db' && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-card border border-primary/20 ring-1 ring-black ring-opacity-5">
+                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white border border-primary/30 ring-1 ring-black ring-opacity-5 z-[60]">
                   <div className="py-1">
                     <Link
                       to="/database/goods"
@@ -121,7 +121,7 @@ const Header: React.FC = () => {
               </button>
 
               {activeDropdown === 'calc' && (
-                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-card border border-primary/20 ring-1 ring-black ring-opacity-5">
+                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white border border-primary/30 ring-1 ring-black ring-opacity-5 z-[60]">
                   <div className="py-1">
                     <Link
                       to="/calculators/production"
@@ -176,7 +176,7 @@ const Header: React.FC = () => {
 
       {/* Navigazione Mobile */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card border-t border-primary/20 px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-white border-t border-primary/20 px-2 pt-2 pb-3 space-y-1 shadow-lg">
           <Link
             to="/"
             className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-background/50"

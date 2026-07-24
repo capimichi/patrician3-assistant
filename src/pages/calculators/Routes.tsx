@@ -219,7 +219,7 @@ const Routes: React.FC = () => {
                   <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Profitto Stimato ({cargoSize} Barili)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-primary/10 bg-background/30">
+              <tbody className="divide-y divide-primary/10 bg-background">
                 {recommendations.map((rec) => {
                   const margin = rec.sellPrice - rec.buyPrice;
                   const totalProfit = margin * cargoSize;

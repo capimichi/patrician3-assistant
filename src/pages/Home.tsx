@@ -95,7 +95,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Sezione Statistiche Rapide della Lega Anseatica */}
-      <div className="bg-card/40 border border-primary/10 rounded-lg p-8 mt-12 text-center max-w-4xl mx-auto">
+      <div className="bg-card border border-primary/10 rounded-lg p-8 mt-12 text-center max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
           <Landmark className="h-10 w-10 text-primary" />
         </div>

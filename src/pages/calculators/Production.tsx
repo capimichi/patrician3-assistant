@@ -316,7 +316,7 @@ const Production: React.FC = () => {
                     const balance = globalBalances[good.id] || { produced: 0, consumed: 0, net: 0 };
                     if (balance.produced === 0 && balance.consumed === 0) return null; // Nasconde le risorse non movimentate
                     return (
-                      <tr key={good.id} className="hover:bg-primary/5 bg-background/50 transition-colors">
+                      <tr key={good.id} className="hover:bg-primary/5 bg-background transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="text-sm font-semibold text-neutral-dark">📦 {good.name}</span>
                         </td>
@@ -458,7 +458,7 @@ const Production: React.FC = () => {
                             if (val === 0) return null;
                             const goodObj = goods.find(g => g.id === goodId);
                             return (
-                              <div key={goodId} className="flex justify-between items-center bg-card/40 px-3 py-2 rounded border border-primary/10">
+                              <div key={goodId} className="flex justify-between items-center bg-card px-3 py-2 rounded border border-primary/10">
                                 <span className="text-xs font-semibold text-neutral-dark">
                                   📦 {goodObj ? goodObj.name : goodId}
                                 </span>

@@ -138,7 +138,7 @@ const Buildings: React.FC = () => {
               </div>
 
               {/* Card Footer Info */}
-              <div className="px-6 py-3 bg-background/40 border-t border-primary/10 text-3xs text-gray-600 font-medium italic">
+              <div className="px-6 py-3 bg-background border-t border-primary/10 text-3xs text-gray-600 font-medium italic">
                 Costruisci case nelle zone centrali per massimizzare la soddisfazione dei ceti sociali medio-alti.
               </div>
             </div>

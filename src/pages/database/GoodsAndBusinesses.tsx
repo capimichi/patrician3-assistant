@@ -89,7 +89,7 @@ const GoodsAndBusinesses: React.FC = () => {
                     className={`cursor-pointer transition-colors ${
                       selectedGoodId === good.id
                         ? 'bg-secondary/20 border-l-4 border-secondary'
-                        : 'hover:bg-primary/5 bg-background/50'
+                        : 'hover:bg-primary/5 bg-background'
                     }`}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
