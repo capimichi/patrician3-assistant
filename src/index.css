@@ -5,8 +5,8 @@
 @layer base {
   body {
     margin: 0;
-    background-color: #0f172a; /* medieval-dark */
-    color: #f8fafc;
+    background-color: #F5F2EB; /* bg-background */
+    color: #1E1B15;            /* text-neutral-dark */
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }

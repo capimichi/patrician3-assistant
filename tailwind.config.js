@@ -7,16 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        medieval: {
-          dark: '#0f172a',
-          slate: '#1e293b',
-          gold: '#d97706',
-          goldLight: '#fbbf24',
-          forest: '#15803d',
-          forestLight: '#22c55e',
-          ruby: '#dc2626',
-          rubyLight: '#ef4444'
-        }
+        primary: '#643518',
+        secondary: '#EABE32',
+        background: '#F5F2EB',
+        card: '#DFD9C0',
+        'neutral-dark': '#1E1B15',
+        success: '#15803d',
+        danger: '#dc2626',
       }
     },
   },
