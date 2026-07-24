@@ -182,9 +182,9 @@ const Production: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64 text-medieval-gold">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-medieval-gold"></div>
-        <span className="ml-3 font-serif uppercase tracking-wider">{t('common.loading')}</span>
+      <div className="flex justify-center items-center h-64 text-primary">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <span className="ml-3 font-serif uppercase tracking-wider text-primary">{t('common.loading')}</span>
       </div>
     );
   }
@@ -192,25 +192,25 @@ const Production: React.FC = () => {
   const inactiveTowns = towns.filter(t => !empire[t.id]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-neutral-dark">
       {/* Intestazione */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-medieval-gold tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+          <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
             Calcolatore di Produzione
           </h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-gray-700 text-sm mt-1">
             Gestisci la rete commerciale anseatica simulando fabbriche, consumi e logistica delle risorse.
           </p>
         </div>
 
         {/* Form Aggiunta Città */}
         {inactiveTowns.length > 0 && (
-          <div className="flex items-center space-x-2 bg-medieval-slate border border-medieval-gold/20 p-2 rounded-lg">
+          <div className="flex items-center space-x-2 bg-card border border-primary/20 p-2 rounded-lg">
             <select
               value={selectedTownToAdd}
               onChange={(e) => setSelectedTownToAdd(e.target.value)}
-              className="bg-medieval-dark text-gray-300 text-sm py-1.5 px-3 rounded border border-medieval-gold/10 focus:border-medieval-gold outline-none"
+              className="bg-white text-neutral-dark text-sm py-1.5 px-3 rounded border border-primary/20 focus:border-primary outline-none"
             >
               <option value="">-- Aggiungi Città --</option>
               {inactiveTowns.map(t => (
@@ -220,7 +220,7 @@ const Production: React.FC = () => {
             <button
               onClick={handleAddTown}
               disabled={!selectedTownToAdd}
-              className="bg-medieval-gold hover:bg-medieval-goldLight disabled:opacity-50 text-medieval-dark font-bold p-2 rounded transition-colors duration-150"
+              className="bg-secondary hover:bg-secondary/90 disabled:opacity-50 text-neutral-dark font-bold p-2 rounded transition-colors duration-150"
               title="Aggiungi Città"
             >
               <Plus className="h-4 w-4" />
@@ -230,13 +230,13 @@ const Production: React.FC = () => {
       </div>
 
       {/* Switch Tab */}
-      <div className="flex space-x-2 border-b border-medieval-gold/20 pb-px">
+      <div className="flex space-x-2 border-b border-primary/20 pb-px">
         <button
           onClick={() => setActiveTab('global')}
           className={`px-4 py-2.5 font-serif font-bold text-sm tracking-wider uppercase border-t border-l border-r rounded-t-lg transition-colors ${
             activeTab === 'global'
-              ? 'bg-medieval-slate text-medieval-gold border-medieval-gold/20'
-              : 'text-gray-400 hover:text-medieval-gold border-transparent'
+              ? 'bg-card text-primary border-primary/20'
+              : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
           Riepilogo Impero
@@ -245,8 +245,8 @@ const Production: React.FC = () => {
           onClick={() => setActiveTab('branches')}
           className={`px-4 py-2.5 font-serif font-bold text-sm tracking-wider uppercase border-t border-l border-r rounded-t-lg transition-colors ${
             activeTab === 'branches'
-              ? 'bg-medieval-slate text-medieval-gold border-medieval-gold/20'
-              : 'text-gray-400 hover:text-medieval-gold border-transparent'
+              ? 'bg-card text-primary border-primary/20'
+              : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
           Gestione Filiali ({Object.keys(empire).length})
@@ -258,82 +258,82 @@ const Production: React.FC = () => {
         <div className="space-y-6">
           {/* Card Riepilogo Finanziario/Lavoratori */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-medieval-slate border border-medieval-gold/20 rounded-lg p-5 flex items-center space-x-4">
-              <div className="bg-medieval-gold/10 p-3 rounded-lg">
-                <Coins className="h-6 w-6 text-medieval-gold" />
+            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <Coins className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-500 uppercase tracking-widest font-bold">Costi di Manutenzione Giornalieri</p>
-                <p className="text-xl font-bold text-medieval-rubyLight font-mono">
-                  -{totalMaintenance} <span className="text-xs text-medieval-gold font-serif">g</span>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Costi di Manutenzione Giornalieri</p>
+                <p className="text-xl font-bold text-danger font-mono">
+                  -{totalMaintenance} <span className="text-xs text-primary font-serif">g</span>
                 </p>
               </div>
             </div>
-            <div className="bg-medieval-slate border border-medieval-gold/20 rounded-lg p-5 flex items-center space-x-4">
-              <div className="bg-medieval-gold/10 p-3 rounded-lg">
-                <TrendingUp className="h-6 w-6 text-medieval-gold" />
+            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <TrendingUp className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-500 uppercase tracking-widest font-bold">Dipendenti Totali</p>
-                <p className="text-xl font-bold text-medieval-forestLight font-mono">
-                  {totalWorkers} <span className="text-xs text-gray-400 font-serif font-normal">marinai/lavoratori</span>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Dipendenti Totali</p>
+                <p className="text-xl font-bold text-success font-mono">
+                  {totalWorkers} <span className="text-xs text-gray-700 font-sans font-normal">lavoratori</span>
                 </p>
               </div>
             </div>
-            <div className="bg-medieval-slate border border-medieval-gold/20 rounded-lg p-5 flex items-center space-x-4">
-              <div className="bg-medieval-gold/10 p-3 rounded-lg">
-                <Factory className="h-6 w-6 text-medieval-gold" />
+            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <Factory className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-500 uppercase tracking-widest font-bold">Città Attive</p>
-                <p className="text-xl font-bold text-gray-200 font-mono">
-                  {Object.keys(empire).length} <span className="text-xs text-gray-400 font-serif font-normal">filiali</span>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Città Attive</p>
+                <p className="text-xl font-bold text-neutral-dark font-mono">
+                  {Object.keys(empire).length} <span className="text-xs text-gray-700 font-sans font-normal">filiali</span>
                 </p>
               </div>
             </div>
           </div>
 
           {/* Tabella Bilancio Risorse */}
-          <div className="bg-medieval-slate border border-medieval-gold/20 rounded-lg shadow-lg overflow-hidden">
-            <div className="px-6 py-4 bg-medieval-dark/50 border-b border-medieval-gold/20">
-              <h2 className="text-lg font-bold font-serif text-medieval-gold" style={{ fontFamily: "'Cinzel', serif" }}>
+          <div className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
+            <div className="px-6 py-4 bg-background border-b border-primary/20">
+              <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
                 Bilancio Globale Risorse
               </h2>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-medieval-gold/10">
-                <thead className="bg-medieval-dark/30">
+              <table className="min-w-full divide-y divide-primary/15">
+                <thead className="bg-primary/10">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-medieval-gold uppercase tracking-wider">Risorsa</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-medieval-gold uppercase tracking-wider">Produzione Totale / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-medieval-gold uppercase tracking-wider">Consumo Totale / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-medieval-gold uppercase tracking-wider">Bilancio Netto / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-medieval-gold uppercase tracking-wider">Stato</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">Risorsa</th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Produzione Totale / Giorno</th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Consumo Totale / Giorno</th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Bilancio Netto / Giorno</th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Stato</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-medieval-gold/5">
+                <tbody className="divide-y divide-primary/10">
                   {goods.map((good) => {
                     const balance = globalBalances[good.id] || { produced: 0, consumed: 0, net: 0 };
                     if (balance.produced === 0 && balance.consumed === 0) return null; // Nasconde le risorse non movimentate
                     return (
-                      <tr key={good.id} className="hover:bg-medieval-gold/5 transition-colors">
+                      <tr key={good.id} className="hover:bg-primary/5 bg-background/50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="text-sm font-semibold text-gray-200">📦 {good.name}</span>
+                          <span className="text-sm font-semibold text-neutral-dark">📦 {good.name}</span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-medieval-forestLight">
+                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-success">
                           +{balance.produced.toFixed(2)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-medieval-rubyLight">
+                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-danger">
                           -{balance.consumed.toFixed(2)}
                         </td>
                         <td className={`px-6 py-4 whitespace-nowrap text-center text-sm font-mono font-bold ${
-                          balance.net > 0 ? 'text-medieval-forestLight' : balance.net < 0 ? 'text-medieval-rubyLight' : 'text-gray-400'
+                          balance.net > 0 ? 'text-success' : balance.net < 0 ? 'text-danger' : 'text-gray-600'
                         }`}>
                           {balance.net > 0 ? '+' : ''}{balance.net.toFixed(2)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
                           <span className={`px-2 py-0.5 text-3xs font-bold uppercase rounded-full ${
-                            balance.net > 0 ? 'bg-medieval-forest/20 text-medieval-forestLight border border-medieval-forest/30' : 'bg-medieval-ruby/20 text-medieval-rubyLight border border-medieval-ruby/30'
+                            balance.net > 0 ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'
                           }`}>
                             {balance.net > 0 ? 'Surplus' : 'Deficit'}
                           </span>
@@ -343,7 +343,7 @@ const Production: React.FC = () => {
                   })}
                   {Object.values(globalBalances).every(b => b.produced === 0 && b.consumed === 0) && (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-gray-500 text-sm italic">
+                      <td colSpan={5} className="px-6 py-12 text-center text-gray-600 text-sm italic">
                         Nessuna impresa costruita nell'impero commerciale. Vai in "Gestione Filiali" per edificarne alcune.
                       </td>
                     </tr>
@@ -359,7 +359,7 @@ const Production: React.FC = () => {
       {activeTab === 'branches' && (
         <div className="space-y-6">
           {Object.keys(empire).length === 0 ? (
-            <div className="bg-medieval-slate border border-medieval-gold/15 rounded-lg p-12 text-center text-gray-500 italic">
+            <div className="bg-card border border-primary/20 rounded-lg p-12 text-center text-gray-700 italic">
               Nessuna città aggiunta al tuo impero. Usa il menu in alto a destra per iniziare.
             </div>
           ) : (
@@ -372,20 +372,20 @@ const Production: React.FC = () => {
                 if (!townObj) return null;
 
                 return (
-                  <div key={townId} className="bg-medieval-slate border border-medieval-gold/20 rounded-lg shadow-lg overflow-hidden">
+                  <div key={townId} className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
                     {/* Header Filiale */}
-                    <div className="px-6 py-4 bg-medieval-dark/50 border-b border-medieval-gold/20 flex justify-between items-center flex-wrap gap-2">
+                    <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center flex-wrap gap-2">
                       <div>
-                        <h3 className="text-xl font-bold font-serif text-medieval-gold" style={{ fontFamily: "'Cinzel', serif" }}>
+                        <h3 className="text-xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
                           {townObj.name}
                         </h3>
-                        <p className="text-3xs text-gray-400 font-semibold uppercase tracking-widest mt-0.5">
+                        <p className="text-3xs text-gray-700 font-semibold uppercase tracking-widest mt-0.5">
                           {townObj.isRiverTown ? 'Fluviale' : 'Marittimo'} • Costo: -{townReport.maintenance}g/giorno • Lavoratori: {townReport.workers}
                         </p>
                       </div>
                       <button
                         onClick={() => handleRemoveTown(townId)}
-                        className="text-gray-400 hover:text-medieval-rubyLight p-1.5 rounded hover:bg-medieval-ruby/10 transition-colors"
+                        className="text-gray-500 hover:text-danger p-1.5 rounded hover:bg-danger/10 transition-colors"
                         title="Rimuovi Città"
                       >
                         <Trash2 className="h-5 w-5" />
@@ -395,7 +395,7 @@ const Production: React.FC = () => {
                     {/* Fabbriche Edificabili */}
                     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-4">
-                        <h4 className="text-xs font-bold text-medieval-gold uppercase tracking-wider border-b border-medieval-gold/10 pb-1">
+                        <h4 className="text-xs font-bold text-primary uppercase tracking-wider border-b border-primary/10 pb-1">
                           Laboratori e Fabbriche
                         </h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -406,20 +406,20 @@ const Production: React.FC = () => {
                               <div
                                 key={business.id}
                                 className={`p-3 rounded border flex flex-col justify-between space-y-2 ${
-                                  count > 0 ? 'bg-medieval-gold/5 border-medieval-gold/30' : 'bg-medieval-dark/20 border-medieval-gold/5'
+                                  count > 0 ? 'bg-secondary/10 border-secondary/50' : 'bg-background border-primary/10'
                                 }`}
                               >
                                 <div className="flex justify-between items-start">
                                   <div>
-                                    <span className="text-xs font-semibold text-gray-200 block leading-tight">{business.name}</span>
+                                    <span className="text-xs font-semibold text-neutral-dark block leading-tight">{business.name}</span>
                                     <span className={`text-[9px] font-bold uppercase tracking-wider block mt-1 ${
-                                      isSpecialty ? 'text-medieval-forestLight' : 'text-yellow-600'
+                                      isSpecialty ? 'text-success' : 'text-amber-850'
                                     }`}>
                                       {isSpecialty ? 'Ottimale' : 'Penalità -25%'}
                                     </span>
                                   </div>
                                   {count > 0 && (
-                                    <span className="bg-medieval-gold text-medieval-dark text-xs font-bold px-1.5 py-0.5 rounded">
+                                    <span className="bg-secondary text-neutral-dark text-xs font-bold px-1.5 py-0.5 rounded">
                                       x{count}
                                     </span>
                                   )}
@@ -429,14 +429,14 @@ const Production: React.FC = () => {
                                 <div className="flex items-center space-x-2">
                                   <button
                                     onClick={() => handleUpdateBusinessCount(townId, business.id, -1)}
-                                    className="bg-medieval-dark hover:bg-medieval-gold/10 border border-medieval-gold/20 text-gray-400 hover:text-medieval-gold font-bold h-7 w-7 rounded flex items-center justify-center transition-colors"
+                                    className="bg-background hover:bg-primary/15 border border-primary/25 text-gray-700 hover:text-primary font-bold h-7 w-7 rounded flex items-center justify-center transition-colors"
                                   >
                                     -
                                   </button>
-                                  <span className="text-sm font-mono font-bold w-6 text-center text-gray-200">{count}</span>
+                                  <span className="text-sm font-mono font-bold w-6 text-center text-neutral-dark">{count}</span>
                                   <button
                                     onClick={() => handleUpdateBusinessCount(townId, business.id, 1)}
-                                    className="bg-medieval-gold hover:bg-medieval-goldLight text-medieval-dark font-bold h-7 w-7 rounded flex items-center justify-center transition-colors"
+                                    className="bg-secondary hover:bg-secondary/90 text-neutral-dark font-bold h-7 w-7 rounded flex items-center justify-center transition-colors"
                                   >
                                     +
                                   </button>
@@ -449,21 +449,21 @@ const Production: React.FC = () => {
 
                       {/* Bilancio Locale Città */}
                       <div className="space-y-4">
-                        <h4 className="text-xs font-bold text-medieval-gold uppercase tracking-wider border-b border-medieval-gold/10 pb-1">
+                        <h4 className="text-xs font-bold text-primary uppercase tracking-wider border-b border-primary/10 pb-1">
                           Bilancio Locale delle Risorse
                         </h4>
-                        <div className="bg-medieval-dark/30 rounded border border-medieval-gold/10 p-4 h-[350px] overflow-y-auto space-y-2">
+                        <div className="bg-background rounded border border-primary/15 p-4 h-[350px] overflow-y-auto space-y-2">
                           {Object.keys(townReport.balances).map((goodId) => {
                             const val = townReport.balances[goodId] || 0;
                             if (val === 0) return null;
                             const goodObj = goods.find(g => g.id === goodId);
                             return (
-                              <div key={goodId} className="flex justify-between items-center bg-medieval-dark/40 px-3 py-2 rounded border border-medieval-gold/5">
-                                <span className="text-xs font-semibold text-gray-300">
+                              <div key={goodId} className="flex justify-between items-center bg-card/40 px-3 py-2 rounded border border-primary/10">
+                                <span className="text-xs font-semibold text-neutral-dark">
                                   📦 {goodObj ? goodObj.name : goodId}
                                 </span>
                                 <span className={`text-sm font-bold font-mono ${
-                                  val > 0 ? 'text-medieval-forestLight' : 'text-medieval-rubyLight'
+                                  val > 0 ? 'text-success' : 'text-danger'
                                 }`}>
                                   {val > 0 ? '+' : ''}{val.toFixed(2)}/g
                                 </span>
@@ -471,8 +471,8 @@ const Production: React.FC = () => {
                             );
                           })}
                           {Object.values(townReport.balances).every(v => v === 0) && (
-                            <div className="flex flex-col items-center justify-center h-full text-center text-gray-500 text-xs italic">
-                              <Info className="h-8 w-8 text-gray-600 mb-2" />
+                            <div className="flex flex-col items-center justify-center h-full text-center text-gray-600 text-xs italic">
+                              <Info className="h-8 w-8 text-primary mb-2" />
                               Nessuna risorsa movimentata. Aggiungi laboratori per simulare la logistica locale.
                             </div>
                           )}
