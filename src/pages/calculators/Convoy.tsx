@@ -166,7 +166,7 @@ const Convoy: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Costruttore Convoglio (Impostazione navi) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-card border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
             <h2 className="text-lg font-bold font-serif text-primary border-b border-primary/15 pb-2 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Anchor className="h-5 w-5 text-primary" />
               <span>Navi del Convoglio</span>
@@ -259,7 +259,7 @@ const Convoy: React.FC = () => {
 
         {/* Quadro Statistiche Convoglio */}
         <div className="space-y-6">
-          <div className="bg-card border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
             <h2 className="text-lg font-bold font-serif text-primary border-b border-primary/15 pb-2 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Compass className="h-5 w-5 text-primary" />
               <span>Statistiche Flotta</span>

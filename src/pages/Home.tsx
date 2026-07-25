@@ -25,7 +25,7 @@ const Home: React.FC = () => {
       {/* Grid delle funzionalità principali */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
         {/* Calcolatore Produzione */}
-        <div className="bg-card border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+        <div className="bg-white border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="bg-primary/10 p-3 rounded-lg">
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Ottimizzatore Rotte */}
-        <div className="bg-card border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+        <div className="bg-white border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="bg-primary/10 p-3 rounded-lg">
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Gestore Convogli */}
-        <div className="bg-card border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+        <div className="bg-white border border-primary/20 rounded-lg p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="bg-primary/10 p-3 rounded-lg">
@@ -95,7 +95,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Sezione Statistiche Rapide della Lega Anseatica */}
-      <div className="bg-card border border-primary/10 rounded-lg p-8 mt-12 text-center max-w-4xl mx-auto">
+      <div className="bg-white border border-primary/10 rounded-lg p-8 mt-12 text-center max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
           <Landmark className="h-10 w-10 text-primary" />
         </div>

@@ -134,7 +134,7 @@ const Routes: React.FC = () => {
       </div>
 
       {/* Selettori Città */}
-      <div className="bg-card border border-primary/20 rounded-lg p-6 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white border border-primary/20 rounded-lg p-6 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center space-x-4 flex-grow">
           {/* Origine */}
           <div className="flex-1">
@@ -195,7 +195,7 @@ const Routes: React.FC = () => {
       )}
 
       {/* Tabella Raccomandazioni */}
-      <div className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
         <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center">
           <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
             Merci Consigliate per il Viaggio (Partenza da {originTown?.name})

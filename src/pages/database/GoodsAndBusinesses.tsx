@@ -61,7 +61,7 @@ const GoodsAndBusinesses: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Tabella Merci */}
-        <div className="lg:col-span-2 bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
+        <div className="lg:col-span-2 bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
           <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center">
             <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
               Listino Prezzi Consigliati
@@ -130,7 +130,7 @@ const GoodsAndBusinesses: React.FC = () => {
 
         {/* Dettaglio Impresa Associata */}
         <div className="space-y-6">
-          <div className="bg-card border border-primary/20 rounded-lg shadow-lg p-6">
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-bold font-serif text-primary border-b border-primary/20 pb-3 mb-4 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Info className="h-5 w-5 text-primary" />
               <span>Dettagli Merce</span>
@@ -156,7 +156,7 @@ const GoodsAndBusinesses: React.FC = () => {
             )}
           </div>
 
-          <div className="bg-card border border-primary/20 rounded-lg shadow-lg p-6">
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-bold font-serif text-primary border-b border-primary/20 pb-3 mb-4 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Hammer className="h-5 w-5 text-primary" />
               <span>Struttura Produttiva</span>

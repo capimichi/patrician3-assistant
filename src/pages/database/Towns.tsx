@@ -60,7 +60,7 @@ const Towns: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Lista Griglia delle Città */}
-        <div className="lg:col-span-1 bg-card border border-primary/20 rounded-lg p-4 shadow-lg h-[600px] overflow-y-auto">
+        <div className="lg:col-span-1 bg-white border border-primary/20 rounded-lg p-4 shadow-lg h-[600px] overflow-y-auto">
           <h2 className="text-md font-bold font-serif text-primary border-b border-primary/15 pb-2 mb-3 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
             <Compass className="h-5 w-5 text-primary" />
             <span>Città dell'Hansa</span>
@@ -94,7 +94,7 @@ const Towns: React.FC = () => {
         {/* Scheda di Dettaglio Città */}
         <div className="lg:col-span-2 space-y-6">
           {selectedTown ? (
-            <div className="bg-card border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
+            <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
               {/* Header Scheda */}
               <div className="border-b border-primary/20 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                 <div>

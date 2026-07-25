@@ -53,7 +53,7 @@ const Buildings: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {buildings.map((building) => {
           return (
-            <div key={building.id} className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden flex flex-col justify-between">
+            <div key={building.id} className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden flex flex-col justify-between">
               {/* Card Header */}
               <div className="px-6 py-5 bg-background border-b border-primary/15 flex items-center space-x-3">
                 <Landmark className="h-6 w-6 text-primary" />

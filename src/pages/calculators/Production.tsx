@@ -206,7 +206,7 @@ const Production: React.FC = () => {
 
         {/* Form Aggiunta Città */}
         {inactiveTowns.length > 0 && (
-          <div className="flex items-center space-x-2 bg-card border border-primary/20 p-2 rounded-lg">
+          <div className="flex items-center space-x-2 bg-white border border-primary/20 p-2 rounded-lg">
             <select
               value={selectedTownToAdd}
               onChange={(e) => setSelectedTownToAdd(e.target.value)}
@@ -235,7 +235,7 @@ const Production: React.FC = () => {
           onClick={() => setActiveTab('global')}
           className={`px-4 py-2.5 font-serif font-bold text-sm tracking-wider uppercase border-t border-l border-r rounded-t-lg transition-colors ${
             activeTab === 'global'
-              ? 'bg-card text-primary border-primary/20'
+              ? 'bg-white text-primary border-primary/20'
               : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
@@ -245,7 +245,7 @@ const Production: React.FC = () => {
           onClick={() => setActiveTab('branches')}
           className={`px-4 py-2.5 font-serif font-bold text-sm tracking-wider uppercase border-t border-l border-r rounded-t-lg transition-colors ${
             activeTab === 'branches'
-              ? 'bg-card text-primary border-primary/20'
+              ? 'bg-white text-primary border-primary/20'
               : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
@@ -258,7 +258,7 @@ const Production: React.FC = () => {
         <div className="space-y-6">
           {/* Card Riepilogo Finanziario/Lavoratori */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+            <div className="bg-white border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
               <div className="bg-primary/10 p-3 rounded-lg">
                 <Coins className="h-6 w-6 text-primary" />
               </div>
@@ -269,7 +269,7 @@ const Production: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+            <div className="bg-white border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
               <div className="bg-primary/10 p-3 rounded-lg">
                 <TrendingUp className="h-6 w-6 text-primary" />
               </div>
@@ -280,7 +280,7 @@ const Production: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="bg-card border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
+            <div className="bg-white border border-primary/20 rounded-lg p-5 flex items-center space-x-4">
               <div className="bg-primary/10 p-3 rounded-lg">
                 <Factory className="h-6 w-6 text-primary" />
               </div>
@@ -294,7 +294,7 @@ const Production: React.FC = () => {
           </div>
 
           {/* Tabella Bilancio Risorse */}
-          <div className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
             <div className="px-6 py-4 bg-background border-b border-primary/20">
               <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
                 Bilancio Globale Risorse
@@ -359,7 +359,7 @@ const Production: React.FC = () => {
       {activeTab === 'branches' && (
         <div className="space-y-6">
           {Object.keys(empire).length === 0 ? (
-            <div className="bg-card border border-primary/20 rounded-lg p-12 text-center text-gray-700 italic">
+            <div className="bg-white border border-primary/20 rounded-lg p-12 text-center text-gray-700 italic">
               Nessuna città aggiunta al tuo impero. Usa il menu in alto a destra per iniziare.
             </div>
           ) : (
@@ -372,7 +372,7 @@ const Production: React.FC = () => {
                 if (!townObj) return null;
 
                 return (
-                  <div key={townId} className="bg-card border border-primary/20 rounded-lg shadow-lg overflow-hidden">
+                  <div key={townId} className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
                     {/* Header Filiale */}
                     <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center flex-wrap gap-2">
                       <div>
