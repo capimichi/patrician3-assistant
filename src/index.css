@@ -10,3 +10,9 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
+
+@layer utilities {
+  .dropdown-solido {
+    background-color: #F5F2EB !important;
+  }
+}
