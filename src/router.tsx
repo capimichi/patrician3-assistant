@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout';
 import Home from './pages/Home';
-import GoodsAndBusinesses from './pages/database/GoodsAndBusinesses';
+import GoodsList from './pages/database/GoodsList';
+import GoodDetail from './pages/database/GoodDetail';
 import Towns from './pages/database/Towns';
 import Buildings from './pages/database/Buildings';
 import Production from './pages/calculators/Production';
@@ -19,7 +20,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'database/goods',
-        element: <GoodsAndBusinesses />
+        element: <GoodsList />
+      },
+      {
+        path: 'database/goods/:id',
+        element: <GoodDetail />
       },
       {
         path: 'database/towns',

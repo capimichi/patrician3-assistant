@@ -38,7 +38,7 @@
     "id": "stettin",
     "name": "Stettino (Stettin)",
     "isRiverTown": false,
-    "produces": ["grain", "timber", "beer", "meat", "fodder", "wool"],
+    "produces": ["grain", "timber", "beer", "meat", "pottery", "wool"],
     "coordinate": { "x": 480, "y": 460 }
   },
   {
@@ -66,7 +66,7 @@
     "id": "stockholm",
     "name": "Stoccolma (Stockholm)",
     "isRiverTown": false,
-    "produces": ["pig_iron", "timber", "grain", "skins", "iron_goods", "train_oil"],
+    "produces": ["pig_iron", "timber", "grain", "skins", "iron_goods", "whale_oil"],
     "coordinate": { "x": 620, "y": 280 }
   },
   {
@@ -94,14 +94,14 @@
     "id": "ripen",
     "name": "Ripen",
     "isRiverTown": false,
-    "produces": ["wool", "timber", "grain", "beer", "meat", "fodder"],
+    "produces": ["wool", "timber", "grain", "beer", "meat", "pottery"],
     "coordinate": { "x": 200, "y": 350 }
   },
   {
     "id": "aalborg",
     "name": "Aalborg",
     "isRiverTown": false,
-    "produces": ["fish", "grain", "timber", "meat", "train_oil"],
+    "produces": ["fish", "grain", "timber", "meat", "whale_oil"],
     "coordinate": { "x": 240, "y": 280 }
   },
   {
@@ -115,7 +115,7 @@
     "id": "bergen",
     "name": "Bergen",
     "isRiverTown": false,
-    "produces": ["fish", "timber", "grain", "train_oil", "leather"],
+    "produces": ["fish", "timber", "grain", "whale_oil", "leather"],
     "coordinate": { "x": 140, "y": 150 }
   },
   {

@@ -88,7 +88,7 @@
     "producedGoodId": "meat",
     "baseProductionPerDay": 0.8,
     "inputs": [
-      { "goodId": "fodder", "amountPerDay": 0.5 }
+      { "goodId": "grain", "amountPerDay": 0.5 }
     ],
     "constructionCost": { "gold": 16000, "bricks": 50, "timber": 25 },
     "workersNeeded": 30,
@@ -183,5 +183,30 @@
     "constructionCost": { "gold": 15000, "bricks": 40, "timber": 20 },
     "workersNeeded": 30,
     "dailyMaintenance": 280
+  },
+  {
+    "id": "pottery_workshop",
+    "name": { "it": "Laboratorio di Ceramica", "en": "Pottery Workshop" },
+    "producedGoodId": "pottery",
+    "baseProductionPerDay": 1.5,
+    "inputs": [
+      { "goodId": "timber", "amountPerDay": 0.5 }
+    ],
+    "constructionCost": { "gold": 12000, "bricks": 40, "timber": 20 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 280
+  },
+  {
+    "id": "whale_fishery",
+    "name": { "it": "Baleniere", "en": "Whale Fishery" },
+    "producedGoodId": "whale_oil",
+    "baseProductionPerDay": 1.2,
+    "inputs": [
+      { "goodId": "salt", "amountPerDay": 0.2 },
+      { "goodId": "hemp", "amountPerDay": 0.1 }
+    ],
+    "constructionCost": { "gold": 15000, "bricks": 30, "timber": 15 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 300
   }
 ]
