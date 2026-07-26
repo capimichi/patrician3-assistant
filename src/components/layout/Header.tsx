@@ -92,6 +92,12 @@ const Header: React.FC = () => {
                       {t('header.goods')}
                     </Link>
                     <Link
+                      to="/database/businesses"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-background hover:text-primary transition-colors"
+                    >
+                      {t('header.businesses')}
+                    </Link>
+                    <Link
                       to="/database/towns"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-background hover:text-primary transition-colors"
                     >
@@ -191,6 +197,12 @@ const Header: React.FC = () => {
             className="block pl-6 pr-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary hover:bg-background/50"
           >
             {t('header.goods')}
+          </Link>
+          <Link
+            to="/database/businesses"
+            className="block pl-6 pr-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary hover:bg-background/50"
+          >
+            {t('header.businesses')}
           </Link>
           <Link
             to="/database/towns"

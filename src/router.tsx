@@ -3,7 +3,10 @@ import DefaultLayout from './layouts/DefaultLayout';
 import Home from './pages/Home';
 import GoodsList from './pages/database/GoodsList';
 import GoodDetail from './pages/database/GoodDetail';
-import Towns from './pages/database/Towns';
+import TownsList from './pages/database/TownsList';
+import TownDetail from './pages/database/TownDetail';
+import BusinessesList from './pages/database/BusinessesList';
+import BusinessDetail from './pages/database/BusinessDetail';
 import Buildings from './pages/database/Buildings';
 import Production from './pages/calculators/Production';
 import Routes from './pages/calculators/Routes';
@@ -28,7 +31,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'database/towns',
-        element: <Towns />
+        element: <TownsList />
+      },
+      {
+        path: 'database/towns/:id',
+        element: <TownDetail />
+      },
+      {
+        path: 'database/businesses',
+        element: <BusinessesList />
+      },
+      {
+        path: 'database/businesses/:id',
+        element: <BusinessDetail />
       },
       {
         path: 'database/buildings',
