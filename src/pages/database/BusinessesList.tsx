@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { SlidersHorizontal, ArrowRight, Hammer, Coins } from 'lucide-react';
 import { getGoodImagePath } from '../../utils/goodImage';
+import { ListControls } from '../../components/ListControls';
 
 const ALL_COLUMNS = [
   { id: 'product', labelIt: 'Bene Prodotto', labelEn: 'Produced Good' },
@@ -24,6 +25,7 @@ const BusinessesList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const currentLang = (i18n.language === 'it' || i18n.language === 'en') ? i18n.language : 'en';
@@ -86,49 +88,59 @@ const BusinessesList: React.FC = () => {
     );
   }
 
+  const filteredBusinesses = businesses.filter(business => {
+    if (searchQuery.trim().length < 3) return true;
+    return business.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="space-y-6 text-neutral-dark">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-            Database Imprese & Officine
-          </h1>
-          <p className="text-gray-700 text-sm mt-1">
-            Analizza i costi di edificazione, manutenzione ed il consumo di materie prime delle fabbriche private della Lega Anseatica.
-          </p>
-        </div>
-
-        {/* Menu Selettore Colonne */}
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors"
-            aria-label="Colonne"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            <span>Colonne</span>
-          </button>
-          
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-background rounded-lg border border-primary/30 shadow-2xl p-4 z-50 dropdown-solido">
-              <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">Visualizza Colonne</h4>
-              <div className="space-y-2">
-                {ALL_COLUMNS.map(col => (
-                  <label key={col.id} className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={visibleColumns.includes(col.id)}
-                      onChange={() => toggleColumn(col.id)}
-                      className="rounded text-primary focus:ring-primary border-primary/30"
-                    />
-                    <span>{currentLang === 'it' ? col.labelIt : col.labelEn}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+      <div>
+        <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+          Database Imprese & Officine
+        </h1>
+        <p className="text-gray-700 text-sm mt-1">
+          Analizza i costi di edificazione, manutenzione ed il consumo di materie prime delle fabbriche private della Lega Anseatica.
+        </p>
       </div>
+
+      {/* Area Controlli superiore */}
+      <ListControls
+        searchValue={searchQuery}
+        onSearchChange={setSearchQuery}
+        placeholder={t('common.search_businesses')}
+        rightActions={
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors"
+              aria-label="Colonne"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span>Colonne</span>
+            </button>
+            
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-background rounded-lg border border-primary/30 shadow-2xl p-4 z-50 dropdown-solido">
+                <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">Visualizza Colonne</h4>
+                <div className="space-y-2">
+                  {ALL_COLUMNS.map(col => (
+                    <label key={col.id} className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={visibleColumns.includes(col.id)}
+                        onChange={() => toggleColumn(col.id)}
+                        className="rounded text-primary focus:ring-primary border-primary/30"
+                      />
+                      <span>{currentLang === 'it' ? col.labelIt : col.labelEn}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        }
+      />
 
       {/* Tabella Imprese */}
       <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
@@ -147,7 +159,14 @@ const BusinessesList: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-primary/10">
-              {businesses.map((business) => {
+              {filteredBusinesses.length === 0 ? (
+                <tr>
+                  <td colSpan={visibleColumns.length + 2} className="px-6 py-12 text-center text-gray-500 italic font-serif">
+                    {t('common.no_results')} "{searchQuery}"
+                  </td>
+                </tr>
+              ) : (
+                filteredBusinesses.map((business) => {
                 const productGood = goods.find(g => g.id === business.producedGoodId);
                 const productName = productGood ? productGood.name : business.producedGoodId;
                 return (
@@ -245,7 +264,7 @@ const BusinessesList: React.FC = () => {
                     </td>
                   </tr>
                 );
-              })}
+              }))}
             </tbody>
           </table>
         </div>

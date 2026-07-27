@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { getGoodImagePath } from '../../utils/goodImage';
 import { SlidersHorizontal, ArrowRight } from 'lucide-react';
+import { ListControls } from '../../components/ListControls';
 
 const ALL_COLUMNS = [
   { id: 'basePrice', labelIt: 'Prezzo Base', labelEn: 'Base Price' },
@@ -23,6 +24,7 @@ const GoodsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const currentLang = (i18n.language === 'it' || i18n.language === 'en') ? i18n.language : 'en';
@@ -84,49 +86,59 @@ const GoodsList: React.FC = () => {
     );
   }
 
+  const filteredGoods = goods.filter(good => {
+    if (searchQuery.trim().length < 3) return true;
+    return good.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="space-y-6 text-neutral-dark">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-            Merci & Listino Commerciale
-          </h1>
-          <p className="text-gray-700 text-sm mt-1">
-            Consulta i prezzi consigliati ed analizza le merci della Lega Anseatica. Clicca su una risorsa per vederne i dettagli.
-          </p>
-        </div>
-
-        {/* Menu Selettore Colonne */}
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors animate-micro"
-            aria-label="Colonne"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            <span>Colonne</span>
-          </button>
-          
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-background rounded-lg border border-primary/30 shadow-2xl p-4 z-50 dropdown-solido">
-              <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">Visualizza Colonne</h4>
-              <div className="space-y-2">
-                {ALL_COLUMNS.map(col => (
-                  <label key={col.id} className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={visibleColumns.includes(col.id)}
-                      onChange={() => toggleColumn(col.id)}
-                      className="rounded text-primary focus:ring-primary border-primary/30"
-                    />
-                    <span>{currentLang === 'it' ? col.labelIt : col.labelEn}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+      <div>
+        <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+          Merci & Listino Commerciale
+        </h1>
+        <p className="text-gray-700 text-sm mt-1">
+          Consulta i prezzi consigliati ed analizza le merci della Lega Anseatica. Clicca su una risorsa per vederne i dettagli.
+        </p>
       </div>
+
+      {/* Area Controlli superiore */}
+      <ListControls
+        searchValue={searchQuery}
+        onSearchChange={setSearchQuery}
+        placeholder={t('common.search_goods')}
+        rightActions={
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors animate-micro"
+              aria-label="Colonne"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span>Colonne</span>
+            </button>
+            
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-background rounded-lg border border-primary/30 shadow-2xl p-4 z-50 dropdown-solido">
+                <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">Visualizza Colonne</h4>
+                <div className="space-y-2">
+                  {ALL_COLUMNS.map(col => (
+                    <label key={col.id} className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={visibleColumns.includes(col.id)}
+                        onChange={() => toggleColumn(col.id)}
+                        className="rounded text-primary focus:ring-primary border-primary/30"
+                      />
+                      <span>{currentLang === 'it' ? col.labelIt : col.labelEn}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        }
+      />
 
       {/* Tabella Merci */}
       <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
@@ -145,7 +157,14 @@ const GoodsList: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-primary/10">
-              {goods.map((good) => (
+              {filteredGoods.length === 0 ? (
+                <tr>
+                  <td colSpan={visibleColumns.length + 2} className="px-6 py-12 text-center text-gray-500 italic font-serif">
+                    {t('common.no_results')} "{searchQuery}"
+                  </td>
+                </tr>
+              ) : (
+                filteredGoods.map((good) => (
                 <tr
                   key={good.id}
                   onClick={() => navigate(`/database/goods/${good.id}`)}
@@ -220,7 +239,7 @@ const GoodsList: React.FC = () => {
                     </span>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>

@@ -91,3 +91,31 @@ test('GoodsList renders and allows column toggling saved in localStorage', async
   const savedCols = JSON.parse(localStorage.getItem('patrician3_goods_columns') || '[]');
   expect(savedCols.includes('volume')).toBe(false);
 });
+
+test('GoodsList filters goods by query when query length >= 3', async () => {
+  render(
+    <ServicesProvider>
+      <MemoryRouter>
+        <GoodsList />
+      </MemoryRouter>
+    </ServicesProvider>
+  );
+
+  // Attende il caricamento dei dati
+  const input = await screen.findByPlaceholderText('common.search_goods');
+  expect(screen.queryByText('Birra')).toBeDefined();
+
+  // Digita meno di 3 caratteri - non deve filtrare
+  fireEvent.change(input, { target: { value: 'Bi' } });
+  expect(screen.queryByText('Birra')).toBeDefined();
+
+  // Digita 3 caratteri corretti - deve filtrare e trovare Birra
+  fireEvent.change(input, { target: { value: 'Bir' } });
+  expect(screen.queryByText('Birra')).toBeDefined();
+
+  // Digita un testo che non corrisponde - deve mostrare nessun risultato
+  fireEvent.change(input, { target: { value: 'Xyz' } });
+  expect(screen.queryByText('Birra')).toBeNull();
+  expect(screen.getByText(/common.no_results/i)).toBeDefined();
+});
+

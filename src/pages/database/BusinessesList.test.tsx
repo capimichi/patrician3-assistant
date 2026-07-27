@@ -106,3 +106,30 @@ test('BusinessesList renders and allows column toggling saved in localStorage', 
   const savedCols = JSON.parse(localStorage.getItem('patrician3_businesses_columns') || '[]');
   expect(savedCols.includes('maintenance')).toBe(false);
 });
+
+test('BusinessesList filters businesses by query when query length >= 3', async () => {
+  render(
+    <ServicesProvider>
+      <MemoryRouter>
+        <BusinessesList />
+      </MemoryRouter>
+    </ServicesProvider>
+  );
+
+  const input = await screen.findByPlaceholderText('common.search_businesses');
+  expect(screen.queryByText('Birreria')).toBeDefined();
+
+  // Minore di 3 caratteri - mostra tutto
+  fireEvent.change(input, { target: { value: 'Bi' } });
+  expect(screen.queryByText('Birreria')).toBeDefined();
+
+  // Almeno 3 caratteri - filtra
+  fireEvent.change(input, { target: { value: 'Bir' } });
+  expect(screen.queryByText('Birreria')).toBeDefined();
+
+  // Nessuna corrispondenza
+  fireEvent.change(input, { target: { value: 'Xyz' } });
+  expect(screen.queryByText('Birreria')).toBeNull();
+  expect(screen.getByText(/common.no_results/i)).toBeDefined();
+});
+

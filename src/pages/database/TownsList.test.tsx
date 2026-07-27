@@ -104,3 +104,30 @@ test('TownsList renders and allows column toggling saved in localStorage', async
   const savedCols = JSON.parse(localStorage.getItem('patrician3_towns_columns') || '[]');
   expect(savedCols.includes('coordinates')).toBe(false);
 });
+
+test('TownsList filters towns by query when query length >= 3', async () => {
+  render(
+    <ServicesProvider>
+      <MemoryRouter>
+        <TownsList />
+      </MemoryRouter>
+    </ServicesProvider>
+  );
+
+  const input = await screen.findByPlaceholderText('common.search_towns');
+  expect(screen.queryByText('Lubecca (Lübeck)')).toBeDefined();
+
+  // Minore di 3 caratteri - mostra tutto
+  fireEvent.change(input, { target: { value: 'Lu' } });
+  expect(screen.queryByText('Lubecca (Lübeck)')).toBeDefined();
+
+  // Almeno 3 caratteri - filtra
+  fireEvent.change(input, { target: { value: 'Lub' } });
+  expect(screen.queryByText('Lubecca (Lübeck)')).toBeDefined();
+
+  // Nessuna corrispondenza
+  fireEvent.change(input, { target: { value: 'Xyz' } });
+  expect(screen.queryByText('Lubecca (Lübeck)')).toBeNull();
+  expect(screen.getByText(/common.no_results/i)).toBeDefined();
+});
+

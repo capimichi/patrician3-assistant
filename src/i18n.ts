@@ -32,7 +32,11 @@ const resources = {
         add: "Aggiungi",
         remove: "Rimuovi",
         profit: "Profitto",
-        capacity: "Stiva"
+        capacity: "Stiva",
+        search_goods: "Cerca merce...",
+        search_towns: "Cerca città...",
+        search_businesses: "Cerca impresa...",
+        no_results: "Nessun elemento trovato per"
       }
     }
   },
@@ -66,7 +70,11 @@ const resources = {
         add: "Add",
         remove: "Remove",
         profit: "Profit",
-        capacity: "Capacity"
+        capacity: "Capacity",
+        search_goods: "Search goods...",
+        search_towns: "Search towns...",
+        search_businesses: "Search business...",
+        no_results: "No results found for"
       }
     }
   }
