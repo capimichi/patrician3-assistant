@@ -58,9 +58,23 @@ const mockFetch = vi.fn().mockImplementation((url: string) => {
 });
 vi.stubGlobal('fetch', mockFetch);
 
+const translations: Record<string, string> = {
+  'production.day': 'giorno',
+  'database_businesses.back_list': 'Torna alle imprese',
+  'database_businesses.not_found': 'Impresa non trovata'
+};
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string, options?: any) => {
+      let val = translations[key] || key;
+      if (options && typeof options === 'object') {
+        Object.keys(options).forEach(k => {
+          val = val.replace(`{{${k}}}`, options[k]);
+        });
+      }
+      return val;
+    },
     i18n: { language: 'it', changeLanguage: async () => {} }
   })
 }));

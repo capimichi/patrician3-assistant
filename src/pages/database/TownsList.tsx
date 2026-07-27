@@ -96,10 +96,10 @@ const TownsList: React.FC = () => {
     <div className="space-y-6 text-neutral-dark">
       <div>
         <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-          Database Città dell'Hansa
+          {t('database_towns.title')}
         </h1>
         <p className="text-gray-700 text-sm mt-1">
-          Analizza la rete delle città storiche della Lega Anseatica, i loro porti e le loro produzioni specializzate.
+          {t('database_towns.desc')}
         </p>
       </div>
 
@@ -113,15 +113,15 @@ const TownsList: React.FC = () => {
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors"
-              aria-label="Colonne"
+              aria-label={t('database_goods.columns_btn')}
             >
               <SlidersHorizontal className="h-4 w-4" />
-              <span>Colonne</span>
+              <span>{t('database_goods.columns_btn')}</span>
             </button>
             
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-background rounded-lg border border-primary/30 shadow-2xl p-4 z-50 dropdown-solido">
-                <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">Visualizza Colonne</h4>
+                <h4 className="text-xs font-bold font-serif text-primary uppercase border-b border-primary/20 pb-2 mb-2">{t('database_goods.columns_title')}</h4>
                 <div className="space-y-2">
                   {ALL_COLUMNS.map(col => (
                     <label key={col.id} className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer select-none">
@@ -147,12 +147,12 @@ const TownsList: React.FC = () => {
           <table className="min-w-full divide-y divide-primary/15">
             <thead className="bg-primary/10">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">Città</th>
-                {visibleColumns.includes('type') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Tipo Porto</th>}
-                {visibleColumns.includes('produces') && <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">Specializzazioni</th>}
-                {visibleColumns.includes('specCount') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">N. Merci</th>}
-                {visibleColumns.includes('coordinates') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Coordinate</th>}
-                <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Dettagli</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">{t('database_towns.columns.town')}</th>
+                {visibleColumns.includes('type') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('database_towns.columns.type')}</th>}
+                {visibleColumns.includes('produces') && <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">{t('database_towns.columns.produces')}</th>}
+                {visibleColumns.includes('specCount') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('database_towns.columns.specCount')}</th>}
+                {visibleColumns.includes('coordinates') && <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('database_towns.columns.coordinates')}</th>}
+                <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('database_goods.col_details')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-primary/10">
@@ -175,7 +175,7 @@ const TownsList: React.FC = () => {
                       <div className="text-sm font-semibold text-neutral-dark">{town.name}</div>
                       {town.isRiverTown && (
                         <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
-                          Fluviale
+                          {t('database_towns.river')}
                         </span>
                       )}
                     </div>
@@ -186,10 +186,10 @@ const TownsList: React.FC = () => {
                       <span className={`inline-flex items-center text-xs font-semibold ${town.isRiverTown ? 'text-blue-800' : 'text-neutral-dark'}`}>
                         {town.isRiverTown ? (
                           <>
-                            <Waves className="h-3.5 w-3.5 mr-1 text-blue-600" /> Porto Fluviale
+                            <Waves className="h-3.5 w-3.5 mr-1 text-blue-600" /> {t('database_towns.river_port')}
                           </>
                         ) : (
-                          <>Porto Marittimo</>
+                          <>{t('database_towns.sea_port')}</>
                         )}
                       </span>
                     </td>
@@ -235,7 +235,7 @@ const TownsList: React.FC = () => {
 
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <span className="inline-flex items-center text-primary text-xs font-bold hover:text-primary/80 transition-colors uppercase tracking-wider">
-                      <span>Vedi</span>
+                      <span>{t('database_goods.detail')}</span>
                       <ArrowRight className="ml-1 h-3.5 w-3.5" />
                     </span>
                   </td>

@@ -47,9 +47,9 @@ const TownDetail: React.FC = () => {
   if (!town) {
     return (
       <div className="text-center py-12 text-neutral-dark">
-        <h2 className="text-2xl font-bold text-primary font-serif">Città non trovata</h2>
+        <h2 className="text-2xl font-bold text-primary font-serif">{t('database_towns.not_found')}</h2>
         <Link to="/database/towns" className="inline-flex items-center text-primary mt-4 hover:underline">
-          <ArrowLeft className="h-4 w-4 mr-2" /> Torna al database città
+          <ArrowLeft className="h-4 w-4 mr-2" /> {t('database_towns.back_list')}
         </Link>
       </div>
     );
@@ -64,7 +64,7 @@ const TownDetail: React.FC = () => {
           className="inline-flex items-center space-x-2 px-4 py-2 bg-secondary text-neutral-dark font-bold rounded shadow border border-primary/20 hover:bg-secondary/90 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span>Torna alle città</span>
+          <span>{t('database_towns.back_list')}</span>
         </Link>
       </div>
 
@@ -78,11 +78,11 @@ const TownDetail: React.FC = () => {
             <div className="flex items-center space-x-4 text-xs text-gray-700 mt-1 font-semibold">
               <span className="flex items-center">
                 <MapPin className="h-3.5 w-3.5 text-primary mr-1" />
-                Coordinate: X={town.coordinate?.x || '-'}, Y={town.coordinate?.y || '-'}
+                {t('database_towns.columns.coordinates')}: X={town.coordinate?.x || '-'}, Y={town.coordinate?.y || '-'}
               </span>
               <span className={`flex items-center font-bold ${town.isRiverTown ? 'text-blue-800' : 'text-neutral-dark'}`}>
                 <Waves className="h-3.5 w-3.5 mr-1 text-blue-600" />
-                {town.isRiverTown ? 'Porto Fluviale (River)' : 'Porto Marittimo (Sea)'}
+                {town.isRiverTown ? `${t('database_towns.river_port')} (River)` : `${t('database_towns.sea_port')} (Sea)`}
               </span>
             </div>
           </div>
@@ -93,8 +93,12 @@ const TownDetail: React.FC = () => {
           <div className="bg-blue-50 border border-blue-200 rounded p-4 text-xs text-blue-900 flex items-start space-x-3">
             <AlertTriangle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold uppercase tracking-wider mb-0.5">Restrizione Fluviale</p>
-              <p>Questa città è raggiungibile solo risalendo fiumi poco profondi. Le navi di grandi dimensioni (Cog e Holk) non possono attraccare qui. Per la navigazione e il trasporto merci a {town.name} è necessario utilizzare esclusivamente navi fluviali come <strong>Snaikka</strong> o <strong>Crayer</strong>.</p>
+              <p className="font-bold uppercase tracking-wider mb-0.5">{t('routes.river_warning_title')}</p>
+              <p>
+                {currentLang === 'it'
+                  ? `Questa città è raggiungibile solo risalendo fiumi poco profondi. Le navi di grandi dimensioni (Cog e Holk) non possono attraccare qui. Per la navigazione e il trasporto merci a ${town.name} è necessario utilizzare esclusivamente navi fluviali come Snaikka o Crayer.`
+                  : `This city is reachable only by sailing shallow rivers. Large vessels (Cog and Holk) cannot dock here. For navigation and cargo transport to ${town.name}, you must exclusively use river vessels such as Snaikka or Crayer.`}
+              </p>
             </div>
           </div>
         )}
@@ -103,10 +107,10 @@ const TownDetail: React.FC = () => {
         <div className="space-y-3">
           <h4 className="text-sm text-primary font-bold uppercase tracking-wider flex items-center space-x-2">
             <CheckCircle2 className="h-4.5 w-4.5 text-success" />
-            <span>Specializzazioni della Città (Produzione Efficace)</span>
+            <span>{t('database_towns.produced_goods')}</span>
           </h4>
           <p className="text-gray-700 text-xs">
-            Le seguenti merci vengono prodotte localmente con la massima efficienza (100% della resa base) e non subiscono penalità. Clicca su una merce per vederne i dettagli.
+            {t('database_towns.specialty_desc')}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
             {town.produces.map((goodId) => {
@@ -128,7 +132,7 @@ const TownDetail: React.FC = () => {
                   />
                   <div>
                     <p className="text-sm font-semibold text-neutral-dark group-hover:text-primary transition-colors">{goodName}</p>
-                    <p className="text-[10px] text-success font-bold uppercase">Resa 100%</p>
+                    <p className="text-[10px] text-success font-bold uppercase">{t('database_businesses.optimal')}</p>
                   </div>
                 </Link>
               );
@@ -140,13 +144,15 @@ const TownDetail: React.FC = () => {
         <div className="space-y-3 border-t border-primary/10 pt-6">
           <h4 className="text-sm text-danger font-bold uppercase tracking-wider flex items-center space-x-2">
             <AlertTriangle className="h-4.5 w-4.5 text-danger" />
-            <span>Altre Merci (Produzione con Penalità del 25%)</span>
+            <span>{t('database_towns.other_goods')}</span>
           </h4>
           <p className="text-gray-700 text-xs">
-            Qualsiasi altra impresa edificata a {town.name} al di fuori di quelle specializzate subirà una penalità del 25% sul volume di produzione giornaliero a causa della scarsità di materie prime o di manodopera locale specializzata.
+            {t('database_towns.penalty_desc')}
           </p>
           <div className="bg-background border border-danger/10 rounded p-3 text-xs text-gray-700 leading-relaxed font-medium">
-            Esempio: Se costruisci un'impresa di un bene non specializzato in questa città, la fabbrica produrrà il 25% in meno al giorno, mantenendo intatti i consumi di materie prime e costi di gestione.
+            {currentLang === 'it' 
+              ? "Esempio: Se costruisci un'impresa di un bene non specializzato in questa città, la fabbrica produrrà il 25% in meno al giorno, mantenendo intatti i consumi di materie prime e costi di gestione."
+              : "Example: If you build a business for a non-specialized good in this town, the factory will produce 25% less per day, keeping raw material consumption and maintenance costs unchanged."}
           </div>
         </div>
       </div>

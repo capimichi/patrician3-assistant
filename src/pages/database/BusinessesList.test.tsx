@@ -68,9 +68,21 @@ const mockFetch = vi.fn().mockImplementation((url: string) => {
 });
 vi.stubGlobal('fetch', mockFetch);
 
+const translations: Record<string, string> = {
+  'database_goods.columns_btn': 'Colonne'
+};
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string, options?: any) => {
+      let val = translations[key] || key;
+      if (options && typeof options === 'object') {
+        Object.keys(options).forEach(k => {
+          val = val.replace(`{{${k}}}`, options[k]);
+        });
+      }
+      return val;
+    },
     i18n: { language: 'it', changeLanguage: async () => {} }
   })
 }));

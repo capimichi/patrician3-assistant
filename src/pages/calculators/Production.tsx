@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { Town } from '../../types';
 import { Factory, Plus, Trash2, Coins, TrendingUp, Info } from 'lucide-react';
+import { getGoodImagePath } from '../../utils/goodImage';
+import { GameIcon } from '../../components/GameIcon';
 
 interface EmpireState {
   [townId: string]: {
@@ -199,13 +201,13 @@ const Production: React.FC = () => {
       {/* Intestazione */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-            Calcolatore di Produzione
-          </h1>
-          <p className="text-gray-700 text-sm mt-1">
-            Gestisci la rete commerciale anseatica simulando fabbriche, consumi e logistica delle risorse.
-          </p>
-        </div>
+        <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+          {t('production.title')}
+        </h1>
+        <p className="text-gray-700 text-sm mt-1">
+          {t('production.subtitle')}
+        </p>
+      </div>
 
         {/* Form Aggiunta Città */}
         {inactiveTowns.length > 0 && (
@@ -215,7 +217,7 @@ const Production: React.FC = () => {
               onChange={(e) => setSelectedTownToAdd(e.target.value)}
               className="bg-white text-neutral-dark text-sm py-1.5 px-3 rounded border border-primary/20 focus:border-primary outline-none"
             >
-              <option value="">-- Aggiungi Città --</option>
+              <option value="">{t('production.add_town_default')}</option>
               {inactiveTowns.map(t => (
                 <option key={t.id} value={t.id}>{t.name}</option>
               ))}
@@ -224,7 +226,7 @@ const Production: React.FC = () => {
               onClick={handleAddTown}
               disabled={!selectedTownToAdd}
               className="bg-secondary hover:bg-secondary/90 disabled:opacity-50 text-neutral-dark font-bold p-2 rounded transition-colors duration-150"
-              title="Aggiungi Città"
+              title={t('production.add_town_default')}
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -242,7 +244,7 @@ const Production: React.FC = () => {
               : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
-          Riepilogo Impero
+          {t('production.tab_global')}
         </button>
         <button
           onClick={() => setActiveTab('branches')}
@@ -252,7 +254,7 @@ const Production: React.FC = () => {
               : 'text-gray-600 hover:text-primary border-transparent'
           }`}
         >
-          Gestione Filiali ({Object.keys(empire).length})
+          {t('production.tab_branches')} ({Object.keys(empire).length})
         </button>
       </div>
 
@@ -266,9 +268,10 @@ const Production: React.FC = () => {
                 <Coins className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Costi di Manutenzione Giornalieri</p>
-                <p className="text-xl font-bold text-danger font-mono">
-                  -{totalMaintenance} <span className="text-xs text-primary font-serif">g</span>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">{t('production.maintenance_cost')}</p>
+                <p className="text-xl font-bold text-danger font-mono inline-flex items-center">
+                  -{totalMaintenance}
+                  <img src="/images/gold.png" className="h-4.5 w-4.5 object-contain ml-1 inline-block align-middle" alt="gold" />
                 </p>
               </div>
             </div>
@@ -277,9 +280,9 @@ const Production: React.FC = () => {
                 <TrendingUp className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Dipendenti Totali</p>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">{t('production.total_workers')}</p>
                 <p className="text-xl font-bold text-success font-mono">
-                  {totalWorkers} <span className="text-xs text-gray-700 font-sans font-normal">lavoratori</span>
+                  {totalWorkers} <span className="text-xs text-gray-700 font-sans font-normal">{t('production.workers')}</span>
                 </p>
               </div>
             </div>
@@ -288,9 +291,9 @@ const Production: React.FC = () => {
                 <Factory className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">Città Attive</p>
+                <p className="text-3xs text-gray-700 uppercase tracking-widest font-bold">{t('production.active_cities')}</p>
                 <p className="text-xl font-bold text-neutral-dark font-mono">
-                  {Object.keys(empire).length} <span className="text-xs text-gray-700 font-sans font-normal">filiali</span>
+                  {Object.keys(empire).length} <span className="text-xs text-gray-700 font-sans font-normal">{t('production.branches')}</span>
                 </p>
               </div>
             </div>
@@ -300,18 +303,36 @@ const Production: React.FC = () => {
           <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
             <div className="px-6 py-4 bg-background border-b border-primary/20">
               <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
-                Bilancio Globale Risorse
+                {t('production.global_balance')}
               </h2>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-primary/15">
                 <thead className="bg-primary/10">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">Risorsa</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Produzione Totale / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Consumo Totale / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Bilancio Netto / Giorno</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Stato</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">{t('production.resource')}</th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">
+                      <span className="inline-flex items-center justify-center gap-1">
+                        {t('production.prod_day')}
+                        <span className="mx-1">/</span>
+                        <GameIcon type="hourglass" className="h-4.5 w-4.5" />
+                      </span>
+                    </th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">
+                      <span className="inline-flex items-center justify-center gap-1">
+                        {t('production.cons_day')}
+                        <span className="mx-1">/</span>
+                        <GameIcon type="hourglass" className="h-4.5 w-4.5" />
+                      </span>
+                    </th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">
+                      <span className="inline-flex items-center justify-center gap-1">
+                        {t('production.net_day')}
+                        <span className="mx-1">/</span>
+                        <GameIcon type="hourglass" className="h-4.5 w-4.5" />
+                      </span>
+                    </th>
+                    <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('production.status')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-primary/10">
@@ -321,8 +342,9 @@ const Production: React.FC = () => {
                     return (
                       <tr key={good.id} className="hover:bg-primary/5 bg-background transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Link to={`/database/goods/${good.id}`} className="text-sm font-semibold text-neutral-dark hover:text-primary transition-colors">
-                            📦 {good.name}
+                          <Link to={`/database/goods/${good.id}`} className="inline-flex items-center text-sm font-semibold text-neutral-dark hover:text-primary transition-colors gap-2">
+                            <img src={getGoodImagePath(good.id)} className="h-5 w-5 object-contain" alt="" />
+                            <span>{good.name}</span>
                           </Link>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-success">
@@ -349,7 +371,7 @@ const Production: React.FC = () => {
                   {Object.values(globalBalances).every(b => b.produced === 0 && b.consumed === 0) && (
                     <tr>
                       <td colSpan={5} className="px-6 py-12 text-center text-gray-600 text-sm italic">
-                        Nessuna impresa costruita nell'impero commerciale. Vai in "Gestione Filiali" per edificarne alcune.
+                        {t('production.empty_empire')}
                       </td>
                     </tr>
                   )}
@@ -365,7 +387,7 @@ const Production: React.FC = () => {
         <div className="space-y-6">
           {Object.keys(empire).length === 0 ? (
             <div className="bg-white border border-primary/20 rounded-lg p-12 text-center text-gray-700 italic">
-              Nessuna città aggiunta al tuo impero. Usa il menu in alto a destra per iniziare.
+              {t('production.empty_towns')}
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6">
@@ -386,8 +408,17 @@ const Production: React.FC = () => {
                             {townObj.name}
                           </h3>
                         </Link>
-                        <p className="text-3xs text-gray-700 font-semibold uppercase tracking-widest mt-0.5">
-                          {townObj.isRiverTown ? 'Fluviale' : 'Marittimo'} • Costo: -{townReport.maintenance}g/giorno • Lavoratori: {townReport.workers}
+                        <p className="text-3xs text-gray-700 font-semibold uppercase tracking-widest mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <span>{townObj.isRiverTown ? t('production.river') : t('production.sea')}</span>
+                          <span>•</span>
+                          <span className="inline-flex items-center">
+                            {t('database_businesses.columns.maintenance')}: -{townReport.maintenance}
+                            <img src="/images/gold.png" className="h-3 w-3 object-contain ml-0.5 inline-block align-middle" alt="gold" />
+                            <span className="mx-0.5">/</span>
+                            <GameIcon type="hourglass" className="h-3 w-3" />
+                          </span>
+                          <span>•</span>
+                          <span>{t('database_businesses.columns.workers')}: {townReport.workers}</span>
                         </p>
                       </div>
                       <button
@@ -403,7 +434,7 @@ const Production: React.FC = () => {
                     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-4">
                         <h4 className="text-xs font-bold text-primary uppercase tracking-wider border-b border-primary/10 pb-1">
-                          Laboratori e Fabbriche
+                          {t('database_businesses.title')}
                         </h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {businesses.map((business) => {
@@ -424,7 +455,7 @@ const Production: React.FC = () => {
                                     <span className={`text-[9px] font-bold uppercase tracking-wider block mt-1 ${
                                       isSpecialty ? 'text-success' : 'text-amber-850'
                                     }`}>
-                                      {isSpecialty ? 'Ottimale' : 'Penalità -25%'}
+                                      {isSpecialty ? t('production.optimal') : t('production.penalty')}
                                     </span>
                                   </div>
                                   {count > 0 && (
@@ -459,7 +490,7 @@ const Production: React.FC = () => {
                       {/* Bilancio Locale Città */}
                       <div className="space-y-4">
                         <h4 className="text-xs font-bold text-primary uppercase tracking-wider border-b border-primary/10 pb-1">
-                          Bilancio Locale delle Risorse
+                          {t('production.local_balance')}
                         </h4>
                         <div className="bg-background rounded border border-primary/15 p-4 h-[350px] overflow-y-auto space-y-2">
                           {Object.keys(townReport.balances).map((goodId) => {
@@ -468,13 +499,15 @@ const Production: React.FC = () => {
                             const goodObj = goods.find(g => g.id === goodId);
                             return (
                               <div key={goodId} className="flex justify-between items-center bg-card px-3 py-2 rounded border border-primary/10">
-                                <span className="text-xs font-semibold text-neutral-dark">
-                                  📦 {goodObj ? goodObj.name : goodId}
+                                <span className="text-xs font-semibold text-neutral-dark inline-flex items-center gap-1.5">
+                                  <img src={getGoodImagePath(goodId)} className="h-4.5 w-4.5 object-contain" alt="" />
+                                  {goodObj ? goodObj.name : goodId}
                                 </span>
-                                <span className={`text-sm font-bold font-mono ${
+                                <span className={`text-sm font-bold font-mono inline-flex items-center ${
                                   val > 0 ? 'text-success' : 'text-danger'
                                 }`}>
-                                  {val > 0 ? '+' : ''}{val.toFixed(2)}/g
+                                  {val > 0 ? '+' : ''}{val.toFixed(2)}/
+                                  <GameIcon type="hourglass" className="h-3.5 w-3.5 ml-0.5" />
                                 </span>
                               </div>
                             );
@@ -482,7 +515,7 @@ const Production: React.FC = () => {
                           {Object.values(townReport.balances).every(v => v === 0) && (
                             <div className="flex flex-col items-center justify-center h-full text-center text-gray-600 text-xs italic">
                               <Info className="h-8 w-8 text-primary mb-2" />
-                              Nessuna risorsa movimentata. Aggiungi laboratori per simulare la logistica locale.
+                              {t('production.empty_local')}
                             </div>
                           )}
                         </div>

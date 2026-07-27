@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { LocalizedShipType } from '../../services/ShipService';
-import { Anchor, ShieldAlert, ShieldCheck, Coins, Users, Compass } from 'lucide-react';
+import { Anchor, ShieldAlert, ShieldCheck, Users, Compass } from 'lucide-react';
+import { GameIcon } from '../../components/GameIcon';
 
 interface ConvoyFleet {
   [shipId: string]: {
@@ -156,10 +157,10 @@ const Convoy: React.FC = () => {
       {/* Intestazione */}
       <div>
         <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-          Gestore Convogli Navali
+          {t('convoy.title')}
         </h1>
         <p className="text-gray-700 text-sm mt-1">
-          Assembla la tua flotta commerciale e calcola lo spazio stiva effettivo in base all'equipaggiamento bellico.
+          {t('convoy.desc')}
         </p>
       </div>
 
@@ -169,7 +170,7 @@ const Convoy: React.FC = () => {
           <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
             <h2 className="text-lg font-bold font-serif text-primary border-b border-primary/15 pb-2 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Anchor className="h-5 w-5 text-primary" />
-              <span>Navi del Convoglio</span>
+              <span>{t('convoy.ships')}</span>
             </h2>
 
             <div className="space-y-6">
@@ -187,11 +188,11 @@ const Convoy: React.FC = () => {
                         <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${
                           ship.isRiverFriendly ? 'bg-blue-100 text-blue-800 border-blue-200' : 'bg-orange-100 text-orange-800 border-orange-200'
                         }`}>
-                          {ship.isRiverFriendly ? 'Fluviale' : 'D\'alto Mare'}
+                          {ship.isRiverFriendly ? t('convoy.river_friendly') : t('convoy.seagoing')}
                         </span>
                       </div>
                       <p className="text-2xs text-gray-700 font-medium">
-                        Stiva Base: {ship.baseCapacity} • Marinai: {ship.minSailors}-{ship.maxSailors} • Armi Max: {ship.maxWeapons}
+                        {t('convoy.ship_stats', { baseCapacity: ship.baseCapacity, min: ship.minSailors, max: ship.maxSailors, maxWeapons: ship.maxWeapons })}
                       </p>
                     </div>
 
@@ -225,7 +226,7 @@ const Convoy: React.FC = () => {
                                 : 'text-gray-600 hover:text-primary'
                             }`}
                           >
-                            Nessuno
+                            {t('convoy.arm_none')}
                           </button>
                           <button
                             onClick={() => handleUpdateArmType(ship.id, 'partial')}
@@ -235,7 +236,7 @@ const Convoy: React.FC = () => {
                                 : 'text-gray-600 hover:text-primary'
                             }`}
                           >
-                            Medio
+                            {t('convoy.arm_partial')}
                           </button>
                           <button
                             onClick={() => handleUpdateArmType(ship.id, 'max')}
@@ -245,7 +246,7 @@ const Convoy: React.FC = () => {
                                 : 'text-gray-600 hover:text-primary'
                             }`}
                           >
-                            Massimo
+                            {t('convoy.arm_max')}
                           </button>
                         </div>
                       )}
@@ -262,23 +263,23 @@ const Convoy: React.FC = () => {
           <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6 space-y-6">
             <h2 className="text-lg font-bold font-serif text-primary border-b border-primary/15 pb-2 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
               <Compass className="h-5 w-5 text-primary" />
-              <span>Statistiche Flotta</span>
+              <span>{t('convoy.convoy_stats')}</span>
             </h2>
 
             {shipCount > 0 ? (
               <div className="space-y-5">
                 {/* Status Canali Fluviali */}
                 <div className="flex justify-between items-center border-b border-primary/10 pb-3">
-                  <span className="text-xs font-bold text-gray-700 uppercase tracking-wider">Accesso Fiumi</span>
+                  <span className="text-xs font-bold text-gray-700 uppercase tracking-wider">{t('convoy.river_suitability')}</span>
                   {isConvoyRiverFriendly ? (
                     <span className="bg-green-100 text-green-800 text-2xs font-bold uppercase px-2.5 py-1 rounded border border-green-200 flex items-center space-x-1">
                       <ShieldCheck className="h-3 w-3" />
-                      <span>Ottimale</span>
+                      <span>{t('convoy.yes')}</span>
                     </span>
                   ) : (
                     <span className="bg-red-100 text-red-800 text-2xs font-bold uppercase px-2.5 py-1 rounded border border-red-200 flex items-center space-x-1">
                       <ShieldAlert className="h-3 w-3" />
-                      <span>Restrizione</span>
+                      <span>{t('convoy.no')}</span>
                     </span>
                   )}
                 </div>
@@ -286,8 +287,11 @@ const Convoy: React.FC = () => {
                 {/* Stiva Lorda vs Netta */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    <span>Capacità di Stiva</span>
-                    <span className="font-mono text-neutral-dark">{totalNetCapacity} / {totalGrossCapacity} barili</span>
+                    <span>{t('convoy.net_cargo')}</span>
+                    <span className="font-mono text-neutral-dark inline-flex items-center gap-1 font-bold">
+                      {totalNetCapacity} / {totalGrossCapacity}
+                      <GameIcon type="barrel" className="h-4.5 w-4.5" />
+                    </span>
                   </div>
                   <div className="w-full bg-background rounded-full h-2 overflow-hidden border border-primary/20">
                     <div
@@ -296,21 +300,23 @@ const Convoy: React.FC = () => {
                     ></div>
                   </div>
                   <p className="text-[10px] text-gray-600 italic">
-                    La stiva netta considera una riduzione di 10 barili per ogni cannone imbarcato.
+                    {currentLang === 'it'
+                      ? "La stiva netta considera una riduzione di 10 barili per ogni cannone imbarcato."
+                      : "Net cargo space accounts for a 10-barrel reduction for each installed weapon."}
                   </p>
                 </div>
 
                 {/* Equipaggio e Cannoni */}
                 <div className="grid grid-cols-2 gap-4 border-t border-b border-primary/10 py-4">
                   <div>
-                    <span className="text-3xs text-gray-700 font-bold uppercase tracking-widest block">Equipaggio (Min-Max)</span>
+                    <span className="text-3xs text-gray-700 font-bold uppercase tracking-widest block">{t('convoy.sailors')}</span>
                     <span className="text-lg font-bold font-mono text-neutral-dark flex items-center mt-1">
                       <Users className="h-4 w-4 mr-1.5 text-primary" />
                       {totalMinSailors}-{totalMaxSailors}
                     </span>
                   </div>
                   <div>
-                    <span className="text-3xs text-gray-700 font-bold uppercase tracking-widest block">Cannoni Imbarcati</span>
+                    <span className="text-3xs text-gray-700 font-bold uppercase tracking-widest block">{t('convoy.installed_weapons')}</span>
                     <span className="text-lg font-bold font-mono text-neutral-dark flex items-center mt-1">
                       ⚔️ {totalWeapons}
                     </span>
@@ -318,20 +324,24 @@ const Convoy: React.FC = () => {
                 </div>
 
                 {/* Spesa Manutenzione */}
-                <div className="flex justify-between items-center bg-background p-3 rounded border border-primary/15">
+                 <div className="flex justify-between items-center bg-background p-3 rounded border border-primary/15">
                   <div>
-                    <span className="text-2xs text-gray-750 font-bold uppercase tracking-widest block">Spesa Giornaliera</span>
-                    <span className="text-3xs text-gray-600 block mt-0.5">(Manutenzione + Salari)</span>
+                    <span className="text-2xs text-gray-750 font-bold uppercase tracking-widest block">{t('convoy.daily_expense')}</span>
+                    <span className="text-3xs text-gray-650 block mt-0.5">
+                      {currentLang === 'it' ? "(Manutenzione + Salari)" : "(Maintenance + Salaries)"}
+                    </span>
                   </div>
-                  <span className="text-xl font-bold font-mono text-danger flex items-center">
-                    <Coins className="h-4.5 w-4.5 mr-1.5 text-primary" />
-                    -{totalDailyCost}g
+                  <span className="text-xl font-bold font-mono text-danger flex items-center gap-1">
+                    -{totalDailyCost}
+                    <img src="/images/gold.png" className="h-4.5 w-4.5 object-contain" alt="gold" />
+                    <span className="mx-0.5">/</span>
+                    <GameIcon type="hourglass" className="h-4.5 w-4.5" />
                   </span>
                 </div>
               </div>
             ) : (
               <div className="text-center py-12 text-gray-700 text-xs italic">
-                Nessuna nave nel convoglio commerciale. Usa i controlli a sinistra per aggiungere navi.
+                {t('convoy.empty_convoy')}
               </div>
             )}
           </div>
@@ -341,8 +351,12 @@ const Convoy: React.FC = () => {
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-xs text-red-800 flex items-start space-x-3 shadow-lg">
               <ShieldAlert className="h-5 w-5 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="font-bold uppercase tracking-wider mb-0.5">Attenzione Fiumi</p>
-                <p>Questo convoglio contiene navi non fluviali (Kogge o Holk) e <strong>non potrà risalire i fiumi</strong> per attraccare in città come <strong>Colonia, Torun, Ladoga o Novgorod</strong>. Dovrai dividere la flotta o utilizzare solo Snaikka e Crayer per quelle destinazioni.</p>
+                <p className="font-bold uppercase tracking-wider mb-0.5">{t('routes.river_warning_title')}</p>
+                <p>
+                  {currentLang === 'it'
+                    ? "Questo convoglio contiene navi non fluviali (Kogge o Holk) e non potrà risalire i fiumi per attraccare in città come Colonia, Torun, Ladoga o Novgorod. Dovrai dividere la flotta o utilizzare solo Snaikka e Crayer per quelle destinazioni."
+                    : "This convoy contains non-river vessels (Cog or Holk) and will not be able to sail up rivers to dock in cities like Cologne, Torun, Ladoga, or Novgorod. You will have to split the fleet or use only Snaikka and Crayer for those destinations."}
+                </p>
               </div>
             </div>
           )}

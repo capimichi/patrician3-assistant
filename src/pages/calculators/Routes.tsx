@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { Town } from '../../types';
 import { ArrowRightLeft, ShieldAlert } from 'lucide-react';
+import { getGoodImagePath } from '../../utils/goodImage';
+import { GameIcon } from '../../components/GameIcon';
 
 interface TradeRecommendation {
   goodId: string;
@@ -127,10 +129,10 @@ const Routes: React.FC = () => {
       {/* Intestazione */}
       <div>
         <h1 className="text-3xl font-extrabold text-primary tracking-wide uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
-          Ottimizzatore di Rotte Commerciali
+          {t('routes.title')}
         </h1>
         <p className="text-gray-700 text-sm mt-1">
-          Seleziona due città commerciali per identificare istantaneamente le merci con il maggior potenziale di profitto.
+          {t('routes.desc')}
         </p>
       </div>
 
@@ -139,7 +141,7 @@ const Routes: React.FC = () => {
         <div className="flex items-center space-x-4 flex-grow">
           {/* Origine */}
           <div className="flex-1">
-            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Città di Partenza (Origine)</label>
+            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">{t('routes.origin')}</label>
             <select
               value={originId}
               onChange={(e) => setOriginId(e.target.value)}
@@ -157,7 +159,7 @@ const Routes: React.FC = () => {
 
           {/* Destinazione */}
           <div className="flex-1">
-            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Città di Arrivo (Destinazione)</label>
+            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">{t('routes.destination')}</label>
             <select
               value={destId}
               onChange={(e) => setDestId(e.target.value)}
@@ -172,7 +174,10 @@ const Routes: React.FC = () => {
 
         {/* Spazio Stiva Simulato */}
         <div className="w-full md:w-48">
-          <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Stiva Simulata (Barili)</label>
+          <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+            <span>{t('routes.cargo_space')}</span>
+            <GameIcon type="load" className="h-3.5 w-3.5" />
+          </label>
           <input
             type="number"
             value={cargoSize}
@@ -189,8 +194,8 @@ const Routes: React.FC = () => {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-900 flex items-start space-x-3">
           <ShieldAlert className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
           <div>
-            <p className="font-bold uppercase tracking-wider mb-0.5">Avviso Navigazione Fluviale</p>
-            <p>Una delle due città selezionate è situata nell'entroterra fluviale. Ricordati che non potrai percorrere questa rotta con un convoglio contenente navi Cog o Holk. Dovrai impiegare esclusivamente Snaikka o Crayer.</p>
+            <p className="font-bold uppercase tracking-wider mb-0.5">{t('routes.river_warning_title')}</p>
+            <p>{t('routes.river_warning_desc')}</p>
           </div>
         </div>
       )}
@@ -199,10 +204,10 @@ const Routes: React.FC = () => {
       <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
         <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center">
           <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
-            Merci Consigliate per il Viaggio (Partenza da <Link to={`/database/towns/${originTown?.id}`} className="hover:underline text-primary">{originTown?.name}</Link>)
+            {t('routes.rec_title', { town: originTown?.name })}
           </h2>
           <span className="text-xs text-primary font-bold uppercase tracking-wider">
-            Margini di Profitto
+            {t('routes.profit_margins')}
           </span>
         </div>
 
@@ -211,13 +216,23 @@ const Routes: React.FC = () => {
             <table className="min-w-full divide-y divide-primary/15">
               <thead className="bg-primary/10">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">Merce</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Prezzo Acquisto Consigliato</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Prezzo Vendita Consigliato</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Acquisto Effettivo (A)</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Vendita Effettiva (B)</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Margine / Barile</th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">Profitto Stimato ({cargoSize} Barili)</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-primary uppercase tracking-wider">{t('routes.good')}</th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('routes.recommended_buy')}</th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('routes.recommended_sell')}</th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('routes.actual_buy')}</th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">{t('routes.actual_sell')}</th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">
+                    <span className="inline-flex items-center justify-center gap-0.5">
+                      {t('routes.margin_barrel')}
+                      <span className="mx-0.5">/</span>
+                      <GameIcon type="barrel" className="h-4.5 w-4.5" />
+                    </span>
+                  </th>
+                  <th className="px-6 py-3 text-center text-xs font-semibold text-primary uppercase tracking-wider">
+                    <span className="inline-flex items-center justify-center gap-1">
+                      {t('routes.estimated_profit', { cargoSize })}
+                    </span>
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-primary/10 bg-background">
@@ -229,22 +244,28 @@ const Routes: React.FC = () => {
                     <tr key={rec.goodId} className="hover:bg-primary/5 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm">📦</span>
+                          <img src={getGoodImagePath(rec.goodId)} className="h-6 w-6 object-contain border border-primary/10 rounded bg-white p-0.5" alt="" />
                           <div>
                             <Link to={`/database/goods/${rec.goodId}`} className="text-sm font-semibold text-neutral-dark block hover:text-primary transition-colors">
                               {rec.name}
                             </Link>
                             {rec.isHighPriority && (
-                              <span className="text-[9px] font-bold text-success uppercase tracking-wider">Largo Consumo</span>
+                              <span className="text-[9px] font-bold text-success uppercase tracking-wider">{t('routes.mass_consumption')}</span>
                             )}
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center text-xs text-gray-700 font-mono">
-                        {rec.buyRange[0]}-{rec.buyRange[1]} g
+                        <span className="inline-flex items-center gap-0.5">
+                          {rec.buyRange[0]}-{rec.buyRange[1]}
+                          <img src="/images/gold.png" className="h-3.5 w-3.5 object-contain inline-block align-middle" alt="gold" />
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center text-xs text-gray-700 font-mono">
-                        {rec.sellRange[0]}-{rec.sellRange[1]} g
+                        <span className="inline-flex items-center gap-0.5">
+                          {rec.sellRange[0]}-{rec.sellRange[1]}
+                          <img src="/images/gold.png" className="h-3.5 w-3.5 object-contain inline-block align-middle" alt="gold" />
+                        </span>
                       </td>
                       {/* Input Prezzo Acquisto Reale */}
                       <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -270,13 +291,19 @@ const Routes: React.FC = () => {
                       <td className={`px-6 py-4 whitespace-nowrap text-center text-sm font-mono font-bold ${
                         margin > 0 ? 'text-success' : margin < 0 ? 'text-danger' : 'text-gray-600'
                       }`}>
-                        {margin > 0 ? '+' : ''}{margin} g
+                        <span className="inline-flex items-center gap-0.5">
+                          {margin > 0 ? '+' : ''}{margin}
+                          <img src="/images/gold.png" className="h-3.5 w-3.5 object-contain inline-block align-middle" alt="gold" />
+                        </span>
                       </td>
                       {/* Profitto complessivo sulla stiva */}
                       <td className={`px-6 py-4 whitespace-nowrap text-center text-sm font-mono font-bold ${
                         totalProfit > 0 ? 'text-success' : totalProfit < 0 ? 'text-danger' : 'text-gray-600'
                       }`}>
-                        {totalProfit > 0 ? '+' : ''}{totalProfit.toLocaleString()} <span className="text-primary font-normal text-xs font-serif">g</span>
+                        <span className="inline-flex items-center gap-0.5">
+                          {totalProfit > 0 ? '+' : ''}{totalProfit.toLocaleString()}
+                          <img src="/images/gold.png" className="h-4 w-4 object-contain inline-block align-middle" alt="gold" />
+                        </span>
                       </td>
                     </tr>
                   );
@@ -286,7 +313,7 @@ const Routes: React.FC = () => {
           </div>
         ) : (
           <div className="px-6 py-12 text-center text-gray-700 text-sm italic">
-            Nessuna merce consigliata trovata. Questa coppia di città ha produzioni simili o non ci sono specialità compatibili per la partenza da {originTown?.name}. Prova a selezionare un'altra rotta o invertire l'ordine.
+            {t('routes.no_profitable_goods')}
           </div>
         )}
       </div>
