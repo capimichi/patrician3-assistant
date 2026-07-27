@@ -1,142 +1,394 @@
 [
   {
-    "id": "lubeck",
-    "name": "Lubecca (Lübeck)",
-    "isRiverTown": false,
-    "produces": ["beer", "grain", "timber", "iron_goods", "bricks", "salt"],
-    "coordinate": { "x": 300, "y": 420 }
-  },
-  {
-    "id": "hamburg",
-    "name": "Amburgo (Hamburg)",
-    "isRiverTown": false,
-    "produces": ["beer", "grain", "timber", "cloth", "bricks", "salt"],
-    "coordinate": { "x": 220, "y": 430 }
-  },
-  {
-    "id": "bremen",
-    "name": "Brema (Bremen)",
-    "isRiverTown": false,
-    "produces": ["beer", "grain", "timber", "bricks", "stone", "wool"],
-    "coordinate": { "x": 160, "y": 450 }
-  },
-  {
-    "id": "cologne",
-    "name": "Colonia (Cologne)",
-    "isRiverTown": true,
-    "produces": ["wine", "beer", "timber", "cloth", "leather"],
-    "coordinate": { "x": 80, "y": 550 }
-  },
-  {
-    "id": "danzig",
-    "name": "Danzica (Danzig)",
-    "isRiverTown": false,
-    "produces": ["grain", "timber", "beer", "salt", "meat", "leather"],
-    "coordinate": { "x": 580, "y": 450 }
-  },
-  {
-    "id": "stettin",
-    "name": "Stettino (Stettin)",
-    "isRiverTown": false,
-    "produces": ["grain", "timber", "beer", "meat", "pottery", "wool"],
-    "coordinate": { "x": 480, "y": 460 }
-  },
-  {
-    "id": "rostock",
-    "name": "Rostock",
-    "isRiverTown": false,
-    "produces": ["beer", "grain", "timber", "salt", "hemp", "pitch"],
-    "coordinate": { "x": 380, "y": 410 }
-  },
-  {
-    "id": "riga",
-    "name": "Riga",
-    "isRiverTown": false,
-    "produces": ["hemp", "timber", "grain", "skins", "honey", "pitch"],
-    "coordinate": { "x": 780, "y": 320 }
-  },
-  {
-    "id": "reval",
-    "name": "Reval",
-    "isRiverTown": false,
-    "produces": ["hemp", "timber", "grain", "skins", "leather", "meat"],
-    "coordinate": { "x": 880, "y": 200 }
-  },
-  {
-    "id": "stockholm",
-    "name": "Stoccolma (Stockholm)",
-    "isRiverTown": false,
-    "produces": ["pig_iron", "timber", "grain", "skins", "iron_goods", "whale_oil"],
-    "coordinate": { "x": 620, "y": 280 }
-  },
-  {
-    "id": "visby",
-    "name": "Visby",
-    "isRiverTown": false,
-    "produces": ["wool", "timber", "grain", "salt", "meat", "honey"],
-    "coordinate": { "x": 640, "y": 360 }
-  },
-  {
-    "id": "thorn",
-    "name": "Torun (Thorn)",
-    "isRiverTown": true,
-    "produces": ["grain", "timber", "beer", "meat", "honey", "wool"],
-    "coordinate": { "x": 600, "y": 520 }
-  },
-  {
-    "id": "groningen",
-    "name": "Groningen",
-    "isRiverTown": false,
-    "produces": ["wine", "grain", "timber", "beer", "salt", "cloth"],
-    "coordinate": { "x": 100, "y": 460 }
-  },
-  {
-    "id": "ripen",
-    "name": "Ripen",
-    "isRiverTown": false,
-    "produces": ["wool", "timber", "grain", "beer", "meat", "pottery"],
-    "coordinate": { "x": 200, "y": 350 }
-  },
-  {
     "id": "aalborg",
     "name": "Aalborg",
     "isRiverTown": false,
-    "produces": ["fish", "grain", "timber", "meat", "whale_oil"],
-    "coordinate": { "x": 240, "y": 280 }
-  },
-  {
-    "id": "oslo",
-    "name": "Oslo",
-    "isRiverTown": false,
-    "produces": ["timber", "grain", "fish", "skins", "honey", "pitch"],
-    "coordinate": { "x": 300, "y": 180 }
+    "produces": [
+      "meat",
+      "leather",
+      "pig_iron",
+      "timber",
+      "whale_oil"
+    ],
+    "coordinate": {
+      "x": 240,
+      "y": 280
+    }
   },
   {
     "id": "bergen",
     "name": "Bergen",
     "isRiverTown": false,
-    "produces": ["fish", "timber", "grain", "whale_oil", "leather"],
-    "coordinate": { "x": 140, "y": 150 }
+    "produces": [
+      "iron_goods",
+      "meat",
+      "leather",
+      "pitch",
+      "whale_oil"
+    ],
+    "coordinate": {
+      "x": 140,
+      "y": 150
+    }
+  },
+  {
+    "id": "bremen",
+    "name": "Brema (Bremen)",
+    "isRiverTown": false,
+    "produces": [
+      "beer",
+      "bricks",
+      "cloth",
+      "iron_goods"
+    ],
+    "coordinate": {
+      "x": 160,
+      "y": 450
+    }
+  },
+  {
+    "id": "brugge",
+    "name": "Bruges (Brugge)",
+    "isRiverTown": false,
+    "produces": [
+      "hemp",
+      "pottery",
+      "salt",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 50,
+      "y": 500
+    }
+  },
+  {
+    "id": "cologne",
+    "name": "Colonia (Cologne)",
+    "isRiverTown": true,
+    "produces": [
+      "honey",
+      "pottery",
+      "wine"
+    ],
+    "coordinate": {
+      "x": 80,
+      "y": 550
+    }
+  },
+  {
+    "id": "danzig",
+    "name": "Danzica (Danzig)",
+    "isRiverTown": false,
+    "produces": [
+      "beer",
+      "grain",
+      "hemp",
+      "meat",
+      "leather",
+      "pitch"
+    ],
+    "coordinate": {
+      "x": 580,
+      "y": 450
+    }
+  },
+  {
+    "id": "edinburgh",
+    "name": "Edimburgo (Edinburgh)",
+    "isRiverTown": false,
+    "produces": [
+      "cloth",
+      "fish",
+      "iron_goods"
+    ],
+    "coordinate": {
+      "x": 10,
+      "y": 350
+    }
+  },
+  {
+    "id": "groningen",
+    "name": "Groningen",
+    "isRiverTown": false,
+    "produces": [
+      "bricks",
+      "grain",
+      "hemp",
+      "timber"
+    ],
+    "coordinate": {
+      "x": 100,
+      "y": 460
+    }
+  },
+  {
+    "id": "hamburg",
+    "name": "Amburgo (Hamburg)",
+    "isRiverTown": false,
+    "produces": [
+      "beer",
+      "fish",
+      "grain",
+      "hemp"
+    ],
+    "coordinate": {
+      "x": 220,
+      "y": 430
+    }
   },
   {
     "id": "ladoga",
     "name": "Ladoga",
     "isRiverTown": true,
-    "produces": ["skins", "timber", "grain", "hemp", "honey", "fish"],
-    "coordinate": { "x": 980, "y": 80 }
+    "produces": [
+      "fish",
+      "grain",
+      "hemp",
+      "pig_iron",
+      "skins"
+    ],
+    "coordinate": {
+      "x": 980,
+      "y": 80
+    }
   },
   {
-    "id": "pernau",
-    "name": "Pernau",
+    "id": "london",
+    "name": "Londra (London)",
     "isRiverTown": false,
-    "produces": ["grain", "timber", "beer", "hemp", "skins", "honey"],
-    "coordinate": { "x": 840, "y": 250 }
+    "produces": [
+      "beer",
+      "cloth",
+      "meat",
+      "leather",
+      "pig_iron",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 20,
+      "y": 480
+    }
+  },
+  {
+    "id": "lubeck",
+    "name": "Lubecca (Lübeck)",
+    "isRiverTown": false,
+    "produces": [
+      "bricks",
+      "fish",
+      "iron_goods",
+      "pitch"
+    ],
+    "coordinate": {
+      "x": 300,
+      "y": 420
+    }
+  },
+  {
+    "id": "malmo",
+    "name": "Malmö",
+    "isRiverTown": false,
+    "produces": [
+      "cloth",
+      "meat",
+      "leather",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 320,
+      "y": 340
+    }
   },
   {
     "id": "novgorod",
     "name": "Novgorod",
     "isRiverTown": true,
-    "produces": ["skins", "timber", "grain", "honey", "wool", "meat"],
-    "coordinate": { "x": 950, "y": 180 }
+    "produces": [
+      "beer",
+      "meat",
+      "leather",
+      "pitch",
+      "skins",
+      "timber"
+    ],
+    "coordinate": {
+      "x": 950,
+      "y": 180
+    }
+  },
+  {
+    "id": "oslo",
+    "name": "Oslo",
+    "isRiverTown": false,
+    "produces": [
+      "bricks",
+      "pig_iron",
+      "pitch",
+      "timber",
+      "whale_oil"
+    ],
+    "coordinate": {
+      "x": 300,
+      "y": 180
+    }
+  },
+  {
+    "id": "pernau",
+    "name": "Pernau",
+    "isRiverTown": false,
+    "produces": [
+      "grain",
+      "timber",
+      "beer",
+      "hemp",
+      "skins",
+      "honey"
+    ],
+    "coordinate": {
+      "x": 840,
+      "y": 250
+    }
+  },
+  {
+    "id": "reval",
+    "name": "Reval",
+    "isRiverTown": false,
+    "produces": [
+      "grain",
+      "iron_goods",
+      "salt",
+      "skins"
+    ],
+    "coordinate": {
+      "x": 880,
+      "y": 200
+    }
+  },
+  {
+    "id": "riga",
+    "name": "Riga",
+    "isRiverTown": false,
+    "produces": [
+      "fish",
+      "honey",
+      "pitch",
+      "salt",
+      "skins"
+    ],
+    "coordinate": {
+      "x": 780,
+      "y": 320
+    }
+  },
+  {
+    "id": "ripen",
+    "name": "Ripen",
+    "isRiverTown": false,
+    "produces": [
+      "bricks",
+      "pig_iron",
+      "pottery",
+      "salt",
+      "whale_oil"
+    ],
+    "coordinate": {
+      "x": 200,
+      "y": 350
+    }
+  },
+  {
+    "id": "rostock",
+    "name": "Rostock",
+    "isRiverTown": false,
+    "produces": [
+      "grain",
+      "hemp",
+      "honey",
+      "pottery",
+      "salt"
+    ],
+    "coordinate": {
+      "x": 380,
+      "y": 410
+    }
+  },
+  {
+    "id": "scarborough",
+    "name": "Scarborough",
+    "isRiverTown": false,
+    "produces": [
+      "beer",
+      "cloth",
+      "iron_goods",
+      "timber",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 15,
+      "y": 410
+    }
+  },
+  {
+    "id": "stettin",
+    "name": "Stettino (Stettin)",
+    "isRiverTown": false,
+    "produces": [
+      "beer",
+      "fish",
+      "grain",
+      "hemp",
+      "salt"
+    ],
+    "coordinate": {
+      "x": 480,
+      "y": 460
+    }
+  },
+  {
+    "id": "stockholm",
+    "name": "Stoccolma (Stockholm)",
+    "isRiverTown": false,
+    "produces": [
+      "iron_goods",
+      "pig_iron",
+      "timber",
+      "whale_oil"
+    ],
+    "coordinate": {
+      "x": 620,
+      "y": 280
+    }
+  },
+  {
+    "id": "thorn",
+    "name": "Torun (Thorn)",
+    "isRiverTown": true,
+    "produces": [
+      "honey",
+      "meat",
+      "leather",
+      "pottery",
+      "timber",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 600,
+      "y": 520
+    }
+  },
+  {
+    "id": "visby",
+    "name": "Visby",
+    "isRiverTown": false,
+    "produces": [
+      "cloth",
+      "honey",
+      "pottery",
+      "wool"
+    ],
+    "coordinate": {
+      "x": 640,
+      "y": 360
+    }
   }
 ]
