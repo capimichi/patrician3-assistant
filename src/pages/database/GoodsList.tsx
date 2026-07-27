@@ -170,7 +170,7 @@ const GoodsList: React.FC = () => {
                 <tr
                   key={good.id}
                   onClick={() => navigate(`/database/goods/${good.id}`)}
-                  className="cursor-pointer transition-colors hover:bg-primary/5 bg-background border-l-4 border-transparent hover:border-secondary"
+                  className="cursor-pointer transition-all duration-150 hover:bg-primary/10 bg-background border-l-4 border-transparent hover:border-primary/40 hover:shadow-xs active:bg-primary/15"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center space-x-3">

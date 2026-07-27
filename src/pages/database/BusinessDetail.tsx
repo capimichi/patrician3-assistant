@@ -120,26 +120,6 @@ const BusinessDetail: React.FC = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="flex flex-col border-b border-primary/5 pb-2">
-                <span className="text-sm font-semibold text-gray-700 flex items-center mb-1.5">
-                  <Sparkles className="h-4 w-4 text-success mr-1.5" /> {t('database_businesses.production_yield')}
-                </span>
-                <div className="space-y-1 pl-5">
-                  {business.outputs.map((out: any) => {
-                    const gObj = goodsList.find(g => g.id === out.goodId);
-                    const gName = gObj ? gObj.name : out.goodId;
-                    return (
-                      <div key={out.goodId} className="flex justify-between items-center text-xs font-mono font-bold text-success">
-                        <span>{gName}:</span>
-                        <span className="inline-flex items-center">
-                          <GameIcon type="hourglass" className="h-3.5 w-3.5 mr-1" />
-                          +{out.amountPerDay} /{t('production.day')}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700 flex items-center">
                   <Coins className="h-4 w-4 text-primary mr-1.5" /> {t('database_businesses.maintenance_cost')}
@@ -167,6 +147,43 @@ const BusinessDetail: React.FC = () => {
 
         {/* Colonna Destra (Struttura, Costi e Geografia) */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Resa di Produzione (Output) */}
+          <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6">
+            <h3 className="text-lg font-bold font-serif text-primary border-b border-primary/20 pb-3 mb-4 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>
+              <Sparkles className="h-5 w-5 text-primary" />
+              <span>{t('database_businesses.production_yield')}</span>
+            </h3>
+
+            <div className="space-y-2">
+              {business.outputs.map((out: any) => {
+                const outGood = goodsList.find(g => g.id === out.goodId);
+                const outGoodName = outGood ? outGood.name : out.goodId;
+                return (
+                  <Link
+                    key={out.goodId}
+                    to={`/database/goods/${out.goodId}`}
+                    className="flex justify-between items-center bg-background px-3 py-2.5 rounded border border-primary/5 hover:border-primary/30 transition-colors group"
+                  >
+                    <span className="text-sm text-neutral-dark font-semibold flex items-center space-x-2">
+                      <img
+                        src={getGoodImagePath(out.goodId)}
+                        alt={outGoodName}
+                        className="h-6 w-6 object-contain border border-primary/10 rounded bg-white p-0.5"
+                      />
+                      <span className="group-hover:text-primary transition-colors">{outGoodName}</span>
+                    </span>
+                    <span className="text-sm font-bold text-success font-mono inline-flex items-center">
+                      <GameIcon type="barrel" className="h-3.5 w-3.5 mr-1" />
+                      +{out.amountPerDay} /
+                      <GameIcon type="hourglass" className="h-3.5 w-3.5 mx-1" />
+                      {t('production.day')}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Fabbisogno Materie Prime */}
           <div className="bg-white border border-primary/20 rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-bold font-serif text-primary border-b border-primary/20 pb-3 mb-4 flex items-center space-x-2" style={{ fontFamily: "'Cinzel', serif" }}>

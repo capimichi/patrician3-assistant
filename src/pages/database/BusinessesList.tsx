@@ -10,7 +10,7 @@ import { GoldAmount } from '../../components/GoldAmount';
 import { GameIcon } from '../../components/GameIcon';
 
 const ALL_COLUMNS = [
-  { id: 'product', labelIt: 'Bene Prodotto', labelEn: 'Produced Good' },
+  { id: 'product', labelIt: 'Prodotti in Uscita', labelEn: 'Produced Goods' },
   { id: 'production', labelIt: 'Produzione', labelEn: 'Production' },
   { id: 'maintenance', labelIt: 'Manutenzione', labelEn: 'Maintenance' },
   { id: 'inputs', labelIt: 'Materie Prime', labelEn: 'Raw Materials' },
@@ -174,7 +174,7 @@ const BusinessesList: React.FC = () => {
                   <tr
                     key={business.id}
                     onClick={() => navigate(`/database/businesses/${business.id}`)}
-                    className="cursor-pointer transition-colors hover:bg-primary/5 bg-background border-l-4 border-transparent hover:border-secondary"
+                    className="cursor-pointer transition-all duration-150 hover:bg-primary/10 bg-background border-l-4 border-transparent hover:border-primary/40 hover:shadow-xs active:bg-primary/15"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
@@ -260,8 +260,8 @@ const BusinessesList: React.FC = () => {
                             })}
                           </div>
                         ) : (
-                          <span className="text-[10px] bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded font-bold uppercase">
-                            {t('database_businesses.no_raw_needed')}
+                          <span className="text-gray-400 font-mono text-center block w-full select-none" title={t('database_businesses.no_raw_needed')}>
+                            —
                           </span>
                         )}
                       </td>

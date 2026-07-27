@@ -167,17 +167,12 @@ const TownsList: React.FC = () => {
                 <tr
                   key={town.id}
                   onClick={() => navigate(`/database/towns/${town.id}`)}
-                  className="cursor-pointer transition-colors hover:bg-primary/5 bg-background border-l-4 border-transparent hover:border-secondary"
+                  className="cursor-pointer transition-all duration-150 hover:bg-primary/10 bg-background border-l-4 border-transparent hover:border-primary/40 hover:shadow-xs active:bg-primary/15"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center space-x-3">
                       <Compass className="h-5 w-5 text-primary flex-shrink-0" />
                       <div className="text-sm font-semibold text-neutral-dark">{town.name}</div>
-                      {town.isRiverTown && (
-                        <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
-                          {t('database_towns.river')}
-                        </span>
-                      )}
                     </div>
                   </td>
                   
