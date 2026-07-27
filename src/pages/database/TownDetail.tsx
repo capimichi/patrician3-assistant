@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { ArrowLeft, MapPin, Waves, AlertTriangle, CheckCircle2 } from 'lucide-react';
@@ -10,7 +10,6 @@ const TownDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const { townService, goodService } = useServices();
-  const navigate = useNavigate();
 
   const [town, setTown] = useState<Town | null>(null);
   const [goods, setGoods] = useState<any[]>([]);
@@ -114,10 +113,10 @@ const TownDetail: React.FC = () => {
               const goodObj = goods.find(g => g.id === goodId);
               const goodName = goodObj ? goodObj.name : goodId;
               return (
-                <div
+                <Link
                   key={goodId}
-                  onClick={() => navigate(`/database/goods/${goodId}`)}
-                  className="cursor-pointer bg-background border border-success/20 hover:border-success/50 hover:bg-success/5 rounded p-3 flex items-center space-x-3 transition-colors group"
+                  to={`/database/goods/${goodId}`}
+                  className="bg-background border border-success/20 hover:border-success/50 hover:bg-success/5 rounded p-3 flex items-center space-x-3 transition-colors group"
                 >
                   <img
                     src={getGoodImagePath(goodId)}
@@ -131,7 +130,7 @@ const TownDetail: React.FC = () => {
                     <p className="text-sm font-semibold text-neutral-dark group-hover:text-primary transition-colors">{goodName}</p>
                     <p className="text-[10px] text-success font-bold uppercase">Resa 100%</p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

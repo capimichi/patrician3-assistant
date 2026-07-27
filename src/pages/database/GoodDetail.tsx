@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { getGoodImagePath } from '../../utils/goodImage';
 import { ArrowLeft, Sparkles, Hammer, Landmark } from 'lucide-react';
+import { TownLinkList } from '../../components/TownLinkList';
+import { GoldAmount } from '../../components/GoldAmount';
 
 const GoodDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const { goodService, businessService, townService } = useServices();
-  const navigate = useNavigate();
 
   const [good, setGood] = useState<any | null>(null);
   const [goodsList, setGoodsList] = useState<any[]>([]);
@@ -135,29 +136,33 @@ const GoodDetail: React.FC = () => {
             <div className="space-y-4">
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700">Prezzo Base di Riferimento</span>
-                <span className="font-mono font-bold text-neutral-dark">{good.basePrice} g</span>
+                <GoldAmount amount={good.basePrice} className="font-mono font-bold text-neutral-dark" />
               </div>
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700 flex items-center">
                   Acquisto Consigliato (Max)
                 </span>
-                <span className="font-mono font-bold text-success">
-                  {good.buyPriceRange[0] === good.buyPriceRange[1] 
-                    ? `${good.buyPriceRange[0]}` 
-                    : `${good.buyPriceRange[0]}-${good.buyPriceRange[1]}`} g
-                </span>
+                <GoldAmount
+                  amount={good.buyPriceRange[0] === good.buyPriceRange[1]
+                    ? `${good.buyPriceRange[0]}`
+                    : `${good.buyPriceRange[0]}-${good.buyPriceRange[1]}`}
+                  className="font-mono font-bold text-success"
+                />
               </div>
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700">Vendita Consigliata (Min)</span>
-                <span className="font-mono font-bold text-primary">
-                  {good.sellPriceRange[0]}-{good.sellPriceRange[1]} g
-                </span>
+                <GoldAmount
+                  amount={`${good.sellPriceRange[0]}-${good.sellPriceRange[1]}`}
+                  className="font-mono font-bold text-primary"
+                />
               </div>
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700">Prezzo Max per Soddisfazione</span>
-                <span className="font-mono font-bold text-neutral-dark">
-                  {good.maxSatisfactionPrice ? `${good.maxSatisfactionPrice} g` : '-'}
-                </span>
+                {good.maxSatisfactionPrice ? (
+                  <GoldAmount amount={good.maxSatisfactionPrice} className="font-mono font-bold text-neutral-dark" />
+                ) : (
+                  <span className="font-mono font-bold text-neutral-dark">-</span>
+                )}
               </div>
               <div className="flex justify-between">
                 <span className="text-sm font-semibold text-gray-700">Spazio in Stiva</span>
@@ -188,9 +193,11 @@ const GoodDetail: React.FC = () => {
             {business ? (
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
-                    {business.name}
-                  </h4>
+                  <Link to={`/database/businesses/${business.id}`} className="hover:underline">
+                    <h4 className="text-xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
+                      {business.name}
+                    </h4>
+                  </Link>
                   <p className="text-gray-700 text-xs">Laboratorio di produzione standard</p>
                 </div>
 
@@ -201,11 +208,9 @@ const GoodDetail: React.FC = () => {
                       +{business.baseProductionPerDay} <span className="text-xs font-normal font-sans">barili</span>
                     </p>
                   </div>
-                  <div className="bg-background border border-primary/10 p-3 rounded text-center">
+                  <div className="bg-background border border-primary/10 p-3 rounded text-center flex flex-col justify-center items-center">
                     <p className="text-2xs text-gray-600 uppercase tracking-widest font-bold">Manutenzione/Giorno</p>
-                    <p className="text-xl font-bold text-danger font-mono">
-                      {business.dailyMaintenance} <span className="text-xs font-normal text-primary font-serif">g</span>
-                    </p>
+                    <GoldAmount amount={business.dailyMaintenance} className="text-xl font-bold text-danger font-mono mt-1" />
                   </div>
                 </div>
 
@@ -217,10 +222,10 @@ const GoodDetail: React.FC = () => {
                       {business.inputs.map((input: any) => {
                         const inputGood = goodsList.find(g => g.id === input.goodId);
                         return (
-                          <div
+                          <Link
                             key={input.goodId}
-                            onClick={() => navigate(`/database/goods/${input.goodId}`)}
-                            className="flex justify-between items-center bg-background px-3 py-2 rounded border border-primary/5 hover:border-primary/30 transition-colors cursor-pointer group"
+                            to={`/database/goods/${input.goodId}`}
+                            className="flex justify-between items-center bg-background px-3 py-2 rounded border border-primary/5 hover:border-primary/30 transition-colors group"
                           >
                             <span className="text-sm text-neutral-dark font-semibold flex items-center space-x-2">
                               <img
@@ -230,8 +235,8 @@ const GoodDetail: React.FC = () => {
                               />
                               <span className="group-hover:text-primary transition-colors">{inputGood ? inputGood.name : input.goodId}</span>
                             </span>
-                            <span className="text-sm font-bold text-danger font-mono">-{input.amountPerDay}</span>
-                          </div>
+                            <span className="text-sm font-bold text-danger font-mono">- {input.amountPerDay}</span>
+                          </Link>
                         );
                       })}
                     </div>
@@ -247,17 +252,26 @@ const GoodDetail: React.FC = () => {
                 <div className="border-t border-primary/10 pt-4">
                   <h4 className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-3">Requisiti di Edificazione</h4>
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="bg-background p-2 rounded text-center border border-primary/10">
+                    <div className="bg-background p-2 rounded flex flex-col items-center justify-center border border-primary/10 text-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Oro</p>
-                      <p className="text-sm font-semibold text-primary font-mono">{business.constructionCost.gold}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src="/images/gold.png" alt="Oro" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-primary font-mono">{business.constructionCost.gold}</span>
+                      </div>
                     </div>
-                    <div className="bg-background p-2 rounded text-center border border-primary/10">
+                    <div className="bg-background p-2 rounded flex flex-col items-center justify-center border border-primary/10 text-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Mattoni</p>
-                      <p className="text-sm font-semibold text-neutral-dark font-mono">{business.constructionCost.bricks}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src={getGoodImagePath('bricks')} alt="Mattoni" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-neutral-dark font-mono">{business.constructionCost.bricks}</span>
+                      </div>
                     </div>
-                    <div className="bg-background p-2 rounded text-center border border-primary/10">
+                    <div className="bg-background p-2 rounded flex flex-col items-center justify-center border border-primary/10 text-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Legno</p>
-                      <p className="text-sm font-semibold text-neutral-dark font-mono">{business.constructionCost.timber}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src={getGoodImagePath('timber')} alt="Legno" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-neutral-dark font-mono">{business.constructionCost.timber}</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-3xs text-gray-600 mt-2 text-right italic font-medium">
@@ -282,38 +296,20 @@ const GoodDetail: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <h4 className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-2.5">Città Produttrici (Produzione Efficace)</h4>
-                {producingTowns.length > 0 ? (
-                  <ul className="space-y-1.5">
-                    {producingTowns.map(town => (
-                      <li key={town.id} className="text-sm font-semibold bg-background px-2.5 py-1.5 rounded border border-primary/5">
-                        <Link to="/database/towns" className="text-neutral-dark hover:text-primary transition-colors flex items-center justify-between">
-                          <span>{town.name}</span>
-                          {town.isRiverTown && <span className="text-3xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase">Fluviale</span>}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-gray-600 italic">Non prodotta in alcuna città dell'Hansa di default.</p>
-                )}
+                <TownLinkList
+                  towns={producingTowns}
+                  emptyMessage="Non prodotta in alcuna città dell'Hansa di default."
+                  variant="list"
+                />
               </div>
 
               <div>
                 <h4 className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-2.5">Città che Consumano (Uso Industriale)</h4>
-                {consumingTowns.length > 0 ? (
-                  <ul className="space-y-1.5">
-                    {consumingTowns.map(town => (
-                      <li key={town.id} className="text-sm font-semibold bg-background px-2.5 py-1.5 rounded border border-primary/5">
-                        <Link to="/database/towns" className="text-neutral-dark hover:text-primary transition-colors flex items-center justify-between">
-                          <span>{town.name}</span>
-                          {town.isRiverTown && <span className="text-3xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase">Fluviale</span>}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-gray-600 italic">Nessuna industria anseatica consuma questa merce.</p>
-                )}
+                <TownLinkList
+                  towns={consumingTowns}
+                  emptyMessage="Nessuna industria anseatica consuma questa merce."
+                  variant="list"
+                />
               </div>
             </div>
           </div>

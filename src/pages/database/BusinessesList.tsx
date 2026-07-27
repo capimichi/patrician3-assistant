@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
-import { SlidersHorizontal, ArrowRight, Coins } from 'lucide-react';
+import { SlidersHorizontal, ArrowRight } from 'lucide-react';
 import { getGoodImagePath } from '../../utils/goodImage';
 import { getBusinessImagePath } from '../../utils/businessImage';
 import { ListControls } from '../../components/ListControls';
+import { GoldAmount } from '../../components/GoldAmount';
 
 const ALL_COLUMNS = [
   { id: 'product', labelIt: 'Bene Prodotto', labelEn: 'Produced Good' },
@@ -226,8 +227,9 @@ const BusinessesList: React.FC = () => {
                     )}
 
                     {visibleColumns.includes('maintenance') && (
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-danger font-mono">
-                        {business.dailyMaintenance} g <span className="text-[10px] font-normal text-gray-500 font-sans">/g</span>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                        <GoldAmount amount={business.dailyMaintenance} className="font-semibold text-danger font-mono text-sm" />
+                        <span className="text-[10px] font-normal text-gray-500 font-sans ml-0.5">/g</span>
                       </td>
                     )}
 
@@ -268,11 +270,20 @@ const BusinessesList: React.FC = () => {
                     )}
 
                     {visibleColumns.includes('cost') && (
-                      <td className="px-6 py-4 whitespace-nowrap text-xs text-center font-mono text-gray-700">
-                        <span className="inline-flex flex-col text-left space-y-0.5 bg-background p-1.5 rounded border border-primary/5">
-                          <span className="flex items-center text-[10px]"><Coins className="h-3 w-3 text-primary mr-1" />{business.constructionCost.gold}g</span>
-                          <span className="flex items-center text-[10px]">🧱 {business.constructionCost.bricks}</span>
-                          <span className="flex items-center text-[10px]">🪵 {business.constructionCost.timber}</span>
+                      <td className="px-6 py-4 whitespace-nowrap text-xs text-center">
+                        <span className="inline-flex flex-col text-left space-y-1 bg-background p-1.5 rounded border border-primary/5">
+                          <span className="flex items-center text-[10px]">
+                            <img src="/images/gold.png" className="h-3 w-3 object-contain mr-1" alt="Oro" />
+                            {business.constructionCost.gold}
+                          </span>
+                          <span className="flex items-center text-[10px]">
+                            <img src={getGoodImagePath('bricks')} className="h-3 w-3 object-contain mr-1" alt="Mattoni" />
+                            {business.constructionCost.bricks}
+                          </span>
+                          <span className="flex items-center text-[10px]">
+                            <img src={getGoodImagePath('timber')} className="h-3 w-3 object-contain mr-1" alt="Legno" />
+                            {business.constructionCost.timber}
+                          </span>
                         </span>
                       </td>
                     )}

@@ -89,7 +89,7 @@ test('BusinessDetail loads and displays business details and producing towns suc
   expect(screen.getByText(/-0.5 \/giorno/i)).toBeDefined();
 
   // Verifica costi
-  expect(screen.getByText('12000g')).toBeDefined();
+  expect(screen.getByText('12000')).toBeDefined();
   expect(screen.getByText('40')).toBeDefined();
   expect(screen.getByText('20')).toBeDefined();
 

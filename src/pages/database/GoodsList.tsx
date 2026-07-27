@@ -5,6 +5,7 @@ import { useServices } from '../../servicesContext';
 import { getGoodImagePath } from '../../utils/goodImage';
 import { SlidersHorizontal, ArrowRight } from 'lucide-react';
 import { ListControls } from '../../components/ListControls';
+import { GoldAmount } from '../../components/GoldAmount';
 
 const ALL_COLUMNS = [
   { id: 'basePrice', labelIt: 'Prezzo Base', labelEn: 'Base Price' },
@@ -185,30 +186,36 @@ const GoodsList: React.FC = () => {
                   </td>
                   
                   {visibleColumns.includes('basePrice') && (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-mono text-neutral-dark">
-                      {good.basePrice} <span className="text-primary text-xs font-serif">g</span>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      <GoldAmount amount={good.basePrice} className="font-mono text-neutral-dark text-sm" />
                     </td>
                   )}
 
                   {visibleColumns.includes('buyPrice') && (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-success font-mono">
-                      {good.buyPriceRange[0] === good.buyPriceRange[1] 
-                        ? `${good.buyPriceRange[0]}` 
-                        : `${good.buyPriceRange[0]}-${good.buyPriceRange[1]}`}{' '}
-                      <span className="text-primary text-xs font-normal font-serif">g</span>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      <GoldAmount
+                        amount={good.buyPriceRange[0] === good.buyPriceRange[1] 
+                          ? `${good.buyPriceRange[0]}` 
+                          : `${good.buyPriceRange[0]}-${good.buyPriceRange[1]}`}
+                        className="font-mono font-semibold text-success text-sm"
+                      />
                     </td>
                   )}
 
                   {visibleColumns.includes('sellPrice') && (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-bold text-primary font-mono">
-                      {good.sellPriceRange[0]}-{good.sellPriceRange[1]}{' '}
-                      <span className="text-primary text-xs font-normal font-serif">g</span>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      <GoldAmount
+                        amount={`${good.sellPriceRange[0]}-${good.sellPriceRange[1]}`}
+                        className="font-mono font-bold text-primary text-sm"
+                      />
                     </td>
                   )}
 
                   {visibleColumns.includes('maxSatisfaction') && (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-mono text-gray-700">
-                      {good.maxSatisfactionPrice ? `${good.maxSatisfactionPrice} g` : '-'}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      {good.maxSatisfactionPrice ? (
+                        <GoldAmount amount={good.maxSatisfactionPrice} className="font-mono text-gray-700 text-sm" />
+                      ) : '-'}
                     </td>
                   )}
 

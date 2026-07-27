@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { LocalizedBuilding } from '../../services/BuildingService';
 import { Landmark, Coins, Hammer, Users } from 'lucide-react';
+import { GoldAmount } from '../../components/GoldAmount';
+import { getGoodImagePath } from '../../utils/goodImage';
 
 const Buildings: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -95,21 +97,27 @@ const Buildings: React.FC = () => {
                   <div className="grid grid-cols-3 gap-2 bg-background p-2.5 rounded border border-primary/10 text-center">
                     <div>
                       <p className="text-3xs text-gray-600 font-bold uppercase">Poveri</p>
-                      <p className="text-sm font-bold text-success font-mono">
-                        {building.weeklyRent.poor > 0 ? `+${building.weeklyRent.poor}g` : '-'}
-                      </p>
+                      <div className="text-sm font-bold text-success mt-1 flex justify-center">
+                        {building.weeklyRent.poor > 0 ? (
+                          <GoldAmount amount={`+${building.weeklyRent.poor}`} className="text-success" />
+                        ) : '-'}
+                      </div>
                     </div>
                     <div>
                       <p className="text-3xs text-gray-600 font-bold uppercase">Benestanti</p>
-                      <p className="text-sm font-bold text-success font-mono">
-                        {building.weeklyRent.wealthy > 0 ? `+${building.weeklyRent.wealthy}g` : '-'}
-                      </p>
+                      <div className="text-sm font-bold text-success mt-1 flex justify-center">
+                        {building.weeklyRent.wealthy > 0 ? (
+                          <GoldAmount amount={`+${building.weeklyRent.wealthy}`} className="text-success" />
+                        ) : '-'}
+                      </div>
                     </div>
                     <div>
                       <p className="text-3xs text-gray-600 font-bold uppercase">Ricchi</p>
-                      <p className="text-sm font-bold text-success font-mono">
-                        {building.weeklyRent.rich > 0 ? `+${building.weeklyRent.rich}g` : '-'}
-                      </p>
+                      <div className="text-sm font-bold text-success mt-1 flex justify-center">
+                        {building.weeklyRent.rich > 0 ? (
+                          <GoldAmount amount={`+${building.weeklyRent.rich}`} className="text-success" />
+                        ) : '-'}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -121,17 +129,26 @@ const Buildings: React.FC = () => {
                     <span>Requisiti di Costruzione</span>
                   </h3>
                   <div className="grid grid-cols-3 gap-2 bg-background p-2.5 rounded border border-primary/10 text-center">
-                    <div>
+                    <div className="flex flex-col items-center justify-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Oro</p>
-                      <p className="text-xs font-semibold text-primary font-mono">{building.constructionCost.gold}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src="/images/gold.png" alt="Oro" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-primary font-mono">{building.constructionCost.gold}</span>
+                      </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col items-center justify-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Mattoni</p>
-                      <p className="text-xs font-semibold text-neutral-dark font-mono">{building.constructionCost.bricks}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src={getGoodImagePath('bricks')} alt="Mattoni" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-neutral-dark font-mono">{building.constructionCost.bricks}</span>
+                      </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col items-center justify-center">
                       <p className="text-3xs text-gray-600 font-bold uppercase">Legno</p>
-                      <p className="text-xs font-semibold text-neutral-dark font-mono">{building.constructionCost.timber}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <img src={getGoodImagePath('timber')} alt="Legno" className="h-4 w-4 object-contain" />
+                        <span className="text-xs font-semibold text-neutral-dark font-mono">{building.constructionCost.timber}</span>
+                      </div>
                     </div>
                   </div>
                 </div>

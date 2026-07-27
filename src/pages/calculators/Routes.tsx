@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { Town } from '../../types';
@@ -198,7 +199,7 @@ const Routes: React.FC = () => {
       <div className="bg-white border border-primary/20 rounded-lg shadow-lg overflow-hidden">
         <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center">
           <h2 className="text-lg font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
-            Merci Consigliate per il Viaggio (Partenza da {originTown?.name})
+            Merci Consigliate per il Viaggio (Partenza da <Link to={`/database/towns/${originTown?.id}`} className="hover:underline text-primary">{originTown?.name}</Link>)
           </h2>
           <span className="text-xs text-primary font-bold uppercase tracking-wider">
             Margini di Profitto
@@ -230,7 +231,9 @@ const Routes: React.FC = () => {
                         <div className="flex items-center space-x-2">
                           <span className="text-sm">📦</span>
                           <div>
-                            <span className="text-sm font-semibold text-neutral-dark block">{rec.name}</span>
+                            <Link to={`/database/goods/${rec.goodId}`} className="text-sm font-semibold text-neutral-dark block hover:text-primary transition-colors">
+                              {rec.name}
+                            </Link>
                             {rec.isHighPriority && (
                               <span className="text-[9px] font-bold text-success uppercase tracking-wider">Largo Consumo</span>
                             )}

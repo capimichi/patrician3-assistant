@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { ArrowLeft, Hammer, Landmark, Coins, Users, Sparkles } from 'lucide-react';
 import { getGoodImagePath } from '../../utils/goodImage';
 import { getBusinessImagePath } from '../../utils/businessImage';
+import { TownLinkList } from '../../components/TownLinkList';
+import { GoldAmount } from '../../components/GoldAmount';
 
 const BusinessDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const { businessService, goodService, townService } = useServices();
-  const navigate = useNavigate();
 
   const [business, setBusiness] = useState<any | null>(null);
   const [goodsList, setGoodsList] = useState<any[]>([]);
@@ -103,10 +104,14 @@ const BusinessDetail: React.FC = () => {
                     const gObj = goodsList.find(g => g.id === out.goodId);
                     const gName = gObj ? gObj.name : out.goodId;
                     return (
-                      <span key={out.goodId} className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center space-x-1">
+                      <Link
+                        key={out.goodId}
+                        to={`/database/goods/${out.goodId}`}
+                        className="bg-primary/10 hover:bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center space-x-1 transition-colors"
+                      >
                         <img src={getGoodImagePath(out.goodId)} alt={gName} className="h-3.5 w-3.5 object-contain" />
                         <span>{gName}</span>
-                      </span>
+                      </Link>
                     );
                   })}
                 </div>
@@ -135,7 +140,7 @@ const BusinessDetail: React.FC = () => {
                 <span className="text-sm font-semibold text-gray-700 flex items-center">
                   <Coins className="h-4 w-4 text-primary mr-1.5" /> Manutenzione
                 </span>
-                <span className="font-mono font-bold text-danger">{business.dailyMaintenance} g /giorno</span>
+                <GoldAmount amount={`${business.dailyMaintenance} /giorno`} className="font-mono font-bold text-danger text-sm" />
               </div>
               <div className="flex justify-between">
                 <span className="text-sm font-semibold text-gray-700 flex items-center">
@@ -162,14 +167,14 @@ const BusinessDetail: React.FC = () => {
 
             {business.inputs.length > 0 ? (
               <div className="space-y-2">
-                {business.inputs.map((input: any) => {
+                 {business.inputs.map((input: any) => {
                   const inputGood = goodsList.find(g => g.id === input.goodId);
                   const inputGoodName = inputGood ? inputGood.name : input.goodId;
                   return (
-                    <div
+                    <Link
                       key={input.goodId}
-                      onClick={() => navigate(`/database/goods/${input.goodId}`)}
-                      className="flex justify-between items-center bg-background px-3 py-2.5 rounded border border-primary/5 hover:border-primary/30 transition-colors cursor-pointer group"
+                      to={`/database/goods/${input.goodId}`}
+                      className="flex justify-between items-center bg-background px-3 py-2.5 rounded border border-primary/5 hover:border-primary/30 transition-colors group"
                     >
                       <span className="text-sm text-neutral-dark font-semibold flex items-center space-x-2">
                         <img
@@ -180,7 +185,7 @@ const BusinessDetail: React.FC = () => {
                         <span className="group-hover:text-primary transition-colors">{inputGoodName}</span>
                       </span>
                       <span className="text-sm font-bold text-danger font-mono">-{input.amountPerDay} /giorno</span>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>
@@ -200,17 +205,26 @@ const BusinessDetail: React.FC = () => {
             </h3>
             
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-background p-3 rounded text-center border border-primary/10 shadow-xs">
-                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider">Oro</p>
-                <p className="text-lg font-bold text-primary font-mono mt-1">{business.constructionCost.gold}g</p>
+              <div className="bg-background p-3 rounded flex flex-col items-center justify-center border border-primary/10 shadow-xs">
+                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-1">Oro</p>
+                <div className="flex items-center space-x-1.5 mt-1">
+                  <img src="/images/gold.png" alt="Oro" className="h-5 w-5 object-contain" />
+                  <span className="text-lg font-bold text-primary font-mono">{business.constructionCost.gold}</span>
+                </div>
               </div>
-              <div className="bg-background p-3 rounded text-center border border-primary/10 shadow-xs">
-                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider">Mattoni</p>
-                <p className="text-lg font-bold text-neutral-dark font-mono mt-1">{business.constructionCost.bricks}</p>
+              <div className="bg-background p-3 rounded flex flex-col items-center justify-center border border-primary/10 shadow-xs">
+                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-1">Mattoni</p>
+                <div className="flex items-center space-x-1.5 mt-1">
+                  <img src={getGoodImagePath('bricks')} alt="Mattoni" className="h-5 w-5 object-contain" />
+                  <span className="text-lg font-bold text-neutral-dark font-mono">{business.constructionCost.bricks}</span>
+                </div>
               </div>
-              <div className="bg-background p-3 rounded text-center border border-primary/10 shadow-xs">
-                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider">Legno</p>
-                <p className="text-lg font-bold text-neutral-dark font-mono mt-1">{business.constructionCost.timber}</p>
+              <div className="bg-background p-3 rounded flex flex-col items-center justify-center border border-primary/10 shadow-xs">
+                <p className="text-xs text-gray-600 font-bold uppercase tracking-wider mb-1">Legno</p>
+                <div className="flex items-center space-x-1.5 mt-1">
+                  <img src={getGoodImagePath('timber')} alt="Legno" className="h-5 w-5 object-contain" />
+                  <span className="text-lg font-bold text-neutral-dark font-mono">{business.constructionCost.timber}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -222,26 +236,11 @@ const BusinessDetail: React.FC = () => {
               <span>Città di Produzione Efficace (Resa 100%)</span>
             </h3>
 
-            {producingTowns.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {producingTowns.map(town => (
-                  <div
-                    key={town.id}
-                    onClick={() => navigate(`/database/towns/${town.id}`)}
-                    className="cursor-pointer bg-background px-3 py-2.5 rounded border border-primary/5 hover:border-primary/30 transition-colors flex items-center justify-between group"
-                  >
-                    <span className="text-sm font-semibold text-neutral-dark group-hover:text-primary transition-colors">{town.name}</span>
-                    {town.isRiverTown && (
-                      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase">
-                        Fluviale
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-xs text-gray-600 italic">Questa risorsa non è una specializzazione di default di alcuna città della Lega Ansea. Verrà prodotta ovunque con penalità di rendimento.</p>
-            )}
+            <TownLinkList
+              towns={producingTowns}
+              emptyMessage="Questa risorsa non è una specializzazione di default di alcuna città della Lega Ansea. Verrà prodotta ovunque con penalità di rendimento."
+              variant="grid"
+            />
           </div>
         </div>
       </div>

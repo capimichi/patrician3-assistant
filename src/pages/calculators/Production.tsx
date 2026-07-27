@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import type { Town } from '../../types';
@@ -320,7 +321,9 @@ const Production: React.FC = () => {
                     return (
                       <tr key={good.id} className="hover:bg-primary/5 bg-background transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="text-sm font-semibold text-neutral-dark">📦 {good.name}</span>
+                          <Link to={`/database/goods/${good.id}`} className="text-sm font-semibold text-neutral-dark hover:text-primary transition-colors">
+                            📦 {good.name}
+                          </Link>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-mono text-success">
                           +{balance.produced.toFixed(2)}
@@ -378,9 +381,11 @@ const Production: React.FC = () => {
                     {/* Header Filiale */}
                     <div className="px-6 py-4 bg-background border-b border-primary/20 flex justify-between items-center flex-wrap gap-2">
                       <div>
-                        <h3 className="text-xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
-                          {townObj.name}
-                        </h3>
+                        <Link to={`/database/towns/${townObj.id}`} className="hover:underline">
+                          <h3 className="text-xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
+                            {townObj.name}
+                          </h3>
+                        </Link>
                         <p className="text-3xs text-gray-700 font-semibold uppercase tracking-widest mt-0.5">
                           {townObj.isRiverTown ? 'Fluviale' : 'Marittimo'} • Costo: -{townReport.maintenance}g/giorno • Lavoratori: {townReport.workers}
                         </p>
@@ -413,7 +418,9 @@ const Production: React.FC = () => {
                               >
                                 <div className="flex justify-between items-start">
                                   <div>
-                                    <span className="text-xs font-semibold text-neutral-dark block leading-tight">{business.name}</span>
+                                    <Link to={`/database/businesses/${business.id}`} className="text-xs font-semibold text-neutral-dark block leading-tight hover:text-primary transition-colors">
+                                      {business.name}
+                                    </Link>
                                     <span className={`text-[9px] font-bold uppercase tracking-wider block mt-1 ${
                                       isSpecialty ? 'text-success' : 'text-amber-850'
                                     }`}>
