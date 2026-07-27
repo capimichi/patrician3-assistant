@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
 import { ArrowLeft, Hammer, Landmark, Coins, Users, Sparkles } from 'lucide-react';
 import { getGoodImagePath } from '../../utils/goodImage';
+import { getBusinessImagePath } from '../../utils/businessImage';
 
 const BusinessDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +32,7 @@ const BusinessDetail: React.FC = () => {
         setGoodsList(allGoods);
 
         if (foundBus) {
-          const prod = allTowns.filter((town: any) => town.produces.includes(foundBus.producedGoodId));
+          const prod = allTowns.filter((town: any) => foundBus.outputs.some((out: any) => town.produces.includes(out.goodId)));
           setProducingTowns(prod);
         }
       } catch (err) {
@@ -63,9 +64,6 @@ const BusinessDetail: React.FC = () => {
     );
   }
 
-  const productGood = goodsList.find(g => g.id === business.producedGoodId);
-  const productName = productGood ? productGood.name : business.producedGoodId;
-
   return (
     <div className="space-y-6 text-neutral-dark">
       {/* Ritorno */}
@@ -85,9 +83,9 @@ const BusinessDetail: React.FC = () => {
           <div>
             <div className="flex justify-center mb-6">
               <img
-                src={getGoodImagePath(business.producedGoodId)}
-                alt={productName}
-                className="h-32 w-32 object-contain border border-primary/30 rounded bg-white p-2 shadow"
+                src={getBusinessImagePath(business.id)}
+                alt={business.name}
+                className="h-32 w-32 object-cover border border-primary/30 rounded bg-white p-1 shadow"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="%23643518" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>';
                 }}
@@ -98,17 +96,40 @@ const BusinessDetail: React.FC = () => {
               <h2 className="text-2xl font-bold font-serif text-primary" style={{ fontFamily: "'Cinzel', serif" }}>
                 {business.name}
               </h2>
-              <div className="mt-2 text-xs text-gray-700 font-semibold">
-                Produce: <span className="text-primary font-bold">{productName}</span>
+              <div className="mt-2 text-xs text-gray-700 font-semibold flex flex-col items-center">
+                <span>Produce:</span>
+                <div className="flex flex-wrap justify-center gap-2 mt-1">
+                  {business.outputs.map((out: any) => {
+                    const gObj = goodsList.find(g => g.id === out.goodId);
+                    const gName = gObj ? gObj.name : out.goodId;
+                    return (
+                      <span key={out.goodId} className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center space-x-1">
+                        <img src={getGoodImagePath(out.goodId)} alt={gName} className="h-3.5 w-3.5 object-contain" />
+                        <span>{gName}</span>
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-between border-b border-primary/5 pb-2">
-                <span className="text-sm font-semibold text-gray-700 flex items-center">
+              <div className="flex flex-col border-b border-primary/5 pb-2">
+                <span className="text-sm font-semibold text-gray-700 flex items-center mb-1.5">
                   <Sparkles className="h-4 w-4 text-success mr-1.5" /> Produzione Base
                 </span>
-                <span className="font-mono font-bold text-success">+{business.baseProductionPerDay} /giorno</span>
+                <div className="space-y-1 pl-5">
+                  {business.outputs.map((out: any) => {
+                    const gObj = goodsList.find(g => g.id === out.goodId);
+                    const gName = gObj ? gObj.name : out.goodId;
+                    return (
+                      <div key={out.goodId} className="flex justify-between items-center text-xs font-mono font-bold text-success">
+                        <span>{gName}:</span>
+                        <span>+{out.amountPerDay} /giorno</span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               <div className="flex justify-between border-b border-primary/5 pb-2">
                 <span className="text-sm font-semibold text-gray-700 flex items-center">

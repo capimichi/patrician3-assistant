@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useServices } from '../../servicesContext';
-import { SlidersHorizontal, ArrowRight, Hammer, Coins } from 'lucide-react';
+import { SlidersHorizontal, ArrowRight, Coins } from 'lucide-react';
 import { getGoodImagePath } from '../../utils/goodImage';
+import { getBusinessImagePath } from '../../utils/businessImage';
 import { ListControls } from '../../components/ListControls';
 
 const ALL_COLUMNS = [
@@ -167,8 +168,6 @@ const BusinessesList: React.FC = () => {
                 </tr>
               ) : (
                 filteredBusinesses.map((business) => {
-                const productGood = goods.find(g => g.id === business.producedGoodId);
-                const productName = productGood ? productGood.name : business.producedGoodId;
                 return (
                   <tr
                     key={business.id}
@@ -177,30 +176,52 @@ const BusinessesList: React.FC = () => {
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
-                        <Hammer className="h-5 w-5 text-primary flex-shrink-0" />
-                        <div className="text-sm font-semibold text-neutral-dark">{business.name}</div>
+                        <img
+                          src={getBusinessImagePath(business.id)}
+                          alt={business.name}
+                          className="h-10 w-10 object-cover border border-primary/10 rounded bg-background p-0.5 flex-shrink-0"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%23643518" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>';
+                          }}
+                        />
+                        <div className="text-sm font-bold text-neutral-dark">{business.name}</div>
                       </div>
                     </td>
                     
                     {visibleColumns.includes('product') && (
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2">
-                          <img
-                            src={getGoodImagePath(business.producedGoodId)}
-                            alt={productName}
-                            className="h-6 w-6 object-contain border border-primary/10 rounded bg-white p-0.5"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23643518" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>';
-                            }}
-                          />
-                          <span className="text-xs text-gray-700 font-semibold">{productName}</span>
+                        <div className="flex flex-col space-y-1">
+                          {business.outputs.map((out: any) => {
+                            const productGood = goods.find(g => g.id === out.goodId);
+                            const productName = productGood ? productGood.name : out.goodId;
+                            return (
+                              <div key={out.goodId} className="flex items-center space-x-2">
+                                <img
+                                  src={getGoodImagePath(out.goodId)}
+                                  alt={productName}
+                                  className="h-6 w-6 object-contain border border-primary/10 rounded bg-white p-0.5"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23643518" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>';
+                                  }}
+                                />
+                                <span className="text-xs text-gray-700 font-semibold">{productName}</span>
+                              </div>
+                            );
+                          })}
                         </div>
                       </td>
                     )}
 
                     {visibleColumns.includes('production') && (
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-success font-mono">
-                        +{business.baseProductionPerDay} <span className="text-[10px] font-normal text-gray-500 font-sans">/g</span>
+                        <div className="flex flex-col space-y-1.5">
+                          {business.outputs.map((out: any) => (
+                            <div key={out.goodId} className="flex justify-center items-center h-6">
+                              <span>+{out.amountPerDay}</span>
+                              <span className="text-[10px] font-normal text-gray-500 font-sans ml-0.5">/g</span>
+                            </div>
+                          ))}
+                        </div>
                       </td>
                     )}
 

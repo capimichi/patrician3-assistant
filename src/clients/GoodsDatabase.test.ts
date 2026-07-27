@@ -32,11 +32,11 @@ test('businesses.json has pottery_workshop and whale_fishery, and no fodder inpu
 
   const potteryWorkshop = businesses.find((b: any) => b.id === 'pottery_workshop');
   expect(potteryWorkshop).toBeDefined();
-  expect(potteryWorkshop.producedGoodId).toBe('pottery');
+  expect(potteryWorkshop.outputs[0].goodId).toBe('pottery');
 
   const whaleFishery = businesses.find((b: any) => b.id === 'whale_fishery');
   expect(whaleFishery).toBeDefined();
-  expect(whaleFishery.producedGoodId).toBe('whale_oil');
+  expect(whaleFishery.outputs[0].goodId).toBe('whale_oil');
 
   const cattleFarm = businesses.find((b: any) => b.id === 'cattle_farm');
   const hasFodderInput = cattleFarm.inputs.some((i: any) => i.goodId === 'fodder');

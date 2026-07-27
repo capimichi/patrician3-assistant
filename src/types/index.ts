@@ -20,11 +20,15 @@ export interface BusinessInput {
   amountPerDay: number;
 }
 
+export interface BusinessOutput {
+  goodId: string;
+  amountPerDay: number;
+}
+
 export interface Business {
   id: string; // es. 'brewery', 'workshop'
   name: LocalizedString;
-  producedGoodId: string;
-  baseProductionPerDay: number;
+  outputs: BusinessOutput[];
   inputs: BusinessInput[];
   constructionCost: {
     gold: number;

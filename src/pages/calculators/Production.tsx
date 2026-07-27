@@ -139,13 +139,15 @@ const Production: React.FC = () => {
         const business = businesses.find(b => b.id === businessId);
         if (!business) return;
 
-        // Calcola efficacia (penalità 25% se la merce non è prodotta localmente)
-        const isSpecialty = town.produces.includes(business.producedGoodId);
-        const dailyProd = business.baseProductionPerDay * (isSpecialty ? 1.0 : 0.75) * count;
+        // Calcola efficacia per ciascun output (penalità 25% se la merce non è prodotta localmente)
+        business.outputs.forEach((output: any) => {
+          const isSpecialty = town.produces.includes(output.goodId);
+          const dailyProd = output.amountPerDay * (isSpecialty ? 1.0 : 0.75) * count;
 
-        // Somma produzione
-        balances[business.producedGoodId].produced += dailyProd;
-        branchReports[townId].balances[business.producedGoodId] += dailyProd;
+          // Somma produzione
+          balances[output.goodId].produced += dailyProd;
+          branchReports[townId].balances[output.goodId] += dailyProd;
+        });
 
         // Somma consumi materie prime
         business.inputs.forEach((input: any) => {
@@ -400,7 +402,7 @@ const Production: React.FC = () => {
                         </h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {businesses.map((business) => {
-                            const isSpecialty = townObj.produces.includes(business.producedGoodId);
+                            const isSpecialty = business.outputs.some((out: any) => townObj.produces.includes(out.goodId));
                             const count = townState[business.id] || 0;
                             return (
                               <div

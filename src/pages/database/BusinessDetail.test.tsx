@@ -8,8 +8,9 @@ const mockBusinesses = [
   {
     id: 'brewery',
     name: { it: 'Birreria', en: 'Brewery' },
-    producedGoodId: 'beer',
-    baseProductionPerDay: 2.0,
+    outputs: [
+      { goodId: 'beer', amountPerDay: 2.0 }
+    ],
     inputs: [
       { goodId: 'grain', amountPerDay: 0.5 }
     ],

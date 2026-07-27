@@ -2,8 +2,7 @@
   {
     "id": "grain_farm",
     "name": { "it": "Fattoria (Grano)", "en": "Grain Farm" },
-    "producedGoodId": "grain",
-    "baseProductionPerDay": 2.0,
+    "outputs": [{ "goodId": "grain", "amountPerDay": 2.0 }],
     "inputs": [],
     "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
     "workersNeeded": 30,
@@ -12,8 +11,7 @@
   {
     "id": "brewery",
     "name": { "it": "Birreria", "en": "Brewery" },
-    "producedGoodId": "beer",
-    "baseProductionPerDay": 2.0,
+    "outputs": [{ "goodId": "beer", "amountPerDay": 2.0 }],
     "inputs": [
       { "goodId": "grain", "amountPerDay": 0.5 },
       { "goodId": "timber", "amountPerDay": 0.25 }
@@ -25,8 +23,7 @@
   {
     "id": "sawmill",
     "name": { "it": "Segheria (Legno)", "en": "Sawmill" },
-    "producedGoodId": "timber",
-    "baseProductionPerDay": 3.0,
+    "outputs": [{ "goodId": "timber", "amountPerDay": 3.0 }],
     "inputs": [],
     "constructionCost": { "gold": 8000, "bricks": 20, "timber": 10 },
     "workersNeeded": 30,
@@ -35,8 +32,7 @@
   {
     "id": "saltworks",
     "name": { "it": "Salina (Sale)", "en": "Saltworks" },
-    "producedGoodId": "salt",
-    "baseProductionPerDay": 2.5,
+    "outputs": [{ "goodId": "salt", "amountPerDay": 2.5 }],
     "inputs": [
       { "goodId": "timber", "amountPerDay": 0.75 }
     ],
@@ -47,8 +43,7 @@
   {
     "id": "iron_smelter",
     "name": { "it": "Fonderia di Ferro", "en": "Iron Smelter" },
-    "producedGoodId": "pig_iron",
-    "baseProductionPerDay": 1.5,
+    "outputs": [{ "goodId": "pig_iron", "amountPerDay": 1.5 }],
     "inputs": [
       { "goodId": "timber", "amountPerDay": 0.5 }
     ],
@@ -59,8 +54,7 @@
   {
     "id": "workshop",
     "name": { "it": "Officina (Utensili)", "en": "Workshop" },
-    "producedGoodId": "iron_goods",
-    "baseProductionPerDay": 1.2,
+    "outputs": [{ "goodId": "iron_goods", "amountPerDay": 1.2 }],
     "inputs": [
       { "goodId": "pig_iron", "amountPerDay": 0.4 },
       { "goodId": "timber", "amountPerDay": 0.2 }
@@ -72,8 +66,7 @@
   {
     "id": "fishery",
     "name": { "it": "Pescatore (Pesce)", "en": "Fishery" },
-    "producedGoodId": "fish",
-    "baseProductionPerDay": 1.0,
+    "outputs": [{ "goodId": "fish", "amountPerDay": 1.0 }],
     "inputs": [
       { "goodId": "hemp", "amountPerDay": 0.1 },
       { "goodId": "salt", "amountPerDay": 0.2 }
@@ -85,10 +78,13 @@
   {
     "id": "cattle_farm",
     "name": { "it": "Allevamento Bovini", "en": "Cattle Farm" },
-    "producedGoodId": "meat",
-    "baseProductionPerDay": 0.8,
+    "outputs": [
+      { "goodId": "meat", "amountPerDay": 0.8 },
+      { "goodId": "leather", "amountPerDay": 1.2 }
+    ],
     "inputs": [
-      { "goodId": "grain", "amountPerDay": 0.5 }
+      { "goodId": "grain", "amountPerDay": 0.5 },
+      { "goodId": "salt", "amountPerDay": 0.3 }
     ],
     "constructionCost": { "gold": 16000, "bricks": 50, "timber": 25 },
     "workersNeeded": 30,
@@ -97,8 +93,7 @@
   {
     "id": "sheep_farm",
     "name": { "it": "Allevamento Ovini (Lana)", "en": "Sheep Farm" },
-    "producedGoodId": "wool",
-    "baseProductionPerDay": 1.5,
+    "outputs": [{ "goodId": "wool", "amountPerDay": 1.5 }],
     "inputs": [],
     "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
     "workersNeeded": 30,
@@ -107,8 +102,7 @@
   {
     "id": "brickworks",
     "name": { "it": "Fornace (Mattoni)", "en": "Brickworks" },
-    "producedGoodId": "bricks",
-    "baseProductionPerDay": 3.0,
+    "outputs": [{ "goodId": "bricks", "amountPerDay": 3.0 }],
     "inputs": [
       { "goodId": "timber", "amountPerDay": 0.5 }
     ],
@@ -119,8 +113,7 @@
   {
     "id": "pitchmaker",
     "name": { "it": "Fornace di Pece", "en": "Pitchmaker" },
-    "producedGoodId": "pitch",
-    "baseProductionPerDay": 2.0,
+    "outputs": [{ "goodId": "pitch", "amountPerDay": 2.0 }],
     "inputs": [
       { "goodId": "timber", "amountPerDay": 0.5 }
     ],
@@ -131,8 +124,7 @@
   {
     "id": "apiary",
     "name": { "it": "Apicoltore (Miele)", "en": "Apiary" },
-    "producedGoodId": "honey",
-    "baseProductionPerDay": 1.5,
+    "outputs": [{ "goodId": "honey", "amountPerDay": 1.5 }],
     "inputs": [],
     "constructionCost": { "gold": 8000, "bricks": 20, "timber": 10 },
     "workersNeeded": 30,
@@ -141,8 +133,7 @@
   {
     "id": "weaving_mill",
     "name": { "it": "Tessitura (Tessuti)", "en": "Weaving Mill" },
-    "producedGoodId": "cloth",
-    "baseProductionPerDay": 1.0,
+    "outputs": [{ "goodId": "cloth", "amountPerDay": 1.0 }],
     "inputs": [
       { "goodId": "wool", "amountPerDay": 0.5 }
     ],
@@ -151,22 +142,9 @@
     "dailyMaintenance": 350
   },
   {
-    "id": "tannery",
-    "name": { "it": "Conceria (Cuoio)", "en": "Tannery" },
-    "producedGoodId": "leather",
-    "baseProductionPerDay": 1.2,
-    "inputs": [
-      { "goodId": "salt", "amountPerDay": 0.3 }
-    ],
-    "constructionCost": { "gold": 14000, "bricks": 35, "timber": 18 },
-    "workersNeeded": 30,
-    "dailyMaintenance": 300
-  },
-  {
     "id": "vineyard",
     "name": { "it": "Vigneto (Vino)", "en": "Vineyard" },
-    "producedGoodId": "wine",
-    "baseProductionPerDay": 0.6,
+    "outputs": [{ "goodId": "wine", "amountPerDay": 0.6 }],
     "inputs": [],
     "constructionCost": { "gold": 25000, "bricks": 80, "timber": 40 },
     "workersNeeded": 30,
@@ -175,8 +153,7 @@
   {
     "id": "hunting_lodge",
     "name": { "it": "Cacciatore (Pelli)", "en": "Hunting Lodge" },
-    "producedGoodId": "skins",
-    "baseProductionPerDay": 1.0,
+    "outputs": [{ "goodId": "skins", "amountPerDay": 1.0 }],
     "inputs": [
       { "goodId": "iron_goods", "amountPerDay": 0.1 }
     ],
@@ -187,8 +164,7 @@
   {
     "id": "pottery_workshop",
     "name": { "it": "Laboratorio di Ceramica", "en": "Pottery Workshop" },
-    "producedGoodId": "pottery",
-    "baseProductionPerDay": 1.5,
+    "outputs": [{ "goodId": "pottery", "amountPerDay": 1.5 }],
     "inputs": [
       { "goodId": "timber", "amountPerDay": 0.5 }
     ],
@@ -199,8 +175,7 @@
   {
     "id": "whale_fishery",
     "name": { "it": "Baleniere", "en": "Whale Fishery" },
-    "producedGoodId": "whale_oil",
-    "baseProductionPerDay": 1.2,
+    "outputs": [{ "goodId": "whale_oil", "amountPerDay": 1.2 }],
     "inputs": [
       { "goodId": "salt", "amountPerDay": 0.2 },
       { "goodId": "hemp", "amountPerDay": 0.1 }
@@ -208,5 +183,14 @@
     "constructionCost": { "gold": 15000, "bricks": 30, "timber": 15 },
     "workersNeeded": 30,
     "dailyMaintenance": 300
+  },
+  {
+    "id": "hemp_farm",
+    "name": { "it": "Piantagione di Canapa", "en": "Hemp Farm" },
+    "outputs": [{ "goodId": "hemp", "amountPerDay": 2.0 }],
+    "inputs": [],
+    "constructionCost": { "gold": 10000, "bricks": 30, "timber": 15 },
+    "workersNeeded": 30,
+    "dailyMaintenance": 280
   }
 ]

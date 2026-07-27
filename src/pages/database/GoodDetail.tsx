@@ -38,7 +38,7 @@ const GoodDetail: React.FC = () => {
 
         // Carica Impresa
         const allBusinesses = await businessService.getBusinesses(currentLang);
-        const associatedBus = allBusinesses.find(b => b.producedGoodId === id);
+        const associatedBus = allBusinesses.find(b => b.outputs.some(out => out.goodId === id));
         setBusiness(associatedBus || null);
 
         // Carica Città di produzione
@@ -50,7 +50,7 @@ const GoodDetail: React.FC = () => {
         const cons = allTowns.filter((town: any) => {
           // Controlla se la città produce beni che richiedono questa risorsa come input
           return town.produces.some((townProdId: string) => {
-            const prodBus = allBusinesses.find(b => b.producedGoodId === townProdId);
+            const prodBus = allBusinesses.find(b => b.outputs.some(out => out.goodId === townProdId));
             if (!prodBus) return false;
             return prodBus.inputs.some((input: any) => input.goodId === id);
           });
