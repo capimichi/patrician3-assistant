@@ -7,9 +7,11 @@ interface GameContextProps {
   game: Game | null;
   isLoading: boolean;
   constants: GameConstants | null;
-  createNewGame: (towns: Town[]) => Promise<void>;
+  createNewGame: (towns?: Town[]) => Promise<void>;
   updateTown: (townId: string, updates: Partial<TownState>) => void;
   resetGame: () => void;
+  addTown: (town: Town) => Promise<void>;
+  removeTown: (townId: string) => void;
 }
 
 const GameContext = createContext<GameContextProps | null>(null);
@@ -39,94 +41,115 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loadInitial();
   }, []);
 
-  const createNewGame = async (towns: Town[]) => {
+  const createNewGame = async (_towns?: Town[]) => {
     if (!constants) return;
     
-    // Fetch businesses to map output goods to default efficiencies
-    let defaultBusinesses: Record<string, { count: number; efficiency: 0 | 1 | 2 }> = {};
-    try {
-      const res = await fetch('/data/businesses.json');
-      const businessesList = await res.json();
-      businessesList.forEach((b: any) => {
-        defaultBusinesses[b.id] = { count: 0, efficiency: 0 };
-      });
-    } catch (e) {
-      console.error('Failed to pre-load businesses', e);
-    }
-
-    const townsMap: Record<string, TownState> = {};
-    
-    towns.forEach(t => {
-      // Clone default businesses list
-      const townBusinesses = JSON.parse(JSON.stringify(defaultBusinesses));
-      
-      Object.keys(townBusinesses).forEach(bId => {
-        // Since we have t.produces (array of good IDs), let's map them
-        // Let's find if any output of business bId matches t.produces
-        // A simple check: does the business ID or good ID match?
-        // E.g., 'brewery' produces 'beer'. We can map:
-        const businessOutputGoods: Record<string, string> = {
-          grain_farm: 'grain',
-          brewery: 'beer',
-          sawmill: 'timber',
-          saltworks: 'salt',
-          iron_smelter: 'pig_iron',
-          workshop: 'iron_goods',
-          fishery: 'fish',
-          cattle_farm: 'meat', // outputs meat/leather
-          sheep_farm: 'wool',
-          brickworks: 'bricks',
-          pitchmaker: 'pitch',
-          apiary: 'honey',
-          weaving_mill: 'cloth',
-          vineyard: 'wine',
-          hunting_lodge: 'skins',
-          pottery_workshop: 'pottery',
-          whale_fishery: 'whale_oil',
-          hemp_farm: 'hemp'
-        };
-
-        const outputGood = businessOutputGoods[bId];
-        if (outputGood && t.produces && t.produces.includes(outputGood)) {
-          townBusinesses[bId].efficiency = 2; // Effective (White)
-        } else {
-          // Default to Inefficient (1) for basic goods like Wood/Bricks that can be built anywhere,
-          // and None (0) for others.
-          if (bId === 'sawmill' || bId === 'brickworks') {
-            townBusinesses[bId].efficiency = 1;
-          } else {
-            townBusinesses[bId].efficiency = 0;
-          }
-        }
-      });
-
-      townsMap[t.id] = {
-        townId: t.id,
-        isActive: true,
-        population: { rich: 0, wealthy: 0, poor: 0 },
-        houses: { fachwerk: 0, giebel: 0, kaufmann: 0 },
-        businesses: townBusinesses,
-        logistics: {
-          centralHubId: t.id,
-          slowestShipType: 'crayer',
-          transitHubId: 'none',
-          convoySize: 0,
-          convoyStops: 1,
-          stockWeeks: 2
-        }
-      };
-    });
-
+    // New games start with an empty map of towns
     const newRawState: GameRawState = {
       id: `game-${Date.now()}`,
       name: 'My Campaign',
       createdAt: new Date().toISOString(),
-      towns: townsMap
+      towns: {}
     };
 
     const newGame = new Game(newRawState, constants);
     localStorage.setItem('pii_active_game', newGame.serialize());
     setGame(newGame);
+  };
+
+  const addTown = async (town: Town) => {
+    if (!game || !constants) return;
+
+    // Load default businesses from reference data
+    const townBusinesses: Record<string, { count: number; efficiency: 0 | 1 | 2 }> = {};
+    try {
+      const res = await fetch('/data/businesses.json');
+      const businessesList = await res.json();
+      businessesList.forEach((b: any) => {
+        townBusinesses[b.id] = { count: 0, efficiency: 0 };
+      });
+      
+      const businessOutputGoods: Record<string, string> = {
+        grain_farm: 'grain',
+        brewery: 'beer',
+        sawmill: 'timber',
+        saltworks: 'salt',
+        iron_smelter: 'pig_iron',
+        workshop: 'iron_goods',
+        fishery: 'fish',
+        cattle_farm: 'meat',
+        sheep_farm: 'wool',
+        brickworks: 'bricks',
+        pitchmaker: 'pitch',
+        apiary: 'honey',
+        weaving_mill: 'cloth',
+        vineyard: 'wine',
+        hunting_lodge: 'skins',
+        pottery_workshop: 'pottery',
+        whale_fishery: 'whale_oil',
+        hemp_farm: 'hemp'
+      };
+
+      Object.keys(townBusinesses).forEach(bId => {
+        const outputGood = businessOutputGoods[bId];
+        if (outputGood && town.produces && town.produces.includes(outputGood)) {
+          townBusinesses[bId].efficiency = 2; // Effective (White)
+        } else {
+          if (bId === 'sawmill' || bId === 'brickworks') {
+            townBusinesses[bId].efficiency = 1; // Ineffective (Yellow)
+          } else {
+            townBusinesses[bId].efficiency = 0; // None (Green)
+          }
+        }
+      });
+    } catch (e) {
+      console.error('Failed to load businesses for town initialization', e);
+    }
+
+    const newTownState: TownState = {
+      townId: town.id,
+      isActive: true,
+      population: { rich: 0, wealthy: 0, poor: 0 },
+      houses: { fachwerk: 0, giebel: 0, kaufmann: 0 },
+      businesses: townBusinesses,
+      logistics: {
+        centralHubId: town.id,
+        slowestShipType: 'crayer',
+        transitHubId: 'none',
+        convoySize: 0,
+        convoyStops: 1,
+        stockWeeks: 2
+      }
+    };
+
+    const updatedTowns = {
+      ...game.state.towns,
+      [town.id]: newTownState
+    };
+
+    const updatedRawState: GameRawState = {
+      ...game.state,
+      towns: updatedTowns
+    };
+
+    const updatedGame = new Game(updatedRawState, constants);
+    localStorage.setItem('pii_active_game', updatedGame.serialize());
+    setGame(updatedGame);
+  };
+
+  const removeTown = (townId: string) => {
+    if (!game || !constants) return;
+
+    const { [townId]: _, ...remainingTowns } = game.state.towns;
+
+    const updatedRawState: GameRawState = {
+      ...game.state,
+      towns: remainingTowns
+    };
+
+    const updatedGame = new Game(updatedRawState, constants);
+    localStorage.setItem('pii_active_game', updatedGame.serialize());
+    setGame(updatedGame);
   };
 
   const updateTown = (townId: string, updates: Partial<TownState>) => {
@@ -156,7 +179,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <GameContext.Provider value={{ game, isLoading, constants, createNewGame, updateTown, resetGame }}>
+    <GameContext.Provider value={{ game, isLoading, constants, createNewGame, updateTown, resetGame, addTown, removeTown }}>
       {children}
     </GameContext.Provider>
   );

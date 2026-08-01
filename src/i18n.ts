@@ -264,9 +264,9 @@ const resources = {
         wealthy: "Benestanti",
         rich: "Ricchi",
         total: "Totale",
-        fwh: "Graticcio",
-        gh: "Timpano",
-        kmh: "Padronale",
+        fwh: "Case Popolari (Graticcio)",
+        gh: "Case Medie (Timpano)",
+        kmh: "Case Signorili (Padronali)",
         logistics: "Logistica",
         hub: "Magazzino ZL",
         stops: "Fermate",
@@ -278,7 +278,10 @@ const resources = {
         edifici_produzione: "Edifici e Produzioni",
         no_prod: "Nessuna",
         ineff: "Ineff.",
-        eff: "Eff."
+        eff: "Eff.",
+        add_town: "Aggiungi Città",
+        select_town_prompt: "-- Seleziona Città --",
+        no_towns_added: "Nessuna città aggiunta a questa campagna commerciale. Usa i controlli in alto per iniziare ad aggiungere le città con cui commerci."
       }
     }
   },
@@ -544,9 +547,9 @@ const resources = {
         wealthy: "Wealthy",
         rich: "Rich",
         total: "Total",
-        fwh: "Fachwerk",
-        gh: "Gabel",
-        kmh: "Merchant",
+        fwh: "Lower-Class Housing (Fachwerk)",
+        gh: "Middle-Class Housing (Giebel)",
+        kmh: "Upper-Class Housing (Kaufmann)",
         logistics: "Logistics",
         hub: "ZL Hub",
         stops: "Stops",
@@ -558,7 +561,10 @@ const resources = {
         edifici_produzione: "Buildings & Production",
         no_prod: "No Prod",
         ineff: "Ineff",
-        eff: "Eff"
+        eff: "Eff",
+        add_town: "Add Town",
+        select_town_prompt: "-- Select Town --",
+        no_towns_added: "No towns added to this commercial campaign. Use the controls above to add the towns you are trading with."
       }
     }
   }
