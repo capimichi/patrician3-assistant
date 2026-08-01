@@ -3,10 +3,12 @@ import { useGame } from '../../contexts/GameContext';
 import { useServices } from '../../servicesContext';
 import UninitializedWarning from '../../components/UninitializedWarning';
 import type { Town } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 const Population: React.FC = () => {
   const { game } = useGame();
   const { townService } = useServices();
+  const { t } = useTranslation();
   const [towns, setTowns] = useState<Town[]>([]);
 
   useEffect(() => {
@@ -28,19 +30,19 @@ const Population: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="bg-white p-4 rounded border border-neutral-light shadow-sm">
-        <h1 className="text-2xl font-bold text-neutral-dark">Population Demographics / Popolazione</h1>
-        <p className="text-xs text-neutral-medium mt-1">Suddivisione sociale degli abitanti della Lega (mendicanti esclusi).</p>
+        <h1 className="text-2xl font-bold text-neutral-dark">{t('dashboard.population_title')}</h1>
+        <p className="text-xs text-neutral-medium mt-1">{t('dashboard.population_desc')}</p>
       </div>
 
       <div className="bg-white rounded border border-neutral-light shadow-sm overflow-x-auto">
         <table className="min-w-full text-left text-sm border-collapse">
           <thead className="bg-neutral-light text-neutral-dark font-semibold border-b border-neutral-light">
             <tr>
-              <th className="p-3 border-r border-neutral-light">City / Città</th>
-              <th className="p-3 border-r border-neutral-light text-right">Poor / Poveri</th>
-              <th className="p-3 border-r border-neutral-light text-right">Wealthy / Benestanti</th>
-              <th className="p-3 border-r border-neutral-light text-right">Rich / Ricchi</th>
-              <th className="p-3 text-right">Total / Totale</th>
+              <th className="p-3 border-r border-neutral-light">{t('dashboard.city')}</th>
+              <th className="p-3 border-r border-neutral-light text-right">{t('dashboard.poor')}</th>
+              <th className="p-3 border-r border-neutral-light text-right">{t('dashboard.wealthy')}</th>
+              <th className="p-3 border-r border-neutral-light text-right">{t('dashboard.rich')}</th>
+              <th className="p-3 text-right">{t('dashboard.total')}</th>
             </tr>
           </thead>
           <tbody>

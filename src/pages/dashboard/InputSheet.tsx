@@ -10,7 +10,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const InputSheet: React.FC = () => {
   const { game, createNewGame, updateTown } = useGame();
   const { townService, shipService, businessService } = useServices();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [towns, setTowns] = useState<Town[]>([]);
   const [ships, setShips] = useState<LocalizedShipType[]>([]);
@@ -22,12 +22,12 @@ const InputSheet: React.FC = () => {
 
   useEffect(() => {
     const loadRefs = async () => {
-      const t = await townService.getTowns();
-      const s = await shipService.getShips(lang);
-      const b = await businessService.getBusinesses(lang);
-      setTowns(t);
-      setShips(s);
-      setBusinesses(b);
+      const tData = await townService.getTowns();
+      const sData = await shipService.getShips(lang);
+      const bData = await businessService.getBusinesses(lang);
+      setTowns(tData);
+      setShips(sData);
+      setBusinesses(bData);
     };
     loadRefs();
   }, [townService, shipService, businessService, lang]);
@@ -35,18 +35,18 @@ const InputSheet: React.FC = () => {
   if (!game) {
     return (
       <div className="flex flex-col items-center justify-center p-12 bg-white rounded border border-neutral-light shadow-sm text-center max-w-xl mx-auto mt-12">
-        <h2 className="text-2xl font-bold text-neutral-dark mb-4">Benvenuto nel Calcolatore / Setup</h2>
+        <h2 className="text-2xl font-bold text-neutral-dark mb-4">{t('dashboard.welcome_title')}</h2>
         <p className="text-neutral-medium mb-6 text-sm">
-          Per iniziare, inizializza una nuova partita. Verranno precaricate tutte le città con le loro produzioni di default.
+          {t('dashboard.welcome_desc')}
         </p>
         <button
           onClick={async () => {
-            const t = await townService.getTowns();
-            await createNewGame(t);
+            const tData = await townService.getTowns();
+            await createNewGame(tData);
           }}
-          className="bg-primary text-white font-medium py-2.5 px-6 rounded hover:bg-primary-dark shadow-sm transition-colors"
+          className="bg-primary text-white font-medium py-2.5 px-6 rounded hover:bg-primary-dark shadow-sm transition-colors cursor-pointer"
         >
-          Initialize New Game / Inizializza Nuova Partita
+          {t('dashboard.welcome_btn')}
         </button>
       </div>
     );
@@ -98,9 +98,9 @@ const InputSheet: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-4 rounded border border-neutral-light shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-dark">Input Sheet / Foglio di Input</h1>
+          <h1 className="text-2xl font-bold text-neutral-dark">{t('dashboard.input_sheet_title')}</h1>
           <p className="text-xs text-neutral-medium mt-1">
-            Configura popolazione, case, convogli e clicca sul bottone per modificare le fabbriche di ciascuna città.
+            {t('dashboard.input_sheet_desc')}
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -109,10 +109,10 @@ const InputSheet: React.FC = () => {
             id="hideInactive"
             checked={hideInactive}
             onChange={(e) => setHideInactive(e.target.checked)}
-            className="rounded text-primary focus:ring-primary h-4 w-4"
+            className="rounded text-primary focus:ring-primary h-4 w-4 cursor-pointer"
           />
           <label htmlFor="hideInactive" className="text-sm font-semibold text-neutral-dark select-none cursor-pointer">
-            Hide Inactive / Nascondi Inattive
+            {t('dashboard.hide_inactive')}
           </label>
         </div>
       </div>
@@ -121,22 +121,24 @@ const InputSheet: React.FC = () => {
         <table className="min-w-full text-left text-sm border-collapse">
           <thead className="bg-neutral-light text-neutral-dark border-b border-neutral-light sticky top-0">
             <tr>
-              <th className="p-3 font-semibold border-r border-neutral-light w-48">City / Città</th>
-              <th className="p-3 font-semibold border-r border-neutral-light text-center" colSpan={3}>Population / Popolazione</th>
-              <th className="p-3 font-semibold border-r border-neutral-light text-center" colSpan={3}>Housing / Case</th>
-              <th className="p-3 font-semibold text-center">Logistics / Logistica</th>
-              <th className="p-3 font-semibold text-center w-28">Action</th>
+              <th className="p-3 font-semibold border-r border-neutral-light w-48">{t('dashboard.city')}</th>
+              <th className="p-3 font-semibold border-r border-neutral-light text-center" colSpan={3}>{t('dashboard.population')}</th>
+              <th className="p-3 font-semibold border-r border-neutral-light text-center" colSpan={3}>{t('dashboard.housing')}</th>
+              <th className="p-3 font-semibold text-center">{t('dashboard.logistics')}</th>
+              <th className="p-3 font-semibold text-center w-28">{t('dashboard.businesses')}</th>
             </tr>
             <tr className="bg-neutral-light/50 text-xs border-b border-neutral-light">
-              <th className="p-2 border-r border-neutral-light">Active | Name</th>
-              <th className="p-2 border-r border-neutral-light text-center w-20">Poor</th>
-              <th className="p-2 border-r border-neutral-light text-center w-20">Wealthy</th>
-              <th className="p-2 border-r border-neutral-light text-center w-20">Rich</th>
-              <th className="p-2 border-r border-neutral-light text-center w-16">FWH</th>
-              <th className="p-2 border-r border-neutral-light text-center w-16">GH</th>
-              <th className="p-2 border-r border-neutral-light text-center w-16">KMH</th>
-              <th className="p-2 text-center">ZL Hub | Stops | Ship | Weeks</th>
-              <th className="p-2 text-center">Businesses</th>
+              <th className="p-2 border-r border-neutral-light">{t('dashboard.city')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-20">{t('dashboard.poor')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-20">{t('dashboard.wealthy')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-20">{t('dashboard.rich')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-16">{t('dashboard.fwh')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-16">{t('dashboard.gh')}</th>
+              <th className="p-2 border-r border-neutral-light text-center w-16">{t('dashboard.kmh')}</th>
+              <th className="p-2 text-center">
+                {t('dashboard.hub')} | {t('dashboard.stops')} | {t('dashboard.ship')} | {t('dashboard.weeks')}
+              </th>
+              <th className="p-2 text-center">{t('dashboard.businesses')}</th>
             </tr>
           </thead>
           <tbody>
@@ -260,7 +262,7 @@ const InputSheet: React.FC = () => {
                             logistics: { ...townState.logistics, convoyStops: parseInt(e.target.value) || 1 }
                           })}
                           className="w-10 p-1 border border-neutral-medium rounded text-xs text-center"
-                          title="Convoy Route Stops / Fermate"
+                          title={t('dashboard.stops')}
                         />
 
                         <select
@@ -284,7 +286,7 @@ const InputSheet: React.FC = () => {
                             logistics: { ...townState.logistics, stockWeeks: parseFloat(e.target.value) || 2 }
                           })}
                           className="w-10 p-1 border border-neutral-medium rounded text-xs text-center"
-                          title="Stock Buffer Weeks / Scorte in settimane"
+                          title={t('dashboard.weeks')}
                         />
                       </div>
                     </td>
@@ -294,13 +296,13 @@ const InputSheet: React.FC = () => {
                       <button
                         onClick={() => toggleExpandTown(town.id)}
                         disabled={!townState.isActive}
-                        className={`flex items-center justify-center space-x-1 py-1 px-3 rounded text-xs font-semibold shadow-sm w-full text-white transition-all ${
+                        className={`flex items-center justify-center space-x-1 py-1 px-3 rounded text-xs font-semibold shadow-sm w-full text-white transition-all cursor-pointer ${
                           isExpanded 
                             ? 'bg-neutral-dark hover:bg-neutral-dark/95' 
                             : 'bg-primary hover:bg-primary-dark disabled:opacity-40 disabled:hover:bg-primary'
                         }`}
                       >
-                        <span>Imprese</span>
+                        <span>{t('dashboard.businesses')}</span>
                         {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
                       </button>
                     </td>
@@ -311,7 +313,7 @@ const InputSheet: React.FC = () => {
                     <tr className="bg-neutral-light/30 border-b border-neutral-medium/55">
                       <td colSpan={9} className="p-4 border-r border-l border-neutral-light">
                         <div className="font-bold text-neutral-dark text-xs mb-3 uppercase tracking-wider">
-                          Edifici e Produzioni - {town.name}
+                          {t('dashboard.edifici_produzione')} - {town.name}
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                           {businesses.map(b => {
@@ -334,9 +336,8 @@ const InputSheet: React.FC = () => {
                                   <button
                                     onClick={() => handleCycleEfficiency(town.id, b.id, bState.efficiency)}
                                     className={`text-[10px] font-bold px-1.5 py-1 rounded border transition-colors cursor-pointer w-full text-center ${effStyle}`}
-                                    title="Click per cambiare efficienza di produzione"
                                   >
-                                    {bState.efficiency === 0 ? 'No' : bState.efficiency === 1 ? 'Ineff' : 'Eff'}
+                                    {bState.efficiency === 0 ? t('dashboard.no_prod') : bState.efficiency === 1 ? t('dashboard.ineff') : t('dashboard.eff')}
                                   </button>
                                   <input
                                     type="number"
