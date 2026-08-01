@@ -152,6 +152,16 @@ const Header: React.FC = () => {
               )}
             </div>
 
+            {/* Dashboard Link */}
+            <Link
+              to="/dashboard"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                location.pathname.startsWith('/dashboard') ? 'text-primary bg-background' : 'text-gray-700 hover:text-primary'
+              }`}
+            >
+              Dashboard
+            </Link>
+
             {/* Selettore Lingua */}
             <button
               onClick={toggleLanguage}
@@ -183,6 +193,12 @@ const Header: React.FC = () => {
       {/* Navigazione Mobile */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-background dropdown-solido border-t border-primary/30 px-2 pt-2 pb-3 space-y-1 shadow-lg">
+          <Link
+            to="/dashboard"
+            className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-background/50 font-bold"
+          >
+            Dashboard
+          </Link>
           <Link
             to="/"
             className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-background/50"

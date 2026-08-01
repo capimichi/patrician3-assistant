@@ -1,0 +1,31 @@
+{
+  "consumptionPer1000": {
+    "grain": { "rich": 3.0, "wealthy": 4.5, "poor": 6.0 },
+    "beer": { "rich": 10.0, "wealthy": 10.0, "poor": 10.0 },
+    "pig_iron": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "iron_goods": { "rich": 0.5, "wealthy": 0.3, "poor": 0.1 },
+    "salt": { "rich": 1.5, "wealthy": 1.5, "poor": 1.5 },
+    "fish": { "rich": 1.0, "wealthy": 2.0, "poor": 4.0 },
+    "meat": { "rich": 2.0, "wealthy": 1.0, "poor": 0.5 },
+    "skins": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "hemp": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "wool": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "timber": { "rich": 0.5, "wealthy": 0.5, "poor": 0.5 },
+    "bricks": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "pitch": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "honey": { "rich": 0.5, "wealthy": 0.2, "poor": 0.1 },
+    "cloth": { "rich": 0.8, "wealthy": 0.4, "poor": 0.1 },
+    "leather": { "rich": 0.0, "wealthy": 0.0, "poor": 0.0 },
+    "wine": { "rich": 2.0, "wealthy": 0.5, "poor": 0.0 },
+    "spices": { "rich": 1.0, "wealthy": 0.5, "poor": 0.1 },
+    "whale_oil": { "rich": 0.5, "wealthy": 0.5, "poor": 0.5 },
+    "pottery": { "rich": 0.6, "wealthy": 0.3, "poor": 0.1 }
+  },
+  "shipSpeedModifiers": {
+    "snaikka": 1.09,
+    "crayer": 1.00,
+    "cog": 1.32,
+    "holk": 1.19
+  },
+  "loadingPenaltyPerStopDays": 0.25
+}
