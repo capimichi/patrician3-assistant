@@ -26,6 +26,15 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const res = await fetch('/data/pii_constants.json');
         const piiConstants = await res.json() as GameConstants;
+        
+        try {
+          const ratesRes = await fetch('/data/production_rates.json');
+          const piiRates = await ratesRes.json();
+          piiConstants.productionRates = piiRates;
+        } catch (err) {
+          console.error('Error loading production rates from JSON', err);
+        }
+        
         setConstants(piiConstants);
 
         const stored = localStorage.getItem('pii_active_game');

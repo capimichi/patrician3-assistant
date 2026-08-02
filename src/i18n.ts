@@ -281,7 +281,22 @@ const resources = {
         eff: "Eff.",
         add_town: "Aggiungi Città",
         select_town_prompt: "-- Seleziona Città --",
-        no_towns_added: "Nessuna città aggiunta a questa campagna commerciale. Usa i controlli in alto per iniziare ad aggiungere le città con cui commerci."
+        no_towns_added: "Nessuna città aggiunta a questa campagna commerciale. Usa i controlli in alto per iniziare ad aggiungere le città con cui commerci.",
+        businesses_title: "Statistiche Imprese e Fabbisogno",
+        businesses_desc: "Analisi dei laboratori della Lega Anseatica, capacità produttiva reale ed equivalente rispetto al fabbisogno teorico annuale.",
+        col_business: "Laboratorio / Impresa",
+        col_effective: "Efficaci (E)",
+        col_ineffective: "Inefficaci (I)",
+        col_total_equiv: "Equivalenti Efficaci",
+        col_demand_summer: "Fabbisogno Estate",
+        col_demand_winter: "Fabbisogno Inverno",
+        col_demand_weighted: "Fabbisogno Medio",
+        col_balance: "Bilancio (Delta)",
+        tab_league_summary: "Riepilogo Lega",
+        tab_city_breakdown: "Dettaglio Città",
+        no_businesses_built: "Nessuna impresa registrata nella tua lega commerciale commerciale. Aggiungine alcune nella pagina di Input.",
+        surplus: "Eccedenza",
+        deficit: "Deficit"
       }
     }
   },
@@ -564,7 +579,22 @@ const resources = {
         eff: "Eff",
         add_town: "Add Town",
         select_town_prompt: "-- Select Town --",
-        no_towns_added: "No towns added to this commercial campaign. Use the controls above to add the towns you are trading with."
+        no_towns_added: "No towns added to this commercial campaign. Use the controls above to add the towns you are trading with.",
+        businesses_title: "Businesses & Capacity Demand",
+        businesses_desc: "Analysis of Hanseatic League workshops, real and equivalent production capacities compared to theoretical annual demand.",
+        col_business: "Workshop / Business",
+        col_effective: "Effective (E)",
+        col_ineffective: "Ineffective (I)",
+        col_total_equiv: "Effective Equivalent",
+        col_demand_summer: "Summer Demand",
+        col_demand_winter: "Winter Demand",
+        col_demand_weighted: "Weighted Demand",
+        col_balance: "Balance (Delta)",
+        tab_league_summary: "League Summary",
+        tab_city_breakdown: "City Breakdown",
+        no_businesses_built: "No businesses built in your trade network yet. Add some in the Input Sheet.",
+        surplus: "Surplus",
+        deficit: "Deficit"
       }
     }
   }
