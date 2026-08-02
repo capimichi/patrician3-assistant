@@ -124,7 +124,7 @@ const OfficeManager: React.FC = () => {
                 step="5"
                 value={safetyPercent}
                 onChange={(e) => setSafetyPercent(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-neutral-light rounded-lg appearance-none cursor-pointer accent-primary"
+                className="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-[10px] text-neutral-medium px-0.5 mt-1 font-semibold">
                 <span>0%</span>
