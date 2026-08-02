@@ -315,7 +315,17 @@ const resources = {
         class_poor: "Popolari (Case Graticcio)",
         class_wealthy: "Medie (Case Timpano)",
         class_rich: "Signorili (Case Kaufmann)",
-        no_houses_needed: "Il piano di espansione è già supportato dalle case attuali. Nessuna nuova costruzione richiesta."
+        no_houses_needed: "Il piano di espansione è già supportato dalle case attuali. Nessuna nuova costruzione richiesta.",
+        office_manager_title: "Gestore Amministratore Kontor",
+        office_manager_desc: "Calcola le riserve minime di magazzino (Sperrlager) da impostare per l'Amministratore del Kontor per proteggere le materie prime delle fabbriche locali.",
+        safety_buffer: "Margine di Sicurezza (%)",
+        col_raw_material: "Materia Prima",
+        col_weekly_demand: "Fabbisogno Settimanale",
+        col_daily_demand: "Fabbisogno Giornaliero",
+        col_coverage_days: "Giorni Copertura",
+        col_protected_stock: "Scorta Minima (Sperrlager)",
+        office_no_raw_materials: "Nessuna fabbrica in questa città richiede materie prime di riserva.",
+        stock_explanation: "Imposta questo valore come 'Sperrlager bis' (Scorta fino a) nel menu dell'Amministratore all'interno del gioco. Eviterà che i convogli esportino o vendano materie prime essenziali per far funzionare i tuoi laboratori locali."
       }
     }
   },
@@ -632,7 +642,17 @@ const resources = {
         class_poor: "Lower-Class (Timber-framed / Fachwerk)",
         class_wealthy: "Middle-Class (Gable / Giebel)",
         class_rich: "Upper-Class (Merchant / Kaufmann)",
-        no_houses_needed: "Your current housing supply is sufficient for this growth target. No new construction required."
+        no_houses_needed: "Your current housing supply is sufficient for this growth target. No new construction required.",
+        office_manager_title: "Office Trade Manager",
+        office_manager_desc: "Calculate the minimum warehouse reserves (Sperrlager) to set in your Office Manager menu, securing inputs for local workshops.",
+        safety_buffer: "Safety Reserve Margin (%)",
+        col_raw_material: "Raw Material",
+        col_weekly_demand: "Weekly Demand",
+        col_daily_demand: "Daily Demand",
+        col_coverage_days: "Coverage Days",
+        col_protected_stock: "Protected Stock Limit (Sperrlager)",
+        office_no_raw_materials: "No industries in this town require raw material backup limits.",
+        stock_explanation: "Configure this value as 'Lock warehouse stock up to' (Sperrlager bis) inside the in-game Office Manager. It prevents automatic convoys from selling or loading inputs needed by local factories."
       }
     }
   }

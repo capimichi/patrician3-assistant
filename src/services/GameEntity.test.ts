@@ -196,3 +196,16 @@ test('Game Entity calculates town-level production and consumption', () => {
   expect(cons.industrial).toBeCloseTo(0.90, 2);
   expect(cons.total).toBeCloseTo(6.525, 3);
 });
+
+test('Game Entity calculates office reserve stock limits', () => {
+  const customState = JSON.parse(JSON.stringify(mockRawState)) as GameRawState;
+  customState.towns.lubeck.logistics.stockWeeks = 2;
+  const game = new Game(customState, mockConstants);
+
+  // Lubeck grain industrial demand = 0.90 per week.
+  // Daily = 0.90 / 7 = 0.12857.
+  // Coverage period = 2 weeks * 7 = 14 days.
+  // Reserve (safety 20%) = Math.ceil(0.12857 * 14 * 1.2) = Math.ceil(2.16) = 3.
+  const reserve = game.getTownOfficeReserve('lubeck', 'grain', 0.20);
+  expect(reserve).toBe(3);
+});

@@ -356,4 +356,17 @@ export class Game {
       };
     });
   }
+
+  // --- Sheet 7: Office Trade Manager ---
+
+  getTownOfficeReserve(townId: string, goodId: string, safetyMargin: number = 0): number {
+    const town = this.state.towns[townId];
+    if (!town || !town.isActive) return 0;
+    
+    const indCons = this.getTownGoodConsumption(townId, goodId).industrial;
+    if (indCons <= 0) return 0;
+    
+    const coverageDays = (town.logistics.stockWeeks || 2) * 7;
+    return Math.ceil((indCons / 7) * coverageDays * (1 + safetyMargin));
+  }
 }
