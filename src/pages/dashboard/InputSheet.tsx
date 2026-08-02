@@ -6,6 +6,7 @@ import type { LocalizedBusiness } from '../../services/BusinessService';
 import type { LocalizedShipType } from '../../services/ShipService';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Trash2, Plus, Home, Users, Settings, Building2 } from 'lucide-react';
+import { getGoodImagePath } from '../../utils/goodImage';
 
 const InputSheet: React.FC = () => {
   const { game, createNewGame, updateTown, addTown, removeTown } = useGame();
@@ -389,10 +390,20 @@ const InputSheet: React.FC = () => {
                             effStyle = 'bg-emerald-100 text-emerald-800 border-emerald-300 hover:bg-emerald-200';
                           }
 
+                          const goodId = b.outputs[0]?.goodId;
+
                           return (
                             <div key={b.id} className="bg-white p-2.5 rounded border border-neutral-light flex flex-col justify-between space-y-2 shadow-sm">
-                              <div className="text-[11px] font-bold text-neutral-dark truncate" title={b.name}>
-                                {b.name}
+                              <div className="text-[11px] font-bold text-neutral-dark flex items-center space-x-1.5 truncate" title={b.name}>
+                                {goodId && (
+                                  <img
+                                    src={getGoodImagePath(goodId)}
+                                    alt={b.name}
+                                    className="w-4 h-4 object-contain inline-block shrink-0"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                  />
+                                )}
+                                <span className="truncate">{b.name}</span>
                               </div>
                               <div className="flex items-center space-x-1.5">
                                 <button
