@@ -219,4 +219,78 @@ export class Game {
     
     return prodRate > 0 ? Math.ceil(totalCons / prodRate) : 0;
   }
+
+  // --- Sheet 4: Housing Stats and Growth Planner ---
+
+  getTownHousingSummary(townId: string) {
+    const town = this.state.towns[townId];
+    if (!town) return null;
+    
+    const targetFwh = Math.ceil(town.population.poor / 280);
+    const targetGh = Math.ceil(town.population.wealthy / 140);
+    const targetKmh = Math.ceil(town.population.rich / 80);
+
+    return {
+      fachwerk: {
+        target: targetFwh,
+        actual: town.houses.fachwerk,
+        balance: town.houses.fachwerk - targetFwh
+      },
+      giebel: {
+        target: targetGh,
+        actual: town.houses.giebel,
+        balance: town.houses.giebel - targetGh
+      },
+      kaufmann: {
+        target: targetKmh,
+        actual: town.houses.kaufmann,
+        balance: town.houses.kaufmann - targetKmh
+      }
+    };
+  }
+
+  getTownHousingProjection(townId: string, targetPopulation: number) {
+    const town = this.state.towns[townId];
+    if (!town) return null;
+    
+    const totalPop = town.population.rich + town.population.wealthy + town.population.poor;
+    if (totalPop === 0) return null;
+
+    const shares = {
+      rich: town.population.rich / totalPop,
+      wealthy: town.population.wealthy / totalPop,
+      poor: town.population.poor / totalPop
+    };
+
+    const capMap = {
+      poor: 280,
+      wealthy: 140,
+      rich: 80
+    };
+
+    const currentSupplies = {
+      poor: town.houses.fachwerk,
+      wealthy: town.houses.giebel,
+      rich: town.houses.kaufmann
+    };
+
+    const classes: ('rich' | 'wealthy' | 'poor')[] = ['poor', 'wealthy', 'rich'];
+
+    return classes.map(cId => {
+      const percentage = shares[cId] * 100;
+      const projectedPop = targetPopulation * shares[cId];
+      const projectedNeeded = Math.ceil(projectedPop / capMap[cId]);
+      const currentSupply = currentSupplies[cId];
+      const toBuild = Math.max(0, projectedNeeded - currentSupply);
+
+      return {
+        classId: cId,
+        percentage,
+        projectedPop,
+        projectedNeeded,
+        currentSupply,
+        toBuild
+      };
+    });
+  }
 }

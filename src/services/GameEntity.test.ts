@@ -138,3 +138,42 @@ test('Game Entity calculates theoretical business requirements', () => {
   const reqBreweries = game.getTheoreticalRequiredBusinesses('brewery_e', 'summer');
   expect(reqBreweries).toBe(2);
 });
+
+test('Game Entity calculates housing statistics and projections', () => {
+  const game = new Game(mockRawState, mockConstants);
+  
+  // Lubeck population: poor: 800, wealthy: 150, rich: 50.
+  // Lubeck houses: fachwerk: 0, giebel: 0, kaufmann: 0
+  // Target FWH (poor): Math.ceil(800 / 280) = 3
+  // Target GH (wealthy): Math.ceil(150 / 140) = 2
+  // Target KMH (rich): Math.ceil(50 / 80) = 1
+  
+  const summary = game.getTownHousingSummary('lubeck');
+  expect(summary).not.toBeNull();
+  expect(summary!.fachwerk.target).toBe(3);
+  expect(summary!.fachwerk.actual).toBe(0);
+  expect(summary!.fachwerk.balance).toBe(-3);
+  
+  expect(summary!.giebel.target).toBe(2);
+  expect(summary!.giebel.actual).toBe(0);
+  expect(summary!.giebel.balance).toBe(-2);
+  
+  expect(summary!.kaufmann.target).toBe(1);
+  expect(summary!.kaufmann.actual).toBe(0);
+  expect(summary!.kaufmann.balance).toBe(-1);
+
+  // Test target growth projection: lubeck target population = 10000
+  // Lubeck total current pop = 800+150+50 = 1000.
+  // Poor share = 800 / 1000 = 80%. Target poor pop = 10000 * 0.8 = 8000.
+  // Target FWH needed = Math.ceil(8000 / 280) = 29.
+  // Current supply is 0. toBuild = 29.
+  
+  const projection = game.getTownHousingProjection('lubeck', 10000);
+  expect(projection).not.toBeNull();
+  
+  const poorProj = projection!.find(p => p.classId === 'poor');
+  expect(poorProj!.percentage).toBe(80.0);
+  expect(poorProj!.projectedPop).toBe(8000);
+  expect(poorProj!.projectedNeeded).toBe(29);
+  expect(poorProj!.toBuild).toBe(29);
+});

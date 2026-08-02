@@ -16,6 +16,7 @@ import Buildings from './pages/database/Buildings';
 import InputSheet from './pages/dashboard/InputSheet';
 import Population from './pages/dashboard/Population';
 import Businesses from './pages/dashboard/Businesses';
+import Housing from './pages/dashboard/Housing';
 
 const PlaceholderPage = ({ name }: { name: string }) => {
   return (
@@ -86,7 +87,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'housing',
-        element: <PlaceholderPage name="Housing" />
+        element: <Housing />
       },
       {
         path: 'consumption',

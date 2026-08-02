@@ -296,7 +296,26 @@ const resources = {
         tab_city_breakdown: "Dettaglio Città",
         no_businesses_built: "Nessuna impresa registrata nella tua lega commerciale commerciale. Aggiungine alcune nella pagina di Input.",
         surplus: "Eccedenza",
-        deficit: "Deficit"
+        deficit: "Deficit",
+        housing_title: "Statistiche Abitazioni e Crescita",
+        housing_desc: "Analisi dell'offerta abitativa della Lega Anseatica, capacità attuale ed eccedenze rispetto alla popolazione. Include il Pianificatore di Crescita.",
+        col_town: "Città",
+        col_target: "Richieste (Soll)",
+        col_actual: "Presenti (Ist)",
+        growth_planner: "Pianificatore di Crescita Geografica",
+        growth_planner_desc: "Simula il fabbisogno di nuove case per una popolazione futura, mantenendo inalterata la proporzione attuale dei ceti sociali.",
+        select_town: "Seleziona una città",
+        target_pop: "Popolazione Obiettivo (Abitanti)",
+        current_pop: "Popolazione Attuale",
+        pop_share: "Quota Ceto",
+        projected_pop: "Popolazione Stimata",
+        projected_needed: "Case Richieste",
+        current_supply: "Case Attuali",
+        new_houses_to_build: "Nuove Case da Costruire",
+        class_poor: "Popolari (Case Graticcio)",
+        class_wealthy: "Medie (Case Timpano)",
+        class_rich: "Signorili (Case Kaufmann)",
+        no_houses_needed: "Il piano di espansione è già supportato dalle case attuali. Nessuna nuova costruzione richiesta."
       }
     }
   },
@@ -594,7 +613,26 @@ const resources = {
         tab_city_breakdown: "City Breakdown",
         no_businesses_built: "No businesses built in your trade network yet. Add some in the Input Sheet.",
         surplus: "Surplus",
-        deficit: "Deficit"
+        deficit: "Deficit",
+        housing_title: "Housing Statistics & Target Growth",
+        housing_desc: "Analysis of the Hanseatic League housing supply, current capacities, and shortages compared to population. Includes the Target Growth Planner.",
+        col_town: "Town",
+        col_target: "Target (Soll)",
+        col_actual: "Actual (Ist)",
+        growth_planner: "Target Growth Planner",
+        growth_planner_desc: "Simulate future housing requirements based on a target population, preserving the town's current social class proportions.",
+        select_town: "Select a town",
+        target_pop: "Target Population (Residents)",
+        current_pop: "Current Population",
+        pop_share: "Class Share",
+        projected_pop: "Projected Pop",
+        projected_needed: "Projected Houses",
+        current_supply: "Current Supply",
+        new_houses_to_build: "New Houses to Build",
+        class_poor: "Lower-Class (Timber-framed / Fachwerk)",
+        class_wealthy: "Middle-Class (Gable / Giebel)",
+        class_rich: "Upper-Class (Merchant / Kaufmann)",
+        no_houses_needed: "Your current housing supply is sufficient for this growth target. No new construction required."
       }
     }
   }
