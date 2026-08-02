@@ -22,14 +22,10 @@ import OfficeManager from './pages/dashboard/OfficeManager';
 import ConvoyManager from './pages/dashboard/ConvoyManager';
 import BuildingMaterials from './pages/dashboard/BuildingMaterials';
 import AllInOne from './pages/dashboard/AllInOne';
+import SchedulePlanner from './pages/dashboard/SchedulePlanner';
+import Snapshots from './pages/dashboard/Snapshots';
 
-const PlaceholderPage = ({ name }: { name: string }) => {
-  return (
-    <div className="p-12 bg-white rounded border border-dashed border-neutral-medium text-center text-neutral-medium">
-      Foglio <strong>{name}</strong> - Prossimamente in implementazione.
-    </div>
-  );
-};
+
 
 export const router = createBrowserRouter([
   {
@@ -116,11 +112,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'schedule',
-        element: <PlaceholderPage name="Schedule" />
+        element: <SchedulePlanner />
       },
       {
         path: 'snapshots',
-        element: <PlaceholderPage name="Snapshots" />
+        element: <Snapshots />
       }
     ]
   }

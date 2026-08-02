@@ -1,0 +1,611 @@
+[
+  {
+    "id": "event-1",
+    "label": "Bergen-BM-Wahl",
+    "day": 11,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-2",
+    "label": "Mauerbau",
+    "day": 17,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-3",
+    "label": "Ladoga-BM-Wahl",
+    "day": 18,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-4",
+    "label": "Mauerbau",
+    "day": 25,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-5",
+    "label": "Stettin-BM-Wahl",
+    "day": 28,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-6",
+    "label": "Mauerbau",
+    "day": 2,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-7",
+    "label": "Edinburgh-BM-Wahl",
+    "day": 8,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-8",
+    "label": "Mauerbau",
+    "day": 10,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-9",
+    "label": "Mauerbau",
+    "day": 18,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-10",
+    "label": "Hamburg-BM-Wahl",
+    "day": 18,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-11",
+    "label": "Mauerbau",
+    "day": 26,
+    "month": 6,
+    "isAnnual": true
+  },
+  {
+    "id": "event-12",
+    "label": "Danzig-BM-Wahl",
+    "day": 1,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-13",
+    "label": "Mauerbau",
+    "day": 4,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-14",
+    "label": "Mauerbau",
+    "day": 12,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-15",
+    "label": "Eldermannwahl",
+    "day": 13,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-16",
+    "label": "Reval-BM-Wahl",
+    "day": 17,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-17",
+    "label": "Mauerbau",
+    "day": 20,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-18",
+    "label": "Mauerbau",
+    "day": 28,
+    "month": 7,
+    "isAnnual": true
+  },
+  {
+    "id": "event-19",
+    "label": "Mauerbau",
+    "day": 5,
+    "month": 8,
+    "isAnnual": true
+  },
+  {
+    "id": "event-20",
+    "label": "Mauerbau",
+    "day": 13,
+    "month": 8,
+    "isAnnual": true
+  },
+  {
+    "id": "event-21",
+    "label": "Mauerbau",
+    "day": 21,
+    "month": 8,
+    "isAnnual": true
+  },
+  {
+    "id": "event-22",
+    "label": "Mauerbau",
+    "day": 29,
+    "month": 8,
+    "isAnnual": true
+  },
+  {
+    "id": "event-23",
+    "label": "Mauerbau",
+    "day": 6,
+    "month": 9,
+    "isAnnual": true
+  },
+  {
+    "id": "event-24",
+    "label": "Mauerbau",
+    "day": 14,
+    "month": 9,
+    "isAnnual": true
+  },
+  {
+    "id": "event-67",
+    "label": "Malmö-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-75",
+    "label": "Riga-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-155",
+    "label": "Haarlem-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-156",
+    "label": "Groningen-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-165",
+    "label": "Harlingen-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-167",
+    "label": "Köln-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-168",
+    "label": "Helsinki-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-169",
+    "label": "Boston-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-181",
+    "label": "Ahus-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-182",
+    "label": "Aalborg-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-205",
+    "label": "Rostock-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-206",
+    "label": "Ripen-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-207",
+    "label": "Naestved-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-208",
+    "label": "Memel-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-211",
+    "label": "Tönsberg-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-213",
+    "label": "Windau-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-214",
+    "label": "Visby-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-216",
+    "label": "Rügenwald-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-217",
+    "label": "Stockholm-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-218",
+    "label": "Stavanger-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-220",
+    "label": "Thorn-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-309",
+    "label": "Flensburg-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-333",
+    "label": "Newcastle-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-340",
+    "label": "Königsberg-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-398",
+    "label": "Pernau-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-427",
+    "label": "Nowgorod-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-430",
+    "label": "Lübeck-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-438",
+    "label": "Scarborough-BM-Wahl",
+    "day": 30,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-552",
+    "label": "Mauerbau",
+    "day": 22,
+    "month": 9,
+    "isAnnual": true
+  },
+  {
+    "id": "event-553",
+    "label": "Mauerbau",
+    "day": 30,
+    "month": 9,
+    "isAnnual": true
+  },
+  {
+    "id": "event-554",
+    "label": "London-BM-Wahl",
+    "day": 30,
+    "month": 9,
+    "isAnnual": true
+  },
+  {
+    "id": "event-555",
+    "label": "Mauerbau",
+    "day": 8,
+    "month": 10,
+    "isAnnual": true
+  },
+  {
+    "id": "event-556",
+    "label": "Mauerbau",
+    "day": 16,
+    "month": 10,
+    "isAnnual": true
+  },
+  {
+    "id": "event-557",
+    "label": "Mauerbau",
+    "day": 24,
+    "month": 10,
+    "isAnnual": true
+  },
+  {
+    "id": "event-558",
+    "label": "Mauerbau",
+    "day": 1,
+    "month": 11,
+    "isAnnual": true
+  },
+  {
+    "id": "event-559",
+    "label": "Mauerbau",
+    "day": 9,
+    "month": 11,
+    "isAnnual": true
+  },
+  {
+    "id": "event-560",
+    "label": "Göteborg-BM-Wahl",
+    "day": 14,
+    "month": 11,
+    "isAnnual": true
+  },
+  {
+    "id": "event-561",
+    "label": "Mauerbau",
+    "day": 17,
+    "month": 11,
+    "isAnnual": true
+  },
+  {
+    "id": "event-562",
+    "label": "Mauerbau",
+    "day": 25,
+    "month": 11,
+    "isAnnual": true
+  },
+  {
+    "id": "event-563",
+    "label": "Mauerbau",
+    "day": 3,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-564",
+    "label": "Mauerbau",
+    "day": 11,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-565",
+    "label": "Mauerbau",
+    "day": 19,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-566",
+    "label": "Mauerbau",
+    "day": 27,
+    "month": 12,
+    "isAnnual": true
+  },
+  {
+    "id": "event-567",
+    "label": "Mauerbau",
+    "day": 1,
+    "month": 1,
+    "isAnnual": true
+  },
+  {
+    "id": "event-568",
+    "label": "Mauerbau",
+    "day": 9,
+    "month": 1,
+    "isAnnual": true
+  },
+  {
+    "id": "event-569",
+    "label": "Mauerbau",
+    "day": 17,
+    "month": 1,
+    "isAnnual": true
+  },
+  {
+    "id": "event-570",
+    "label": "Bremen-BM-Wahl",
+    "day": 22,
+    "month": 1,
+    "isAnnual": true
+  },
+  {
+    "id": "event-571",
+    "label": "Mauerbau",
+    "day": 25,
+    "month": 1,
+    "isAnnual": true
+  },
+  {
+    "id": "event-572",
+    "label": "Mauerbau",
+    "day": 2,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-573",
+    "label": "Mauerbau",
+    "day": 10,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-574",
+    "label": "Oslo-BM-Wahl",
+    "day": 16,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-575",
+    "label": "Mauerbau",
+    "day": 18,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-576",
+    "label": "Mauerbau",
+    "day": 26,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-577",
+    "label": "Brügge-BM-Wahl",
+    "day": 26,
+    "month": 2,
+    "isAnnual": true
+  },
+  {
+    "id": "event-578",
+    "label": "Mauerbau",
+    "day": 6,
+    "month": 3,
+    "isAnnual": true
+  },
+  {
+    "id": "event-579",
+    "label": "Mauerbau",
+    "day": 14,
+    "month": 3,
+    "isAnnual": true
+  },
+  {
+    "id": "event-580",
+    "label": "Mauerbau",
+    "day": 22,
+    "month": 3,
+    "isAnnual": true
+  },
+  {
+    "id": "event-581",
+    "label": "Mauerbau",
+    "day": 30,
+    "month": 3,
+    "isAnnual": true
+  },
+  {
+    "id": "event-582",
+    "label": "Mauerbau",
+    "day": 7,
+    "month": 4,
+    "isAnnual": true
+  },
+  {
+    "id": "event-583",
+    "label": "Mauerbau",
+    "day": 15,
+    "month": 4,
+    "isAnnual": true
+  },
+  {
+    "id": "event-584",
+    "label": "Mauerbau",
+    "day": 23,
+    "month": 4,
+    "isAnnual": true
+  },
+  {
+    "id": "event-585",
+    "label": "Mauerbau",
+    "day": 1,
+    "month": 5,
+    "isAnnual": true
+  },
+  {
+    "id": "event-586",
+    "label": "Mauerbau",
+    "day": 9,
+    "month": 5,
+    "isAnnual": true
+  }
+]
