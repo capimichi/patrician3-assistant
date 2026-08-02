@@ -382,11 +382,11 @@ const InputSheet: React.FC = () => {
                         {businesses.map(b => {
                           const bState = townState.businesses[b.id] || { count: 0, efficiency: 0 };
                           
-                          let effStyle = 'bg-emerald-100 text-emerald-800 border-emerald-300 hover:bg-emerald-200';
+                          let effStyle = 'bg-white text-gray-800 border-gray-300 hover:bg-gray-50';
                           if (bState.efficiency === 1) {
                             effStyle = 'bg-yellow-100 text-yellow-800 border-yellow-300 hover:bg-yellow-200';
                           } else if (bState.efficiency === 2) {
-                            effStyle = 'bg-white text-gray-800 border-gray-300 hover:bg-gray-50';
+                            effStyle = 'bg-emerald-100 text-emerald-800 border-emerald-300 hover:bg-emerald-200';
                           }
 
                           return (
