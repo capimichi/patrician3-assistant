@@ -17,6 +17,7 @@ import InputSheet from './pages/dashboard/InputSheet';
 import Population from './pages/dashboard/Population';
 import Businesses from './pages/dashboard/Businesses';
 import Housing from './pages/dashboard/Housing';
+import Consumption from './pages/dashboard/Consumption';
 
 const PlaceholderPage = ({ name }: { name: string }) => {
   return (
@@ -91,7 +92,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'consumption',
-        element: <PlaceholderPage name="Consumption" />
+        element: <Consumption />
       },
       {
         path: 'office-manager',

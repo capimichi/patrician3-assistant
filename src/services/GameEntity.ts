@@ -92,24 +92,23 @@ export class Game {
   }
 
   getGoodWeeklyConsumption(goodId: string, _season: 'summer' | 'winter'): number {
-    // 1. Population consumption
+    return Object.keys(this.state.towns)
+      .reduce((sum, townId) => sum + this.getTownGoodConsumption(townId, goodId).total, 0);
+  }
+
+  getTownGoodConsumption(townId: string, goodId: string): { population: number; industrial: number; total: number } {
+    const town = this.state.towns[townId];
+    if (!town || !town.isActive) return { population: 0, industrial: 0, total: 0 };
+
     let popCons = 0;
-    const activeTowns = Object.values(this.state.towns).filter(t => t.isActive);
-    
     if (this.constants.consumptionPer1000 && this.constants.consumptionPer1000[goodId]) {
       const rate = this.constants.consumptionPer1000[goodId];
-      activeTowns.forEach(t => {
-        const totalTownPop = t.population.rich + t.population.wealthy + t.population.poor;
-        if (totalTownPop > 0) {
-          const richCons = (t.population.rich * rate.rich) / 1000;
-          const wealthyCons = (t.population.wealthy * rate.wealthy) / 1000;
-          const poorCons = (t.population.poor * rate.poor) / 1000;
-          popCons += richCons + wealthyCons + poorCons;
-        }
-      });
+      const totalTownPop = town.population.rich + town.population.wealthy + town.population.poor;
+      if (totalTownPop > 0) {
+        popCons = (town.population.rich * rate.rich + town.population.wealthy * rate.wealthy + town.population.poor * rate.poor) / 1000;
+      }
     }
 
-    // 2. Industrial raw material consumption
     let indCons = 0;
     const rates = this.constants.productionRates;
     
@@ -132,41 +131,105 @@ export class Game {
         brickworks_i: { rm1: 'timber' }
       };
 
-      activeTowns.forEach(t => {
-        Object.entries(t.businesses).forEach(([bId, bState]) => {
-          if (bState.count > 0 && bState.efficiency > 0) {
-            let keysToCheck: string[] = [];
-            if (bId === 'cattle_farm') {
-              keysToCheck = [bState.efficiency === 2 ? 'cattle_farm_leather_e' : 'cattle_farm_leather_i'];
-            } else {
-              keysToCheck = [bId + (bState.efficiency === 2 ? '_e' : '_i')];
-            }
-
-            keysToCheck.forEach(k => {
-              const inputs = keyInputs[k];
-              if (inputs && rates[k]) {
-                const count = bState.count;
-                let tier = 0;
-                if (count >= 9) tier = 3;
-                else if (count >= 6) tier = 2;
-                else if (count >= 3) tier = 1;
-
-                if (inputs.rm1 === goodId) {
-                  const rate = rates[k].rm1[tier];
-                  indCons += count * rate;
-                }
-                if (inputs.rm2 === goodId) {
-                  const rate = rates[k].rm2[tier];
-                  indCons += count * rate;
-                }
-              }
-            });
+      Object.entries(town.businesses).forEach(([bId, bState]) => {
+        if (bState.count > 0 && bState.efficiency > 0) {
+          let keysToCheck: string[] = [];
+          if (bId === 'cattle_farm') {
+            keysToCheck = [bState.efficiency === 2 ? 'cattle_farm_leather_e' : 'cattle_farm_leather_i'];
+          } else {
+            keysToCheck = [bId + (bState.efficiency === 2 ? '_e' : '_i')];
           }
-        });
+
+          keysToCheck.forEach(k => {
+            const inputs = keyInputs[k];
+            if (inputs && rates[k]) {
+              const count = bState.count;
+              let tier = 0;
+              if (count >= 9) tier = 3;
+              else if (count >= 6) tier = 2;
+              else if (count >= 3) tier = 1;
+
+              if (inputs.rm1 === goodId) {
+                const rate = rates[k].rm1[tier];
+                indCons += count * rate;
+              }
+              if (inputs.rm2 === goodId) {
+                const rate = rates[k].rm2[tier];
+                indCons += count * rate;
+              }
+            }
+          });
+        }
       });
     }
 
-    return popCons + indCons;
+    return {
+      population: popCons,
+      industrial: indCons,
+      total: popCons + indCons
+    };
+  }
+
+  getTownGoodProduction(townId: string, goodId: string, season: 'summer' | 'winter'): number {
+    const town = this.state.towns[townId];
+    if (!town || !town.isActive) return 0;
+    
+    const rates = this.constants.productionRates;
+    if (!rates) return 0;
+
+    const goodProducers: Record<string, string[]> = {
+      beer: ['brewery_e'],
+      pig_iron: ['iron_smelter_e', 'iron_smelter_i'],
+      fish: ['fishery_e', 'fishery_i'],
+      whale_oil: ['whale_fishery_e'],
+      grain: ['grain_farm_e', 'grain_farm_i'],
+      hemp: ['hemp_farm_e', 'hemp_farm_i'],
+      honey: ['apiary_e', 'apiary_i'],
+      skins: ['hunting_lodge_e', 'hunting_lodge_i'],
+      pitch: ['pitchmaker_e'],
+      timber: ['sawmill_e', 'sawmill_i'],
+      wool: ['sheep_farm_e', 'sheep_farm_i'],
+      salt: ['saltworks_e'],
+      pottery: ['pottery_workshop_e', 'pottery_workshop_i'],
+      leather: ['cattle_farm_leather_e', 'cattle_farm_leather_i'],
+      meat: ['cattle_farm_meat_e', 'cattle_farm_meat_i'],
+      cloth: ['weaving_mill_e'],
+      wine: ['vineyard_e', 'vineyard_i'],
+      iron_goods: ['workshop_e'],
+      bricks: ['brickworks_e', 'brickworks_i']
+    };
+
+    const producers = goodProducers[goodId];
+    if (!producers) return 0;
+
+    let prod = 0;
+    producers.forEach(k => {
+      const parts = k.split('_');
+      const cat = parts[parts.length - 1]; // "e" or "i"
+      
+      let businessId = parts.slice(0, -1).join('_');
+      if (businessId.startsWith("cattle_farm_leather") || businessId.startsWith("cattle_farm_meat")) {
+        businessId = "cattle_farm";
+      }
+
+      const targetEff = cat === 'e' ? 2 : 1;
+      const bState = town.businesses[businessId];
+      
+      if (bState && bState.count > 0 && bState.efficiency === targetEff) {
+        if (rates[k]) {
+          const count = bState.count;
+          let tier = 0;
+          if (count >= 9) tier = 3;
+          else if (count >= 6) tier = 2;
+          else if (count >= 3) tier = 1;
+
+          const rate = season === 'summer' ? rates[k].summer[tier] : rates[k].winter[tier];
+          prod += count * rate;
+        }
+      }
+    });
+
+    return prod;
   }
 
   getTheoreticalRequiredBusinesses(key: string, season: 'summer' | 'winter'): number {

@@ -177,3 +177,22 @@ test('Game Entity calculates housing statistics and projections', () => {
   expect(poorProj!.projectedNeeded).toBe(29);
   expect(poorProj!.toBuild).toBe(29);
 });
+
+test('Game Entity calculates town-level production and consumption', () => {
+  const game = new Game(mockRawState, mockConstants);
+
+  // Lubeck production:
+  // - beer (brewery_e): 2 breweries * 49.35 = 98.70
+  // - timber (sawmill_i): 3 sawmills * 10.8 = 32.40
+  expect(game.getTownGoodProduction('lubeck', 'beer', 'summer')).toBeCloseTo(98.70, 2);
+  expect(game.getTownGoodProduction('lubeck', 'timber', 'summer')).toBeCloseTo(32.40, 2);
+
+  // Lubeck consumption for grain:
+  // - population: ((50 * 3.0) + (150 * 4.5) + (800 * 6.0)) / 1000 = 5.625
+  // - industrial: 2 breweries * 0.45 = 0.90
+  // - total: 5.625 + 0.90 = 6.525
+  const cons = game.getTownGoodConsumption('lubeck', 'grain');
+  expect(cons.population).toBeCloseTo(5.625, 3);
+  expect(cons.industrial).toBeCloseTo(0.90, 2);
+  expect(cons.total).toBeCloseTo(6.525, 3);
+});
