@@ -151,11 +151,13 @@ const Businesses: React.FC = () => {
                       <td className="p-3 border-r border-neutral-light text-right font-bold text-neutral-dark bg-neutral-light/5">{demandWeighted.toFixed(2)}</td>
                       <td className="p-3 text-right">
                         <span className={`px-2 py-0.5 rounded text-xs font-bold ${
-                          balance >= 0 
+                          balance > 0 
                             ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800 animate-pulse'
+                            : balance < 0
+                              ? 'bg-red-100 text-red-800 animate-pulse'
+                              : 'bg-neutral-light text-neutral-dark border border-neutral-medium/25'
                         }`}>
-                          {balance >= 0 ? '+' : ''}{balance.toFixed(2)}
+                          {balance > 0 ? '+' : ''}{balance.toFixed(2)}
                         </span>
                       </td>
                     </tr>
