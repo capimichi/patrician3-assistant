@@ -34,6 +34,14 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err) {
           console.error('Error loading production rates from JSON', err);
         }
+
+        try {
+          const timesRes = await fetch('/data/travel_times.json');
+          const piiTimes = await timesRes.json();
+          piiConstants.travelTimes = piiTimes;
+        } catch (err) {
+          console.error('Error loading travel times from JSON', err);
+        }
         
         setConstants(piiConstants);
 

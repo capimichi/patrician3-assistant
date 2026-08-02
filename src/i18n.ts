@@ -325,7 +325,21 @@ const resources = {
         col_coverage_days: "Giorni Copertura",
         col_protected_stock: "Scorta Minima (Sperrlager)",
         office_no_raw_materials: "Nessuna fabbrica in questa città richiede materie prime di riserva.",
-        stock_explanation: "Imposta questo valore come 'Sperrlager bis' (Scorta fino a) nel menu dell'Amministratore all'interno del gioco. Eviterà che i convogli esportino o vendano materie prime essenziali per far funzionare i tuoi laboratori locali."
+        stock_explanation: "Imposta questo valore come 'Sperrlager bis' (Scorta fino a) nel menu dell'Amministratore all'interno del gioco. Eviterà che i convogli esportino o vendano materie prime essenziali per far funzionare i tuoi laboratori locali.",
+        convoy_manager_title: "Gestore Convogli Automatici",
+        convoy_manager_desc: "Calcola le capacità di carico ottimali e la stazza minima per i convogli commerciali tra il Magazzino Centrale (ZL) e le singole città.",
+        safety_buffer_cargo: "Margine Carico Importazioni (%)",
+        convoy_buffer_capacity: "Margine Stazza Convoglio (%)",
+        col_cargo_load: "Carico Consigliato",
+        col_action: "Direzione",
+        col_imports: "Importazioni da ZL",
+        col_exports: "Esportazioni a ZL",
+        col_min_convoy_size: "Stazza Minima Convoglio (Fass)",
+        action_import: "Importa da ZL",
+        action_export: "Esporta a ZL",
+        action_none: "Nessuna azione",
+        convoy_no_logistics: "Questa città non ha convogli attivi o è configurata come Magazzino Centrale (ZL).",
+        convoy_explanation: "Usa questi dati per impostare le rotte commerciali automatiche dei tuoi convogli (Autokonvoi) in-game. Evita rotture di stock e viaggi a vuoto ottimizzando lo spazio delle navi."
       }
     }
   },
@@ -652,7 +666,21 @@ const resources = {
         col_coverage_days: "Coverage Days",
         col_protected_stock: "Protected Stock Limit (Sperrlager)",
         office_no_raw_materials: "No industries in this town require raw material backup limits.",
-        stock_explanation: "Configure this value as 'Lock warehouse stock up to' (Sperrlager bis) inside the in-game Office Manager. It prevents automatic convoys from selling or loading inputs needed by local factories."
+        stock_explanation: "Configure this value as 'Lock warehouse stock up to' (Sperrlager bis) inside the in-game Office Manager. It prevents automatic convoys from selling or loading inputs needed by local factories.",
+        convoy_manager_title: "Convoy Manager",
+        convoy_manager_desc: "Calculate optimal cargo loads and minimum convoy shipping capacities for trade routes between the Central Warehouse (ZL) and individual towns.",
+        safety_buffer_cargo: "Import Cargo Safety Buffer (%)",
+        convoy_buffer_capacity: "Convoy Size Safety Margin (%)",
+        col_cargo_load: "Recommended Cargo Load",
+        col_action: "Direction",
+        col_imports: "Imports from ZL",
+        col_exports: "Exports to ZL",
+        col_min_convoy_size: "Minimum Convoy Capacity (Barrels)",
+        action_import: "Import from ZL",
+        action_export: "Export to ZL",
+        action_none: "No action",
+        convoy_no_logistics: "This town is either set as its own Central Warehouse (ZL) or has no hub configured.",
+        convoy_explanation: "Apply these cargo distributions and capacity suggestions to your in-game automatic trade convoys. Secure supplies, clear warehouses, and maximize ship space usage."
       }
     }
   }

@@ -19,6 +19,7 @@ import Businesses from './pages/dashboard/Businesses';
 import Housing from './pages/dashboard/Housing';
 import Consumption from './pages/dashboard/Consumption';
 import OfficeManager from './pages/dashboard/OfficeManager';
+import ConvoyManager from './pages/dashboard/ConvoyManager';
 
 const PlaceholderPage = ({ name }: { name: string }) => {
   return (
@@ -101,7 +102,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'convoy-manager',
-        element: <PlaceholderPage name="Convoy Manager" />
+        element: <ConvoyManager />
       },
       {
         path: 'all-in-one',

@@ -209,3 +209,37 @@ test('Game Entity calculates office reserve stock limits', () => {
   const reserve = game.getTownOfficeReserve('lubeck', 'grain', 0.20);
   expect(reserve).toBe(3);
 });
+
+test('Game Entity calculates convoy travel times and cargo capacities', () => {
+  const customConstants = {
+    ...mockConstants,
+    travelTimes: {
+      lubeck: { rostock: 0.517 },
+      rostock: { lubeck: 0.517 }
+    },
+    loadingPenaltyPerStopDays: 0.5
+  };
+  
+  const customState = JSON.parse(JSON.stringify(mockRawState)) as GameRawState;
+  customState.towns.rostock = {
+    townId: 'rostock',
+    isActive: true,
+    population: { rich: 10, wealthy: 20, poor: 100 },
+    houses: { fachwerk: 0, giebel: 0, kaufmann: 0 },
+    businesses: {},
+    logistics: {
+      centralHubId: 'lubeck',
+      slowestShipType: 'crayer',
+      transitHubId: 'none',
+      convoySize: 0,
+      convoyStops: 1,
+      stockWeeks: 2
+    }
+  };
+
+  const game = new Game(customState, customConstants);
+
+  // Rostock round-trip time = 2 * 0.517 + 1 * 0.5 = 1.034 + 0.5 = 1.534 days
+  const roundTrip = game.getTownConvoyRoundTripTime('rostock');
+  expect(roundTrip).toBeCloseTo(1.534, 3);
+});

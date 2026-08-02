@@ -48,4 +48,5 @@ export interface GameConstants {
   shipSpeedModifiers: Record<string, number>;
   loadingPenaltyPerStopDays: number;
   productionRates?: ProductionRates; // optional reference database
+  travelTimes?: Record<string, Record<string, number>>; // optional 40x40 sailing times
 }

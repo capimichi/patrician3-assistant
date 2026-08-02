@@ -369,4 +369,102 @@ export class Game {
     const coverageDays = (town.logistics.stockWeeks || 2) * 7;
     return Math.ceil((indCons / 7) * coverageDays * (1 + safetyMargin));
   }
+
+  // --- Sheet 8: Convoy Manager ---
+
+  getTravelTime(fromId: string, toId: string): number {
+    if (fromId === toId) return 0;
+    if (this.constants.travelTimes) {
+      const t1 = this.constants.travelTimes[fromId]?.[toId];
+      if (t1 !== undefined) return t1;
+      const t2 = this.constants.travelTimes[toId]?.[fromId];
+      if (t2 !== undefined) return t2;
+    }
+    return 3.0; // default backup sailing days
+  }
+
+  getTownConvoyRoundTripTime(townId: string): number {
+    const town = this.state.towns[townId];
+    if (!town || !town.isActive) return 0;
+    
+    const hubId = town.logistics.centralHubId;
+    if (!hubId || hubId === 'none' || hubId === townId) return 0;
+
+    const sailingTime = this.getTravelTime(townId, hubId);
+    const stops = town.logistics.convoyStops || 0;
+    const penalty = this.constants.loadingPenaltyPerStopDays || 0.5;
+
+    return 2 * sailingTime + stops * penalty;
+  }
+
+  getTownGoodWeightedDailyBalance(townId: string, goodId: string): number {
+    const sp = this.getTownGoodProduction(townId, goodId, 'summer');
+    const wp = this.getTownGoodProduction(townId, goodId, 'winter');
+    const c = this.getTownGoodConsumption(townId, goodId).total;
+
+    const sb = sp - c;
+    const wb = wp - c;
+
+    const seasonalGoods = ['grain', 'hemp', 'honey', 'wine'];
+    const isSeasonal = seasonalGoods.includes(goodId);
+
+    const weightedWeekly = isSeasonal ? (0.75 * sb + 0.25 * wb) : sb;
+    return weightedWeekly / 7;
+  }
+
+  getTownConvoyGoodLoad(townId: string, goodId: string, safetyBuffer: number = 0.35): { action: 'import' | 'export' | 'none'; amount: number } {
+    const roundTrip = this.getTownConvoyRoundTripTime(townId);
+    if (roundTrip <= 0) return { action: 'none', amount: 0 };
+
+    const dailyBalance = this.getTownGoodWeightedDailyBalance(townId, goodId);
+    if (dailyBalance < -0.0001) {
+      const amt = Math.round(Math.abs(dailyBalance) * roundTrip * (1 + safetyBuffer));
+      return { action: 'import', amount: amt };
+    } else if (dailyBalance > 0.0001) {
+      const amt = Math.round(dailyBalance * roundTrip);
+      return { action: 'export', amount: amt };
+    }
+    return { action: 'none', amount: 0 };
+  }
+
+  getTownConvoyCapacitySummary(townId: string, safetyBuffer: number = 0.35, convoyBuffer: number = 0.10) {
+    const town = this.state.towns[townId];
+    if (!town || !town.isActive) return null;
+
+    const roundTrip = this.getTownConvoyRoundTripTime(townId);
+    if (roundTrip <= 0) return null;
+
+    const lastGoods = ['pig_iron', 'fish', 'meat', 'grain', 'hemp', 'timber', 'wool', 'bricks'];
+
+    let importsFass = 0;
+    let exportsFass = 0;
+
+    const goodsList = [
+      'beer', 'pig_iron', 'iron_goods', 'skins', 'fish', 'meat', 'grain', 'spices', 'hemp',
+      'timber', 'honey', 'pottery', 'leather', 'pitch', 'salt', 'whale_oil', 'cloth', 'wine',
+      'wool', 'bricks'
+    ];
+
+    goodsList.forEach(gId => {
+      const load = this.getTownConvoyGoodLoad(townId, gId, safetyBuffer);
+      if (load.amount > 0) {
+        const factor = lastGoods.includes(gId) ? 10 : 1;
+        const volume = load.amount * factor;
+        if (load.action === 'import') {
+          importsFass += volume;
+        } else if (load.action === 'export') {
+          exportsFass += volume;
+        }
+      }
+    });
+
+    const minConvoySize = Math.max(importsFass, exportsFass * (1 + convoyBuffer));
+
+    return {
+      roundTripDays: roundTrip,
+      importsFass,
+      exportsFass,
+      minConvoySize: Math.ceil(minConvoySize)
+    };
+  }
 }
