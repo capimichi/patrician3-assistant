@@ -20,6 +20,8 @@ import Housing from './pages/dashboard/Housing';
 import Consumption from './pages/dashboard/Consumption';
 import OfficeManager from './pages/dashboard/OfficeManager';
 import ConvoyManager from './pages/dashboard/ConvoyManager';
+import BuildingMaterials from './pages/dashboard/BuildingMaterials';
+import AllInOne from './pages/dashboard/AllInOne';
 
 const PlaceholderPage = ({ name }: { name: string }) => {
   return (
@@ -106,11 +108,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'all-in-one',
-        element: <PlaceholderPage name="All-in-One Dashboard" />
+        element: <AllInOne />
       },
       {
         path: 'building-materials',
-        element: <PlaceholderPage name="Building Materials" />
+        element: <BuildingMaterials />
       },
       {
         path: 'schedule',
