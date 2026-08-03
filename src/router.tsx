@@ -24,6 +24,7 @@ import BuildingMaterials from './pages/dashboard/BuildingMaterials';
 import AllInOne from './pages/dashboard/AllInOne';
 import SchedulePlanner from './pages/dashboard/SchedulePlanner';
 import Snapshots from './pages/dashboard/Snapshots';
+import TravelTimes from './pages/dashboard/TravelTimes';
 
 
 
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: 'convoy-manager',
         element: <ConvoyManager />
+      },
+      {
+        path: 'travel-times',
+        element: <TravelTimes />
       },
       {
         path: 'all-in-one',

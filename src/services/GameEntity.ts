@@ -391,10 +391,16 @@ export class Game {
     if (!hubId || hubId === 'none' || hubId === townId) return 0;
 
     const sailingTime = this.getTravelTime(townId, hubId);
-    const stops = town.logistics.convoyStops || 0;
-    const penalty = this.constants.loadingPenaltyPerStopDays || 0.5;
+    const baseRoundTrip = 2 * sailingTime;
+    
+    const shipType = town.logistics.slowestShipType || 'crayer';
+    const speedMod = this.constants.shipSpeedModifiers?.[shipType] ?? 1.0;
+    const durationWithShip = baseRoundTrip * speedMod;
 
-    return 2 * sailingTime + stops * penalty;
+    const stops = town.logistics.convoyStops || 0;
+    const penalty = this.constants.loadingPenaltyPerStopDays ?? 0.25;
+
+    return durationWithShip + (stops * penalty);
   }
 
   getTownGoodWeightedDailyBalance(townId: string, goodId: string): number {

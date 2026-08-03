@@ -21,6 +21,7 @@ const DashboardLayout: React.FC = () => {
     { path: '/dashboard/consumption', key: 'consumption' },
     { path: '/dashboard/office-manager', key: 'office_manager' },
     { path: '/dashboard/convoy-manager', key: 'convoy_manager' },
+    { path: '/dashboard/travel-times', key: 'travel_times' },
     { path: '/dashboard/all-in-one', key: 'all_in_one' },
     { path: '/dashboard/building-materials', key: 'building_materials' },
     { path: '/dashboard/schedule', key: 'schedule' },

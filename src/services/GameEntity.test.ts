@@ -243,3 +243,46 @@ test('Game Entity calculates convoy travel times and cargo capacities', () => {
   const roundTrip = game.getTownConvoyRoundTripTime('rostock');
   expect(roundTrip).toBeCloseTo(1.534, 3);
 });
+
+test('Game Entity applies ship speed modifier to convoy travel time', () => {
+  const customConstants = {
+    ...mockConstants,
+    travelTimes: {
+      lubeck: { rostock: 0.5 },
+      rostock: { lubeck: 0.5 }
+    },
+    shipSpeedModifiers: {
+      crayer: 1.0,
+      cog: 1.32
+    },
+    loadingPenaltyPerStopDays: 0.25
+  };
+  
+  const customState = JSON.parse(JSON.stringify(mockRawState)) as GameRawState;
+  customState.towns.rostock = {
+    townId: 'rostock',
+    isActive: true,
+    population: { rich: 10, wealthy: 20, poor: 100 },
+    houses: { fachwerk: 0, giebel: 0, kaufmann: 0 },
+    businesses: {},
+    logistics: {
+      centralHubId: 'lubeck',
+      slowestShipType: 'cog',
+      transitHubId: 'none',
+      convoySize: 0,
+      convoyStops: 2,
+      stockWeeks: 2
+    }
+  };
+
+  const game = new Game(customState, customConstants);
+
+  // Rostock round-trip time with Cog:
+  // Base A/R = 2 * 0.5 = 1.0 giorni.
+  // Durata con Kogge = 1.0 * 1.32 = 1.32 giorni.
+  // Penale Fermate = 2 * 0.25 = 0.50 giorni.
+  // Totale = 1.32 + 0.50 = 1.82 giorni.
+  const roundTrip = game.getTownConvoyRoundTripTime('rostock');
+  expect(roundTrip).toBeCloseTo(1.82, 3);
+});
+
