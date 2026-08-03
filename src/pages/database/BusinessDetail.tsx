@@ -110,7 +110,7 @@ const BusinessDetail: React.FC = () => {
                         to={`/database/goods/${out.goodId}`}
                         className="bg-primary/10 hover:bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center space-x-1 transition-colors"
                       >
-                        <img src={getGoodImagePath(out.goodId)} alt={gName} className="h-3.5 w-3.5 object-contain" />
+                        <img src={getGoodImagePath(out.goodId)} alt={gName} className="h-4 w-4 object-contain" />
                         <span>{gName}</span>
                       </Link>
                     );

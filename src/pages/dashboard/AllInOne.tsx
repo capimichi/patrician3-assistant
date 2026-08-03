@@ -352,7 +352,7 @@ const AllInOne: React.FC = () => {
                             <img
                               src={getGoodImagePath(biz.outGood)}
                               alt={biz.name}
-                              className="w-4.5 h-4.5 object-contain shrink-0"
+                              className="w-5 h-5 object-contain shrink-0"
                               onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             />
                             <span>{biz.name}</span>

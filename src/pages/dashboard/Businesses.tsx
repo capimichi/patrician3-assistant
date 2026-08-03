@@ -5,7 +5,8 @@ import UninitializedWarning from '../../components/UninitializedWarning';
 import type { Town } from '../../types';
 import type { LocalizedBusiness } from '../../services/BusinessService';
 import { useTranslation } from 'react-i18next';
-import { Building2, Snowflake, Sun, Info } from 'lucide-react';
+import { Snowflake, Sun, Info } from 'lucide-react';
+import { getGoodImagePath } from '../../utils/goodImage';
 
 interface BusinessRow {
   id: string;
@@ -13,7 +14,35 @@ interface BusinessRow {
   effectiveKey: string;
   ineffectiveKey: string;
   hasIneffective: boolean;
+  goodId: string;
 }
+
+const getGoodIdFromBusinessId = (bizId: string): string => {
+  if (bizId === 'cattle_farm_leather') return 'leather';
+  if (bizId === 'cattle_farm_meat') return 'meat';
+  if (bizId === 'cattle_farm') return 'leather'; // Leather is the major production
+  
+  const map: Record<string, string> = {
+    brewery: 'beer',
+    iron_smelter: 'pig_iron',
+    fishery: 'fish',
+    whale_fishery: 'whale_oil',
+    grain_farm: 'grain',
+    hemp_farm: 'hemp',
+    apiary: 'honey',
+    hunting_lodge: 'skins',
+    pitchmaker: 'pitch',
+    sawmill: 'timber',
+    sheep_farm: 'wool',
+    saltworks: 'salt',
+    pottery_workshop: 'pottery',
+    weaving_mill: 'cloth',
+    vineyard: 'wine',
+    workshop: 'iron_goods',
+    brickworks: 'bricks'
+  };
+  return map[bizId] || bizId;
+};
 
 const Businesses: React.FC = () => {
   const { game } = useGame();
@@ -42,25 +71,25 @@ const Businesses: React.FC = () => {
 
   // Construct our 19 rows of business categories mapping to the 32 ODS rates keys
   const rows: BusinessRow[] = [
-    { id: 'brewery', name: lang === 'it' ? 'Birreria (Birra)' : 'Brewery (Beer)', effectiveKey: 'brewery_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'iron_smelter', name: lang === 'it' ? 'Fonderia (Ferro Grezzo)' : 'Iron Smelter (Pig Iron)', effectiveKey: 'iron_smelter_e', ineffectiveKey: 'iron_smelter_i', hasIneffective: true },
-    { id: 'fishery', name: lang === 'it' ? 'Pescatore (Pesce)' : 'Fishery (Fish)', effectiveKey: 'fishery_e', ineffectiveKey: 'fishery_i', hasIneffective: true },
-    { id: 'whale_fishery', name: lang === 'it' ? 'Baleniere (Olio di Balena)' : 'Whale Fishery (Whale Oil)', effectiveKey: 'whale_fishery_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'grain_farm', name: lang === 'it' ? 'Fattoria (Grano)' : 'Grain Farm', effectiveKey: 'grain_farm_e', ineffectiveKey: 'grain_farm_i', hasIneffective: true },
-    { id: 'hemp_farm', name: lang === 'it' ? 'Piantagione (Canapa)' : 'Hemp Farm', effectiveKey: 'hemp_farm_e', ineffectiveKey: 'hemp_farm_i', hasIneffective: true },
-    { id: 'apiary', name: lang === 'it' ? 'Apicoltore (Miele)' : 'Apiary (Honey)', effectiveKey: 'apiary_e', ineffectiveKey: 'apiary_i', hasIneffective: true },
-    { id: 'hunting_lodge', name: lang === 'it' ? 'Cacciatore (Pelli)' : 'Hunting Lodge (Skins)', effectiveKey: 'hunting_lodge_e', ineffectiveKey: 'hunting_lodge_i', hasIneffective: true },
-    { id: 'pitchmaker', name: lang === 'it' ? 'Fornace di Pece' : 'Pitchmaker', effectiveKey: 'pitchmaker_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'sawmill', name: lang === 'it' ? 'Segheria (Legno)' : 'Sawmill (Timber)', effectiveKey: 'sawmill_e', ineffectiveKey: 'sawmill_i', hasIneffective: true },
-    { id: 'sheep_farm', name: lang === 'it' ? 'Allevamento Ovini (Lana)' : 'Sheep Farm (Wool)', effectiveKey: 'sheep_farm_e', ineffectiveKey: 'sheep_farm_i', hasIneffective: true },
-    { id: 'saltworks', name: lang === 'it' ? 'Salina (Sale)' : 'Saltworks', effectiveKey: 'saltworks_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'pottery_workshop', name: lang === 'it' ? 'Laboratorio Ceramica' : 'Pottery Workshop', effectiveKey: 'pottery_workshop_e', ineffectiveKey: 'pottery_workshop_i', hasIneffective: true },
-    { id: 'cattle_farm_leather', name: lang === 'it' ? 'Allevamento Bovini (Cuoio)' : 'Cattle Farm (Leather)', effectiveKey: 'cattle_farm_leather_e', ineffectiveKey: 'cattle_farm_leather_i', hasIneffective: true },
-    { id: 'cattle_farm_meat', name: lang === 'it' ? 'Allevamento Bovini (Carne)' : 'Cattle Farm (Meat)', effectiveKey: 'cattle_farm_meat_e', ineffectiveKey: 'cattle_farm_meat_i', hasIneffective: true },
-    { id: 'weaving_mill', name: lang === 'it' ? 'Tessitura (Tessuti)' : 'Weaving Mill (Cloth)', effectiveKey: 'weaving_mill_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'vineyard', name: lang === 'it' ? 'Vigneto (Vino)' : 'Vineyard (Wine)', effectiveKey: 'vineyard_e', ineffectiveKey: 'vineyard_i', hasIneffective: true },
-    { id: 'workshop', name: lang === 'it' ? 'Officina (Utensili)' : 'Workshop (Iron Goods)', effectiveKey: 'workshop_e', ineffectiveKey: '', hasIneffective: false },
-    { id: 'brickworks', name: lang === 'it' ? 'Fornace (Mattoni)' : 'Brickworks', effectiveKey: 'brickworks_e', ineffectiveKey: 'brickworks_i', hasIneffective: true }
+    { id: 'brewery', name: lang === 'it' ? 'Birreria (Birra)' : 'Brewery (Beer)', effectiveKey: 'brewery_e', ineffectiveKey: '', hasIneffective: false, goodId: 'beer' },
+    { id: 'iron_smelter', name: lang === 'it' ? 'Fonderia (Ferro Grezzo)' : 'Iron Smelter (Pig Iron)', effectiveKey: 'iron_smelter_e', ineffectiveKey: 'iron_smelter_i', hasIneffective: true, goodId: 'pig_iron' },
+    { id: 'fishery', name: lang === 'it' ? 'Pescatore (Pesce)' : 'Fishery (Fish)', effectiveKey: 'fishery_e', ineffectiveKey: 'fishery_i', hasIneffective: true, goodId: 'fish' },
+    { id: 'whale_fishery', name: lang === 'it' ? 'Baleniere (Olio di Balena)' : 'Whale Fishery (Whale Oil)', effectiveKey: 'whale_fishery_e', ineffectiveKey: '', hasIneffective: false, goodId: 'whale_oil' },
+    { id: 'grain_farm', name: lang === 'it' ? 'Fattoria (Grano)' : 'Grain Farm', effectiveKey: 'grain_farm_e', ineffectiveKey: 'grain_farm_i', hasIneffective: true, goodId: 'grain' },
+    { id: 'hemp_farm', name: lang === 'it' ? 'Piantagione (Canapa)' : 'Hemp Farm', effectiveKey: 'hemp_farm_e', ineffectiveKey: 'hemp_farm_i', hasIneffective: true, goodId: 'hemp' },
+    { id: 'apiary', name: lang === 'it' ? 'Apicoltore (Miele)' : 'Apiary (Honey)', effectiveKey: 'apiary_e', ineffectiveKey: 'apiary_i', hasIneffective: true, goodId: 'honey' },
+    { id: 'hunting_lodge', name: lang === 'it' ? 'Cacciatore (Pelli)' : 'Hunting Lodge (Skins)', effectiveKey: 'hunting_lodge_e', ineffectiveKey: 'hunting_lodge_i', hasIneffective: true, goodId: 'skins' },
+    { id: 'pitchmaker', name: lang === 'it' ? 'Fornace di Pece' : 'Pitchmaker', effectiveKey: 'pitchmaker_e', ineffectiveKey: '', hasIneffective: false, goodId: 'pitch' },
+    { id: 'sawmill', name: lang === 'it' ? 'Segheria (Legno)' : 'Sawmill (Timber)', effectiveKey: 'sawmill_e', ineffectiveKey: 'sawmill_i', hasIneffective: true, goodId: 'timber' },
+    { id: 'sheep_farm', name: lang === 'it' ? 'Allevamento Ovini (Lana)' : 'Sheep Farm (Wool)', effectiveKey: 'sheep_farm_e', ineffectiveKey: 'sheep_farm_i', hasIneffective: true, goodId: 'wool' },
+    { id: 'saltworks', name: lang === 'it' ? 'Salina (Sale)' : 'Saltworks', effectiveKey: 'saltworks_e', ineffectiveKey: '', hasIneffective: false, goodId: 'salt' },
+    { id: 'pottery_workshop', name: lang === 'it' ? 'Laboratorio Ceramica' : 'Pottery Workshop', effectiveKey: 'pottery_workshop_e', ineffectiveKey: 'pottery_workshop_i', hasIneffective: true, goodId: 'pottery' },
+    { id: 'cattle_farm_leather', name: lang === 'it' ? 'Allevamento Bovini (Cuoio)' : 'Cattle Farm (Leather)', effectiveKey: 'cattle_farm_leather_e', ineffectiveKey: 'cattle_farm_leather_i', hasIneffective: true, goodId: 'leather' },
+    { id: 'cattle_farm_meat', name: lang === 'it' ? 'Allevamento Bovini (Carne)' : 'Cattle Farm (Meat)', effectiveKey: 'cattle_farm_meat_e', ineffectiveKey: 'cattle_farm_meat_i', hasIneffective: true, goodId: 'meat' },
+    { id: 'weaving_mill', name: lang === 'it' ? 'Tessitura (Tessuti)' : 'Weaving Mill (Cloth)', effectiveKey: 'weaving_mill_e', ineffectiveKey: '', hasIneffective: false, goodId: 'cloth' },
+    { id: 'vineyard', name: lang === 'it' ? 'Vigneto (Vino)' : 'Vineyard (Wine)', effectiveKey: 'vineyard_e', ineffectiveKey: 'vineyard_i', hasIneffective: true, goodId: 'wine' },
+    { id: 'workshop', name: lang === 'it' ? 'Officina (Utensili)' : 'Workshop (Iron Goods)', effectiveKey: 'workshop_e', ineffectiveKey: '', hasIneffective: false, goodId: 'iron_goods' },
+    { id: 'brickworks', name: lang === 'it' ? 'Fornace (Mattoni)' : 'Brickworks', effectiveKey: 'brickworks_e', ineffectiveKey: 'brickworks_i', hasIneffective: true, goodId: 'bricks' }
   ];
 
   return (
@@ -140,7 +169,11 @@ const Businesses: React.FC = () => {
                   return (
                     <tr key={row.id} className="border-b border-neutral-light hover:bg-neutral-light/10">
                       <td className="p-3 border-r border-neutral-light font-semibold text-neutral-dark flex items-center space-x-2">
-                        <Building2 className="h-4 w-4 text-primary shrink-0" />
+                        <img 
+                          src={getGoodImagePath(row.goodId)} 
+                          alt={row.name} 
+                          className="h-5 w-5 object-contain shrink-0" 
+                        />
                         <span>{row.name}</span>
                       </td>
                       <td className="p-3 border-r border-neutral-light text-right font-medium">{effectiveCount}</td>
@@ -219,9 +252,16 @@ const Businesses: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                       {activeBiz.map(biz => (
                         <div key={biz.id} className="flex items-center justify-between p-2 bg-neutral-light/20 rounded border border-neutral-light">
-                          <span className="font-semibold text-neutral-dark truncate max-w-[140px]" title={biz.name}>
-                            {biz.name}
-                          </span>
+                          <div className="flex items-center space-x-1.5 min-w-0">
+                            <img 
+                              src={getGoodImagePath(getGoodIdFromBusinessId(biz.id))} 
+                              alt={biz.name} 
+                              className="h-5 w-5 object-contain shrink-0" 
+                            />
+                            <span className="font-semibold text-neutral-dark truncate max-w-[120px]" title={biz.name}>
+                              {biz.name}
+                            </span>
+                          </div>
                           <div className="flex items-center space-x-1.5 shrink-0">
                             <span className="font-bold text-neutral-dark bg-white border px-1.5 py-0.5 rounded shadow-sm">
                               x{biz.count}
